@@ -12,4 +12,4 @@ def create_app():
     return app
 
 
-app = create_app()
+mock_app = create_app()
