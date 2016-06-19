@@ -3,11 +3,11 @@
 from .authentication import info_login, lib_login
 from . import api
 from flask import jsonify
-from restccnu.errors import ForbiddenError
+from .errors import ForbiddenError
 
 
 @api.route('/info/login/')
-def api_info_login():
+def mock_info_login():
     try:
         s = info_login()  # 获取信息门户登录句柄
     except ForbiddenError as e:
@@ -17,7 +17,7 @@ def api_info_login():
 
 
 @api.route('/lib/login/')
-def api_lib_login():
+def mock_lib_login():
     try:
         s = lib_login()  # 获取图书馆登录句柄
     except ForbiddenError as e:
