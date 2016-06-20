@@ -3,7 +3,7 @@
 import requests
 import base64
 from flask import request
-from restccnu.errors import ForbiddenError
+from .errors import ForbiddenError
 
 
 headers = {

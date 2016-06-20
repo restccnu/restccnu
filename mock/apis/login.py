@@ -1,9 +1,9 @@
 # coding: utf-8
 
-from restccnu.spiders.login import info_login, lib_login
+from .authentication import info_login, lib_login
 from . import api
 from flask import jsonify
-from restccnu.errors import ForbiddenError
+from .errors import ForbiddenError
 
 
 @api.route('/info/login/')
