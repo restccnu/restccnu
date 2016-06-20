@@ -28,14 +28,16 @@ def search_books(keyword):
     book_info_list = []
     for book_info in book_list_info:
         if book_info:
-            bid = book_info.h3.text.split()[-1]
-            book = book_info.h3.text.split()[0]
+            bid_lit = book_info.h3.text.split()
+            bid = ' '.join(bid_lit[-2:]) if bid_lit[-2][:2]=='TP' \
+                                           else bid_lit[-1]
+            book = book_info.find('a', href=re.compile('item.php*')).string
             book_info_list.append({
                 'book': book,
-                'author': book_info.p.text.split()[3],
+                'author': ' '.join(book_info.p.text.split()[2:-4]),
                 'bid': bid,
                 'intro': 'intro',  # no intro ?
-                'id': base64.b64encode(bid)
+                'id': base64.b64encode(bid)  # base64 bid -> id
             })
     return book_info_list
     # return book_list_info[0]
