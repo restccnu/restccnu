@@ -29,8 +29,12 @@ def search_books(keyword):
     for book_info in book_list_info:
         if book_info:
             bid_lit = book_info.h3.text.split()
-            bid = ' '.join(bid_lit[-2:]) if bid_lit[-2][:2]=='TP' \
-                                           else bid_lit[-1]
+            try:
+                int(bid_lit[-1])
+            except ValueError as e:
+                bid = bid_lit[-1]
+            else:
+                bid = ' '.join(bid_lit[-2:])
             book = book_info.find('a', href=re.compile('item.php*')).string
             book_info_list.append({
                 'book': book,
@@ -40,4 +44,3 @@ def search_books(keyword):
                 'id': base64.b64encode(bid)  # base64 bid -> id
             })
     return book_info_list
-    # return book_list_info[0]
