@@ -36,11 +36,18 @@ def search_books(keyword):
             else:
                 bid = ' '.join(bid_lit[-2:])
             book = book_info.find('a', href=re.compile('item.php*')).string
+            marc_no_link = book_info.find('a').get('href')
+            marc_no = marc_no_link.split('=')[-1]
             book_info_list.append({
                 'book': book,
                 'author': ' '.join(book_info.p.text.split()[2:-4]),
                 'bid': bid,
                 'intro': 'intro',  # no intro ?
-                'id': base64.b64encode(bid)  # base64 bid -> id
+                'id': marc_no
             })
     return book_info_list
+
+
+# http://202.114.34.15/opac/item.php?marc_no=0001364670
+def get_book():
+    pass
