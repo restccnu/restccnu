@@ -8,8 +8,8 @@ from restccnu.errors import ForbiddenError
 
 
 @api.route('/table/')
-@require_info_login
 @tojson
+@require_info_login
 def api_get_table(s):
     rv = get_table(s)
-    return rv
+    return str(rv)

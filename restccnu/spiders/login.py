@@ -19,12 +19,12 @@ def info_login():
     LoginUrl = "http://portal.ccnu.edu.cn/loginAction.do"
     TestUrl = "http://portal.ccnu.edu.cn/chpass.jsp"
 
-    # hashstr = requests.header.get('Authorization')
     hashstr = request.headers.get('Authorization')
     base64_hashstr = hashstr[6:]
     id_password = base64.b64decode(base64_hashstr)
     sid, password = id_password.split(':')
 
+    # for test
     s = requests.Session()
     s.post(LoginUrl, {
         'userName': sid, 'userPass': password
@@ -34,7 +34,7 @@ def info_login():
     if 'window.alert' in r.content:
         raise ForbiddenError
     else:
-        return s # isinstance(s, requests.Session)
+        return s
 
 
 # Authorization: Basic base64(sid:password)
