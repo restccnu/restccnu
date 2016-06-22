@@ -1,32 +1,16 @@
 # coding: utf-8
-"""
-    table.py
-    ~~~~~~~~
-
-    课表爬虫
-
-    返回json格式
-    {
-        '1-1':{}
-        '2-1':{
-            'course_name':'软件工程导论',
-            'course_week':'[1, 2, ...., 19]',
-            'course_class': '9-12',
-            'course_teacher': '周伟'
-         }
-        '3-1':
-        ........
-        '7-1':
-        ........
-        '7-14':
-    }
-"""
 
 import requests
+from bs4 import BeautifulSoup
 
 
-def table_spider():
-    # info_login
-    # return json
-    # import beautifulsoup4
-    pass
+def get_table(s):
+    """
+    s: 信息门户登录操作句柄
+    """
+    table_url = "http://122.204.187.6/kbcx/xskbcx_cxXsKb.html"
+    post_data = {'xnm': '2015', 'xqm': '3'}
+    r = s.post(table_url, post_data)
+    return r.content
+
+# 现在存在登录超时的问题
