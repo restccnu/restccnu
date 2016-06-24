@@ -23,5 +23,6 @@
 2. **图书馆部分**
     + API::/api/lib/search/?keyword=xxx&page=1          -> 图书搜索API
     + API::/api/lib/?id=xxx&book=xxx&author=xx          -> 图书详情API
+    + API::/api/lib/me/                                 -> 我的图书馆API
 3. **课表部分**
     + API::/api/table/?xnm=2015&xqm=3&sid=2014210761    -> 获取课表API

@@ -3,8 +3,8 @@
 import json
 from . import api
 from flask import request, jsonify
-from ..spiders.lib import search_books, get_book
-from .decorators import tojson
+from ..spiders.lib import search_books, get_book, book_me
+from .decorators import tojson, require_lib_login
 from .paginate import _Pagination
 
 
@@ -32,3 +32,10 @@ def api_book_detail():
     book = request.args.get('book')
     author = request.args.get('author')
     return get_book(id, bid, book, author)
+
+
+@api.route('/lib/me/')
+@require_lib_login
+@tojson
+def api_book_me(s):
+    return book_me(s)

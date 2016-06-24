@@ -9,8 +9,8 @@ from restccnu.errors import ForbiddenError
 
 
 @api.route('/table/')
-@tojson
 @require_info_login
+@tojson
 def api_get_table(s):
     xnm = request.args.get('xnm')
     xqm = request.args.get('xqm')
