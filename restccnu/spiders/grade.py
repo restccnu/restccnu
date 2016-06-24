@@ -1,11 +1,11 @@
 # coding: utf-8
-from . import grade_url
-from . import link_url
+from . import grade_index_url
+from . import link_index_url
 
 
 def get_grade(s, sid, xnm, xqm):
-    grade_url = grade_url % sid
-    link_url = link_url
+    grade_url = grade_index_url % sid
+    link_url = link_index_url
     s.get(link_url)  # 中转过度, 获取cookie
     post_data = {
         'xnm': xnm,

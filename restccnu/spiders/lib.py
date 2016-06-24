@@ -8,7 +8,7 @@ import datetime
 from bs4 import BeautifulSoup
 from . import lib_search_url
 from . import lib_me_url
-from . import detail_url
+from . import lib_detail_url
 from . import douban_url
 
 
@@ -83,7 +83,7 @@ def get_book(id, bid, book, author):
     """
     meet problem :(
     """
-    detail_url = detail_url % id
+    detail_url = lib_detail_url % id
     r = requests.get(detail_url)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
