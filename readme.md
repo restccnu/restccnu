@@ -17,11 +17,11 @@
 [已完成的API] <br/>
 [IP: 47.89.28.131:5070]
 
-1 **模拟登录部分**
+1. **模拟登录部分**
     + API::/api/info/login/                             -> 模拟登录信息门户(部署)
     + API::/api/lib/login/                              -> 模拟登录图书馆(部署)
 2. **图书馆部分**
     + API::/api/lib/search/?keyword=xxx&page=1          -> 图书搜索API
     + API::/api/lib/?id=xxx&book=xxx&author=xx          -> 图书详情API
-3.**课表部分**
+3. **课表部分**
     + API::/api/table/?xnm=2015&xqm=3&sid=2014210761    -> 获取课表API
