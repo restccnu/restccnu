@@ -18,11 +18,13 @@
 [IP: 47.89.28.131:5070]
 
 1. **模拟登录部分**
-    + API::/api/info/login/                             -> 模拟登录信息门户(部署)
-    + API::/api/lib/login/                              -> 模拟登录图书馆(部署)
+    + API::/api/info/login/                                 -> 模拟登录信息门户(部署)
+    + API::/api/lib/login/                                  -> 模拟登录图书馆(部署)
 2. **图书馆部分**
-    + API::/api/lib/search/?keyword=xxx&page=1          -> 图书搜索API
-    + API::/api/lib/?id=xxx&book=xxx&author=xx          -> 图书详情API
-    + API::/api/lib/me/                                 -> 我的图书馆API
+    + API::/api/lib/search/?keyword=xxx&page=1              -> 图书搜索API
+    + API::/api/lib/?id=xxx&book=xxx&author=xx              -> 图书详情API
+    + API::/api/lib/me/                                     -> 我的图书馆API
 3. **课表部分**
-    + API::/api/table/?xnm=2015&xqm=3&sid=2014210761    -> 获取课表API
+    + API::/api/table/?xnm=2015&xqm=3&sid=2014210761        -> 获取课表API
+4. **成绩查询**
+    + API::/api/grade/search/?sid=2014210761&xnm=2014&xqm=1 -> 获取成绩API
