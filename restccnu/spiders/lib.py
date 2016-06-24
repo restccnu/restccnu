@@ -52,23 +52,40 @@ def search_books(keyword):
 
 
 # http://202.114.34.15/opac/item.php?marc_no=0001364670G
-def get_book(id):
+def get_book(id, bid, book, author):
     """
     meet problem :(
     """
-    detail_url = "http://202.114.34.15/opac/item.php?marc_no%s" % id
+    detail_url = "http://202.114.34.15/opac/item.php?marc_no=%s" % id
     r = requests.get(detail_url)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
-    # isbn_link = soup.find(
-    #         id='sidebar_item').find_all('img')[-1].get('src').split('=')[-1]
-    # isbn = isbn_link.split('/')[-1].lstrip('-')
-    # book = soup.find(id='item_detail').find('dl', class_="booklist").dd
-    node = soup.find('img', {'src': re.compile("^ajax_local_img*")})
-    url_split = urlsplit(node['src'])
-    isbn_link = parse_qs(url_split.query)
-    return {'isbn_link': isbn_link}
 
-
-
-if __name__ == "__main__":
-    print get_book('0001364670G')
+    bid = bid; book = book; author = author
+    intro = soup.find(id="fullsum") or ""
+    # booklist: ['status', 'room', 'date', 'tid']
+    booklist = []
+    _booklist = soup.find(id='tab_item').find_all('tr', class_="whitetext")
+    for _book in _booklist:
+        lit = _book.text.split()
+        if '-' in lit[-1]:
+            date = lit[-1][-10:]
+            status = lit[-1][:2]
+            booklist.append({
+                "status": status,
+                "room": lit[-2],
+                "bid": lit[0],
+                "tid": lit[1],
+                "date": date })
+        else:
+            booklist.append({
+                "status": lit[-1],
+                "room": lit[-2],
+                "bid": lit[0],
+                "tid": lit[1]})
+    return {
+        'bid': bid,
+        'book': book,
+        'author': author,
+        'intro': intro,
+        'books': booklist
+    }
