@@ -1,9 +1,11 @@
 # coding: utf-8
+from . import grade_index_url
+from . import link_index_url
 
 
 def get_grade(s, sid, xnm, xqm):
-    grade_url = "http://122.204.187.6/cjcx/cjcx_cxDgXscj.html?doType=query&gnmkdmKey=N305005&sessionUserKey=%s" % sid
-    link_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
+    grade_url = grade_index_url % sid
+    link_url = link_index_url
     s.get(link_url)  # 中转过度, 获取cookie
     post_data = {
         'xnm': xnm,
