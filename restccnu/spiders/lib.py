@@ -1,8 +1,10 @@
 # coding: utf-8
 
 import re
+import time
 import base64
 import requests
+import datetime
 from bs4 import BeautifulSoup
 from urlparse import urlsplit, parse_qs
 
@@ -49,6 +51,30 @@ def search_books(keyword):
                 'id': marc_no
             })
     return book_info_list
+
+
+def book_me(s):
+    me_url = "http://202.114.34.15/reader/book_lst.php"
+    r = s.get(me_url)
+    soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
+    _my_book_list = soup.find_all('tr')[2:]
+    my_book_list = []
+    for _book in _my_book_list:
+        text = _book.text.split('\n')
+        itime = text[3].strip(); otime = text[4].strip()
+        date_itime = datetime.datetime.strptime(itime, "%Y-%m-%d")
+        date_otime = datetime.datetime.strptime(otime, "%Y-%m-%d")
+        dtime = time.mktime(date_otime.timetuple()) - \
+                time.mktime(date_itime.timetuple())
+        my_book_list.append({
+            'book': text[2].split('/')[0].strip(),
+            'author': text[2].split('/')[-1].strip(),
+            'itime': str(itime),
+            "otime": str(otime),
+            "time": int(dtime/(24*60*60)),
+            "room": text[6].strip()
+        })
+    return my_book_list
 
 
 # http://202.114.34.15/opac/item.php?marc_no=0001364670G
