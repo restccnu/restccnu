@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from flask import request
 from . import table_test_url
 from . import table_index_url
-from . import link_url
+from . import link_index_url
 
 
 def get_table(s, sid, xnm, xqm):
