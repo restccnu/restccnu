@@ -4,6 +4,10 @@ import requests
 import base64
 from flask import request
 from restccnu.errors import ForbiddenError
+from . import info_login_url
+from . import info_login_test_url
+from . import lib_login_url
+from . import lib_login_test_url
 
 
 headers = {
@@ -16,8 +20,8 @@ headers = {
 
 # Authorization: Basic base64(sid:password)
 def info_login():
-    LoginUrl = "http://portal.ccnu.edu.cn/loginAction.do"
-    TestUrl = "http://portal.ccnu.edu.cn/chpass.jsp"
+    LoginUrl = info_login_url
+    TestUrl = info_login_test_url 
 
     hashstr = request.headers.get('Authorization')
     base64_hashstr = hashstr[6:]
@@ -39,8 +43,8 @@ def info_login():
 
 # Authorization: Basic base64(sid:password)
 def lib_login():
-    LoginUrl = "http://202.114.34.15/reader/redr_verify.php"
-    TestUrl = "http://202.114.34.15/reader/redr_info.php"
+    LoginUrl = lib_login_url
+    TestUrl = lib_login_test_url
 
     hashstr = request.headers.get('Authorization')
     base64_hashstr = hashstr[6:]

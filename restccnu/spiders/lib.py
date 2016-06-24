@@ -6,11 +6,14 @@ import base64
 import requests
 import datetime
 from bs4 import BeautifulSoup
-from urlparse import urlsplit, parse_qs
+from . import lib_search_url
+from . import lib_me_url
+from . import detail_url
+from . import douban_url
 
 
 def search_books(keyword):
-    search_url = "http://202.114.34.15/opac/openlink.php"
+    search_url = lib_search_url
     post_data = {
             'strSearchType': 'title',
             'match_flag': 'forward',
@@ -52,7 +55,7 @@ def search_books(keyword):
 
 
 def book_me(s):
-    me_url = "http://202.114.34.15/reader/book_lst.php"
+    me_url = lib_me_url
     r = s.get(me_url)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
     _my_book_list = soup.find_all('tr')[2:]
@@ -80,14 +83,14 @@ def get_book(id, bid, book, author):
     """
     meet problem :(
     """
-    detail_url = "http://202.114.34.15/opac/item.php?marc_no=%s" % id
+    detail_url = detail_url % id
     r = requests.get(detail_url)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
     bid = bid; book = book; author = author
     isbn = ''.join(soup.find(
         'ul', class_="sharing_zy").li.a.get('href').split('/')[-2].split('-'))
-    douban = "https://api.douban.com/v2/book/isbn/%s" % isbn
+    douban = douban_url % isbn
     rd = requests.get(douban)
     intro = rd.json().get('summary') or ""
     # booklist: ['status', 'room', 'date', 'tid']
