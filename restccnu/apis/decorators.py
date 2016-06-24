@@ -28,15 +28,16 @@ def tojson(f):
     return decorator
 
 
+# problem
 def require_info_login(f):
     @functools.wraps(f)
     def decorator(*args, **kwargs):
-        rv = f(*args, **kwargs)
         try:
             s = info_login()
         except ForbiddenError as e:
             return jsonify({}), e.status_code
         else:
+            rv = f(s, *args, **kwargs)
             return rv
     return decorator
 
@@ -44,11 +45,11 @@ def require_info_login(f):
 def require_lib_login(f):
     @functools.wraps(f)
     def decorator(*args, **kwargs):
-        rv = f(*args, **kwargs)
         try:
             s = lib_login()
         except ForbiddenError as e:
             return jsonify({}), e.status_code
         else:
+            rv = f(s, *args, **kwargs)
             return rv
     return decorator

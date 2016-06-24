@@ -1,32 +1,39 @@
 # coding: utf-8
-"""
-    table.py
-    ~~~~~~~~
 
-    课表爬虫
-
-    返回json格式
-    {
-        '1-1':{}
-        '2-1':{
-            'course_name':'软件工程导论',
-            'course_week':'[1, 2, ...., 19]',
-            'course_class': '9-12',
-            'course_teacher': '周伟'
-         }
-        '3-1':
-        ........
-        '7-1':
-        ........
-        '7-14':
-    }
-"""
-
+import json
 import requests
+from bs4 import BeautifulSoup
+from flask import request
 
 
-def table_spider():
-    # info_login
-    # return json
-    # import beautifulsoup4
-    pass
+# GET /hzsflogin?ticket=wKhQEg0HHcVxIOBR7SNX5P6GHET6CICDV9TW HTTP/1.1
+# http://122.204.187.6/hzsflogin?ticket=wKhQEg0HHcVxIOBR7SNX5P6GHET6CICDV9TW
+# http://122.204.187.6/xtgl/login_tickitLogin.html <== GET Cookie
+def get_table(s, sid, xnm, xqm):
+    """
+    s: 信息门户登录操作句柄
+    """
+    test_url = "http://portal.ccnu.edu.cn/index_jg.jsp"
+    table_url = "http://122.204.187.6/kbcx/xskbcx_cxXsKb.html?" + \
+                "gnmkdmKey=N253508&sessionUserKey=%s" % sid
+    link_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
+    post_data = {'xnm': xnm, 'xqm': xqm}
+    s.get(link_url)
+    r = s.post(table_url, post_data)
+    json_data = r.json()
+    kbList = json_data.get('kbList')
+    kcList = []
+    for item in kbList:
+        _item_dict = dict({
+            'course': item.get('kcmc'),
+            'teacher': item.get('xm'),
+            'weeks': item.get('zcd'),
+            'day': item.get('xqjmc'),
+            # 'start': item.get('')
+            # 'during':
+            'during': item.get('jcs'),
+            'place': item.get('xqmc') + item.get('cdmc')})
+        kcList.append(_item_dict)
+    return kcList
+# start ~ during
+# database: id
