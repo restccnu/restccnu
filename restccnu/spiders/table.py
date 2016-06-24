@@ -15,7 +15,7 @@ def get_table(s, sid, xnm, xqm):
     """
     test_url = table_test_url
     table_url = table_index_url % sid
-    link_url = link_url
+    link_url = link_index_url
     post_data = {'xnm': xnm, 'xqm': xqm}
     s.get(link_url)
     r = s.post(table_url, post_data)
