@@ -41,8 +41,6 @@ def search_books(keyword):
             book = book_info.find('a', href=re.compile('item.php*')).string
             marc_no_link = book_info.find('a').get('href')
             marc_no = marc_no_link.split('=')[-1]
-            # isbn_link =
-            # isbn = isbn_link.split('=')
             book_info_list.append({
                 'book': book,
                 'author': ' '.join(book_info.p.text.split()[2:-4]),
@@ -87,7 +85,11 @@ def get_book(id, bid, book, author):
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
     bid = bid; book = book; author = author
-    intro = soup.find(id="fullsum") or ""
+    isbn = ''.join(soup.find(
+        'ul', class_="sharing_zy").li.a.get('href').split('/')[-2].split('-'))
+    douban = "https://api.douban.com/v2/book/isbn/%s" % isbn
+    rd = requests.get(douban)
+    intro = rd.json().get('summary') or ""
     # booklist: ['status', 'room', 'date', 'tid']
     booklist = []
     _booklist = soup.find(id='tab_item').find_all('tr', class_="whitetext")

@@ -1,6 +1,11 @@
 # coding: utf-8
 
+import redis
 from flask import Flask
+
+
+# Initial redis for table store
+rds = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 
 def create_app():
