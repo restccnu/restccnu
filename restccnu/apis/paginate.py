@@ -18,11 +18,7 @@ class _Pagination(MutableSequence, JSONEncoder):
         if self._sum % self._num != 0:
             self._pages += 1
         self._current = current
-        self.next_page = url_for('api.api_search_books',
-                                 page=self._current+1, _external=True) \
-            if self.has_next() else ""
-        self.last_page = url_for('api.api_search_books',
-                                 page=self._pages, _external=True)
+        self.max_page = self._pages
 
     def __len__(self):
         return self._sum

@@ -26,12 +26,15 @@ def get_table(s, sid, xnm, xqm):
         _weeks = item.get('zcd')
         if '(' in _weeks:
             weeks =  _weeks.split('(')
-            time = weeks[0]; mode = weeks[-1][:-1]
+            time = weeks[0]; mode = weeks[-1]
             _time = time.split('-')
             _start = int(_time[0]); _last = int(_time[-1][:-1])
             if mode:
                 weeks_list = range(_start, _last+1, 2)
-                weeks_list = weeks_list
+        elif ',' in _weeks:
+            weeks = _weeks.split(',')
+            _start = int(weeks[0][:-1]); _last = int(weeks[-1][:-1]);
+            weeks_list = [_start, _last]
         else:
             weeks = _weeks.split('-')
             _start = int(weeks[0]); _last = int(weeks[-1][:-1])

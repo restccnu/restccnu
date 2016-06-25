@@ -35,12 +35,10 @@ def search_books(keyword):
     for book_info in book_list_info:
         if book_info:
             bid_lit = book_info.h3.text.split()
-            try:
-                int(bid_lit[-1])
-            except ValueError as e:
-                bid = bid_lit[-1]
-            else:
+            if len(bid_lit[-1]) == 1:
                 bid = ' '.join(bid_lit[-2:])
+            else:
+                bid  = bid_lit[-1]
             book = book_info.find('a', href=re.compile('item.php*')).string
             marc_no_link = book_info.find('a').get('href')
             marc_no = marc_no_link.split('=')[-1]
@@ -48,7 +46,7 @@ def search_books(keyword):
                 'book': book,
                 'author': ' '.join(book_info.p.text.split()[2:-4]),
                 'bid': bid,
-                'intro': 'intro',  # no intro ?
+                'intro': book_info.p.text.split()[-4],
                 'id': marc_no
             })
     return book_info_list

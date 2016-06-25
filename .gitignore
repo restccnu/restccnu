@@ -1,3 +1,4 @@
 **/*.pyc
 rest_env/
 learn/
+tests/__pycache__
