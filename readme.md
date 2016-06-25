@@ -26,5 +26,7 @@
     + API::```/api/lib/me/```                                     -> 我的图书馆API
 3. **课表部分**
     + API::```/api/table/?xnm=2015&xqm=3&sid=2014210761```        -> 获取课表API
+    + API::```/api/table/?xnm=2015&xqm=3&sid=2014210761``  POST   -> 用户自定义添加相关课程
+    + API::```/api/table/1/ DELETE                                -> 删除特定id用户添加课程
 4. **成绩查询**
     + API::```/api/grade/search/?sid=2014210761&xnm=2014&xqm=1``` -> 获取成绩API
