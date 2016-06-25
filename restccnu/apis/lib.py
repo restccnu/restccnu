@@ -17,7 +17,7 @@ def api_search_books():
     if keyword:
         book_info_list = search_books(keyword)
         pg_book_info_list = _Pagination(book_info_list, page, per_page)
-    return {'meta': {
+        return {'meta': {
                 'next': pg_book_info_list.next_page,
                 'last': pg_book_info_list.last_page,
                 'per_page': per_page },
