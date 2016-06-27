@@ -30,12 +30,3 @@ grade_index_url = "http://122.204.187.6/cjcx/cjcx_cxDgXscj.html?doType=query&gnm
 
 """电费查询"""
 ele_index_url = "http://202.114.38.46/"
-meter_start_index = {  # 起始点的统计需要更细一点: 每栋宿舍的每层楼进行起始点的统计, 分空调和照明两种, 特殊的机构单独统计
-    # 所以, 现在关键是需要进行楼栋的编号设计. #
-    # 所以是建立-(meter_start_index表)-
-    'light': {
-        'w11': '29275', 'w12': '29300', 'w13': '',
-    },
-    'air': {
-    }
-}
