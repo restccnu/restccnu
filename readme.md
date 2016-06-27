@@ -1,6 +1,5 @@
-# restccnu
+# restccnu::华师校园通后端
 ![piped-piper](http://7xj431.com1.z0.glb.clouddn.com/0_thumb.jpg)
-华师校园通后台
 
 ## Mock
 [已Mock的API: 主要的GET请求API]<br/>
