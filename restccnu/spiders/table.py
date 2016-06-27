@@ -20,8 +20,7 @@ def get_table(s, sid, xnm, xqm):
     s.get(link_url)
     r = s.post(table_url, post_data)
     json_data = r.json()
-    kbList = json_data.get('kbList')
-    kcList = []
+    kbList = json_data.get('kbList'); kcList = []; weeks_list = []
     for item in kbList:
         _weeks = item.get('zcd')
         if '(' in _weeks:
@@ -32,9 +31,15 @@ def get_table(s, sid, xnm, xqm):
             if mode:
                 weeks_list = range(_start, _last+1, 2)
         elif ',' in _weeks:
-            weeks = _weeks.split(',')
-            _start = int(weeks[0][:-1]); _last = int(weeks[-1][:-1]);
-            weeks_list = [_start, _last]
+            weeks = _weeks.split(','); weeks_list = []
+            for week in weeks:
+                if '-' in week:
+                    _start = int(week.split('-')[0])
+                    _last = int(week.split('-')[1][:-1])
+                    _weeks_list = range(_start, _last+1)
+                    weeks_list += _weeks_list
+                else:
+                    weeks_list.append(week[:-1])
         else:
             weeks = _weeks.split('-')
             _start = int(weeks[0]); _last = int(weeks[-1][:-1])
