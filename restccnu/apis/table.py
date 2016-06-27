@@ -29,8 +29,8 @@ def api_get_table(s):
         u = connection.User()
         u['sid'] = sid; u['table'] = rv
         u.save()
-    user['table'] = rv
-    user.save()
+    # user['table'] = rv
+    # user.save()
     user = connection.User.find_one({'sid': sid})
     return user['table']
 

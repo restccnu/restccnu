@@ -1,4 +1,4 @@
-# restccnu::华师校园通后端
+# restccnu::华师匣子后端
 ![piped-piper](http://7xj431.com1.z0.glb.clouddn.com/0_thumb.jpg)
 
 ## Mock
