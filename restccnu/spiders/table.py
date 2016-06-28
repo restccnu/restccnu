@@ -55,6 +55,7 @@ def get_table(s, sid, xnm, xqm):
             'day': item.get('xqjmc'),
             'start': s_class,
             'during': d_class,
-            'place': item.get('xqmc') + item.get('cdmc')})
+            'place': item.get('xqmc') + item.get('cdmc'),
+            'remind': False})
         kcList.append(_item_dict)
     return kcList
