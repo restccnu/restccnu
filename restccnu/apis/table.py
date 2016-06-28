@@ -52,6 +52,7 @@ def api_add_table(s):
         teacher = request.get_json().get('teacher')
         weeks = request.get_json().get('weeks')
         day = request.get_json().get('day')
+        start = request.get_json().get('start')
         during = request.get_json().get('during')
         place = request.get_json().get('place')
         id = request.get_json().get('id')
@@ -59,6 +60,7 @@ def api_add_table(s):
                     'teacher': teacher,
                     'weeks': weeks,
                     'day': day,
+                    'start': start,
                     'during': during,
                     'place': place,
                     'id': id}
