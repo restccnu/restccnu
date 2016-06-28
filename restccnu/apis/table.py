@@ -55,6 +55,7 @@ def api_add_table(s):
         start = request.get_json().get('start')
         during = request.get_json().get('during')
         place = request.get_json().get('place')
+        remind = request.get_json().get('remind')
         id = request.get_json().get('id')
         new_json = {'course': course,
                     'teacher': teacher,
@@ -63,6 +64,7 @@ def api_add_table(s):
                     'start': start,
                     'during': during,
                     'place': place,
+                    'remind': remind,
                     'id': id}
 
         table = user['table']
