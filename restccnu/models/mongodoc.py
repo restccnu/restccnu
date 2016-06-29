@@ -17,3 +17,18 @@ class User(Document):
 
     def __repr__(self):
         return '<Mongo User>'
+
+
+class Dormitory(Document):
+    """
+    存储 _meter_index 字典
+    """
+    __collection__ = 'dormitories'
+    __database__ = 'dordb'
+    structure = {
+            'meter': dict
+    }
+    required_fields = ['meter']
+
+    def __repr__(self):
+        return '<Mongo Dormitory>'
