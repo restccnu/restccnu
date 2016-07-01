@@ -28,6 +28,6 @@ def get_ele(meter):
             "nodeInText": "%s*Meter" % meter,
             "PartList": "",
             "SelectPart": 1}
-    r = requests.post(ele_url, data=post_data, headers=headers)
+    r = requests.post(ele_url, post_data, headers=headers)
     content = r.content
     return content
