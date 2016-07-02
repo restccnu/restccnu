@@ -15,13 +15,9 @@ from restccnu.models import connection
 @api.route('/table/')
 @require_info_login
 @tojson
-def api_get_table(s):
+def api_get_table(s, sid):
     xnm = request.args.get('xnm')
     xqm = request.args.get('xqm')
-    hashstr = request.headers.get('Authorization')
-    base64_hashstr = hashstr[6:]
-    id_password = base64.b64decode(base64_hashstr)
-    sid, password = id_password.split(':')
 
     rv = get_table(s, sid, xnm, xqm)
     user = connection.User.find_one({'sid': sid})
@@ -37,13 +33,8 @@ def api_get_table(s):
 
 @api.route('/table/', methods=['POST'])
 @require_info_login
-def api_add_table(s):
+def api_add_table(s, sid):
     if request.method == 'POST':
-        hashstr = request.headers.get('Authorization')
-        base64_hashstr = hashstr[6:]
-        id_password = base64.b64decode(base64_hashstr)
-        sid, password = id_password.split(':')
-
         user = connection.User.find_one({'sid': sid})
         if user is None:
             return jsonify({}), 404
@@ -57,16 +48,9 @@ def api_add_table(s):
         place = request.get_json().get('place')
         remind = request.get_json().get('remind')
         id = request.get_json().get('id')
-        new_json = {'course': course,
-                    'teacher': teacher,
-                    'weeks': weeks,
-                    'day': day,
-                    'start': start,
-                    'during': during,
-                    'place': place,
-                    'remind': remind,
-                    'id': id}
-
+        new_json = {'course': course, 'teacher': teacher, 'weeks': weeks,
+                    'day': day, 'start': start, 'during': during,
+                    'place': place, 'remind': remind, 'id': id}
         table = user['table']
         table.append(new_json)
         user['table'] = table;
@@ -77,12 +61,7 @@ def api_add_table(s):
 
 @api.route('/table/<int:id>/', methods=['DELETE'])
 @require_info_login
-def api_delete_table(s, id):
-    hashstr = request.headers.get('Authorization')
-    base64_hashstr = hashstr[6:]
-    id_password = base64.b64decode(base64_hashstr)
-    sid, password = id_password.split(':')
-
+def api_delete_table(s, sid, id):
     if request.method == 'DELETE':
         user = connection.User.find_one({'sid': sid})
         if user is None:
@@ -94,4 +73,3 @@ def api_delete_table(s, id):
         user['table'] = table
         user.save()
         return jsonify({}), 200
-

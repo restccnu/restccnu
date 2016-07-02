@@ -3,4 +3,5 @@ rest_env/
 learn/
 tests/__pycache__
 tests/.cache
+test/
 restccnu/spiders/htmls

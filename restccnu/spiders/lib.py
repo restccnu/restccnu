@@ -15,17 +15,10 @@ from . import douban_url
 def search_books(keyword):
     search_url = lib_search_url
     post_data = {
-            'strSearchType': 'title',
-            'match_flag': 'forward',
-            'historyCount': '1',
-            'strText': keyword,
-            'doctype': 'ALL',
-            'displaypg': '100',  # tomorrow
-            'showmode': 'list',
-            'sort': 'CATA_DATE',
-            'orderby': 'desc',
-            'dept': 'ALL'
-    }
+            'strSearchType': 'title', 'match_flag': 'forward',
+            'historyCount': '1', 'strText': keyword, 'doctype': 'ALL',
+            'displaypg': '100', 'showmode': 'list', 'sort': 'CATA_DATE',
+            'orderby': 'desc', 'dept': 'ALL' }
     r = requests.get(search_url, post_data)
     # r.encoding = 'utf-8'
     # soup = BeautifulSoup(r.content, 'lxml', from_encoding='iso-8859-1')
@@ -100,21 +93,13 @@ def get_book(id, bid, book, author):
             date = lit[-1][-10:]
             status = lit[-1][:2]
             booklist.append({
-                "status": status,
-                "room": lit[-2],
-                "bid": lit[0],
-                "tid": lit[1],
-                "date": date })
+                "status": status, "room": lit[-2], "bid": lit[0],
+                "tid": lit[1], "date": date })
         else:
             booklist.append({
-                "status": lit[-1],
-                "room": lit[-2],
-                "bid": lit[0],
-                "tid": lit[1]})
+                "status": lit[-1], "room": lit[-2],
+                "bid": lit[0], "tid": lit[1]})
     return {
-        'bid': bid,
-        'book': book,
-        'author': author,
-        'intro': intro,
-        'books': booklist
-    }
+        'bid': bid, 'book': book,
+        'author': author, 'intro': intro,
+        'books': booklist }

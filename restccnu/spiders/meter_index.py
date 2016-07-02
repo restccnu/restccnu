@@ -13,8 +13,6 @@ meter_index = {
     'x1101': ['29275', '2'], 'x1102': ['29276', '3'], 'x1103': ['29277', '4'],
 }
 """
-
-
 _meter_index = {}
 def colour_meter_index():
     for dirs, subdirs, files in os.walk(html_path):

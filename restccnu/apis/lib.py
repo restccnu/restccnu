@@ -36,5 +36,5 @@ def api_book_detail():
 @api.route('/lib/me/')
 @require_lib_login
 @tojson
-def api_book_me(s):
+def api_book_me(s, sid):
     return book_me(s)
