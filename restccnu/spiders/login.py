@@ -14,7 +14,7 @@ from . import headers
 # Authorization: Basic base64(sid:password)
 def info_login():
     LoginUrl = info_login_url
-    TestUrl = info_login_test_url 
+    TestUrl = info_login_test_url
 
     hashstr = request.headers.get('Authorization')
     base64_hashstr = hashstr[6:]
@@ -31,7 +31,7 @@ def info_login():
     if 'window.alert' in r.content:
         raise ForbiddenError
     else:
-        return s
+        return s, sid
 
 
 # Authorization: Basic base64(sid:password)
@@ -53,4 +53,4 @@ def lib_login():
     if '123456' in r.content:
         raise ForbiddenError
     else:
-        return s
+        return s, sid
