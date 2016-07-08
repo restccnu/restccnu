@@ -43,7 +43,7 @@ def get_zizhu_html():
             content_string_result = content_string
         result_list.append({
             'title': title,
-            'content': content_string_result,
+            'content': content_string_result.strip(),
             'date': date,
             'appendix_list': content_appendix_url_list
             })
@@ -89,7 +89,7 @@ def get_huaqing_html():
             content_string_result2 = content_string_result1
         result_list.append({
             'title': title,
-            'content': content_string_result2,
+            'content': content_string_result2.strip(),
             'date': date,
             'appendix_list': content_appendix_url_list
             })
@@ -127,7 +127,7 @@ def get_jiaowuchu_html():
             content_string_result = content_string
         result_list.append({
             'title': title,
-            'content': content_string_result,
+            'content': content_string_result.strip(),
             'date': date,
             'appendix_list': content_appendix_url_list
             })
