@@ -9,7 +9,7 @@ from . import api
 from ..spiders.table import get_table
 from ..spiders.login import info_login
 from restccnu.errors import ForbiddenError, NotfoundError
-from restccnu.models import connection
+from restccnu.models import connection, User
 
 
 @api.route('/table/')
@@ -23,12 +23,12 @@ def api_get_table(s, sid):
     user = connection.User.find_one({'sid': sid})
     if user is None:
         u = connection.User()
-        u['sid'] = sid; u['table'] = rv
+        u['sid'] = sid; u['table'] = []
         u.save()
-    # user['table'] = rv
+    # user['table'] = []
     # user.save()
     user = connection.User.find_one({'sid': sid})
-    return user['table']
+    return user['table'] + rv
 
 
 @api.route('/table/', methods=['POST'])

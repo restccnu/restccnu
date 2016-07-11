@@ -96,9 +96,7 @@ def get_book(id, bid, book, author):
                 "status": status, "room": lit[-2], "bid": lit[0],
                 "tid": lit[1], "date": date })
         else:
-            booklist.append({
-                "status": lit[-1], "room": lit[-2],
-                "bid": lit[0], "tid": lit[1]})
+            booklist.append({"status": lit[-1], "room": lit[-2], "tid": lit[1]})
     return {
         'bid': bid, 'book': book,
         'author': author, 'intro': intro,
