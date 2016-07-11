@@ -22,13 +22,10 @@ def api_get_ele():
     if request.method == 'POST':
         dor = request.get_json().get('dor')
         typeit = request.get_json().get('type')
-
         _dor = dor_dict.get(dor)
         if typeit == 'light':
             meter = _dor[0]
         elif typeit == 'air':
             meter = _dor[1]
-
-        rv = get_ele('29276')
-
+        rv = get_ele(_dor)
         return rv

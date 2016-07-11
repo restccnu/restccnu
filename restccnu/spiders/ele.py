@@ -1,9 +1,11 @@
 # coding: utf-8
+#
+import json
 import requests
 from bs4 import BeautifulSoup
 
 headers = {
-    'User-Agent':"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0) Gecko/20100101 Firefox/45.0",
+    # 'User-Agent':"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0) Gecko/20100101 Firefox/45.0",
     'Content-Type':'application/json'
 }
 
@@ -28,6 +30,7 @@ def get_ele(meter):
             "nodeInText": "%s*Meter" % meter,
             "PartList": "",
             "SelectPart": 1}
-    r = requests.post(ele_url, post_data, headers=headers)
+    r = requests.post(ele_url, data=json.dumps(post_data),
+                      headers={'Content-Type': 'application/json'})
     content = r.content
     return content
