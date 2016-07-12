@@ -7,7 +7,7 @@ from ..spiders.board import get_all_board
 from .decorators import tojson
 
 
-@api.route('/api/info/')
+@api.route('/info/')
 @tojson
 def all_board():
     all_board = get_all_board()

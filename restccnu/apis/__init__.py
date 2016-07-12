@@ -17,7 +17,7 @@ def api_index():
         },
         'apis': {
             'Information Portal Login': '/api/info/login/',
-            'library': [
+            'Library': [
                 {'library login': '/api/lib/login/'},
                 {'book search': '/api/lib/search/?keyword=xxx&page=n'},
                 {'book detail': '/api/lib/?id=xxxxxx&book=xxxx&author=xxxxx'},
@@ -28,8 +28,9 @@ def api_index():
                 {'add personal class': '/api/table/'},
                 {'delete personal class': '/api/table/id/'}
             ],
+            'Grade Query': '/api/grade/search/?xnm=n&xqm=n',
         },
     }), 200
 
 
-from . import login, lib, table, grades, ele
+from . import login, lib, table, grades, ele, board
