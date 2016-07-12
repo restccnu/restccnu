@@ -72,7 +72,5 @@ def api_delete_table(s, sid, id):
         for i, item in enumerate(table):
             if item.get('id') == str(id):
                 del table[i]
-        # user['table'] = table
-        user['table'].append()
         user.save()
         return jsonify({}), 200
