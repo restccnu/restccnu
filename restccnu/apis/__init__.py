@@ -17,11 +17,17 @@ def api_index():
         },
         'apis': {
             'Information Portal Login': '/api/info/login/',
-            'library login': '/api/lib/login/',
-            'book search': '/api/lib/search/?keyword=xxx&page=n',
-            'book detail': '/api/lib/?id=xxxxxx&book=xxxx&author=xxxxx',
-            'my library': '/api/lib/me/',
-            'Class Schedule': '/api/table/?xnm=n&xqm=n',
+            'library': [
+                {'library login': '/api/lib/login/'},
+                {'book search': '/api/lib/search/?keyword=xxx&page=n'},
+                {'book detail': '/api/lib/?id=xxxxxx&book=xxxx&author=xxxxx'},
+                {'my library': '/api/lib/me/'},
+            ],
+            'Class Schedule': [
+                {'class schedule query': '/api/table/?xnm=n&xqm=n'},
+                {'add personal class': '/api/table/'},
+                {'delete personal class': '/api/table/id/'}
+            ],
         },
     }), 200
 

@@ -9,7 +9,7 @@ from . import api
 from ..spiders.table import get_table
 from ..spiders.login import info_login
 from restccnu.errors import ForbiddenError, NotfoundError
-from restccnu.models import connection, User
+from restccnu.models import connection, User, _zero  # 占位课程(id=0)
 
 
 @api.route('/table/')
@@ -23,10 +23,8 @@ def api_get_table(s, sid):
     user = connection.User.find_one({'sid': sid})
     if user is None:
         u = connection.User()
-        u['sid'] = sid; u['table'] = []
+        u['sid'] = sid; u['table'] = [_zero]
         u.save()
-    # user['table'] = []
-    # user.save()
     user = connection.User.find_one({'sid': sid})
     return user['table'] + rv
 
@@ -52,6 +50,10 @@ def api_add_table(s, sid):
                     'day': day, 'start': start, 'during': during,
                     'place': place, 'remind': remind, 'id': id}
         table = user['table']
+        for item in table:
+            if item.get('id') == str(id):
+                return jsonify({'bad request':
+                                'id already exist in database'}), 400
         table.append(new_json)
         user['table'] = table;
         user.save()
@@ -70,6 +72,7 @@ def api_delete_table(s, sid, id):
         for i, item in enumerate(table):
             if item.get('id') == str(id):
                 del table[i]
-        user['table'] = table
+        # user['table'] = table
+        user['table'].append()
         user.save()
         return jsonify({}), 200
