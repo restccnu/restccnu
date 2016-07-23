@@ -2,12 +2,20 @@
 
 import redis
 from flask import Flask
+from flask_qiniustorage import Qiniu
 from config import config
+
+
+
+qiniu = Qiniu()
+rds = redis.StrictRedis(host='localhost', port=6380, db=0)
 
 
 def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
+    qiniu.init_app(app)
 
     from apis import api
     app.register_blueprint(api, url_prefix='/api')
