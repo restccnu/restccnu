@@ -8,7 +8,7 @@ from config import config
 
 
 qiniu = Qiniu()
-rds = redis.StrictRedis(host='localhost', port=6380, db=0)
+rds = redis.StrictRedis(host='localhost', port=6384, db=0)
 
 
 def create_app(config_name='default'):
