@@ -44,8 +44,9 @@ def get_calendar():
     calendars = eval(rds.get('calendars'))
     for calendar_dict in calendars:
         filename = calendar_dict.keys()[0]
+        update_timestamp = qiniu.info(filename).get('putTime')
         json_data.append({
                 'filename': filename,
                 'img': qiniu.url(filename),
-                'update': '2016-07-22' })
+                'update': update_timestamp })
     return json_data
