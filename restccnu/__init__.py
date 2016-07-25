@@ -2,9 +2,9 @@
 
 import redis
 from flask import Flask
-from flask_qiniustorage import Qiniu
+# from flask_qiniustorage import Qiniu
+from flask_zero import Qiniu
 from config import config
-
 
 
 qiniu = Qiniu()
