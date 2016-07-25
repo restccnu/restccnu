@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import random
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -56,6 +57,7 @@ def get_table(s, sid, xnm, xqm):
             'start': s_class,
             'during': d_class,
             'place': item.get('xqmc') + item.get('cdmc'),
-            'remind': False})
+            'remind': False,
+            'color': random.randint(0, 3)})  # 如果这样的话, 每次爬取, 课表返回的颜色都不相同})
         kcList.append(_item_dict)
     return kcList

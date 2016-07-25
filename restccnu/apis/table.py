@@ -48,7 +48,7 @@ def api_add_table(s, sid):
         id = request.get_json().get('id')
         new_json = {'course': course, 'teacher': teacher, 'weeks': weeks,
                     'day': day, 'start': start, 'during': during,
-                    'place': place, 'remind': remind, 'id': id}
+                    'place': place, 'remind': remind, 'id': id, 'color': 0}
         table = user['table']
         for item in table:
             if item.get('id') == str(id):
