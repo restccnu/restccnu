@@ -29,6 +29,7 @@ def api_index():
                 {'delete personal class': '/api/table/id/'}
             ],
             'Grade Query': '/api/grade/search/?xnm=n&xqm=n',
+            'Info API': '/api/info/'
         },
     }), 200
 
