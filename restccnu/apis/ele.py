@@ -12,6 +12,7 @@ from .decorators import tojson
 # @tojson
 def api_get_ele():
     if not connection.Dormitory.find_one():
+        # 现实爬取
         _meter_index = colour_meter_index()
         dormitory = connection.Dormitory()
         dormitory['meter'] = _meter_index
@@ -27,5 +28,5 @@ def api_get_ele():
             meter = _dor[0]
         elif typeit == 'air':
             meter = _dor[1]
-        rv = get_ele(_dor)
-        return rv
+        rv = get_ele(meter)
+        return rv  # return data
