@@ -9,7 +9,7 @@ from .decorators import tojson
 
 
 @api.route('/ele/', methods=['POST'])
-# @tojson
+@tojson
 def api_get_ele():
     if not connection.Dormitory.find_one():
         # 现实爬取
@@ -28,5 +28,5 @@ def api_get_ele():
             meter = _dor[0]
         elif typeit == 'air':
             meter = _dor[1]
-        rv = get_ele(meter)
+        rv = get_ele(meter, dor, typeit)
         return rv  # return data
