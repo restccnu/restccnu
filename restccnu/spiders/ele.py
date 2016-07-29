@@ -60,7 +60,7 @@ def get_ele(meter, dor, typeit):
     ele_before = _tr_dict['2'].td.next_sibling.text.split('：')[1][:-2]
     ele_current = _tr_dict['3'].td.next_sibling.text.split('：')[1][:-2]
 
-    degree_remain = "%.2f" % (float(ele_remain[:-1])/_ele) # \
+    degree_remain = "%.2f" % (ele_remain / _ele)
     degree_before = _tr_dict['2'].td.next_sibling.text.split('(')[0][:-3]
     degree_current = _tr_dict['3'].td.next_sibling.text.split('(')[0][:-3]
 
