@@ -43,4 +43,7 @@ def api_store_ele():
             dormitory.save()
             return {'msg': "dormitory info stored"}
         else:
-            return {'msg': "dormitory info already stored"}
+            return {
+                'msg': "dormitory info already stored",
+                'dor_dict': dormitory['meter']
+            }
