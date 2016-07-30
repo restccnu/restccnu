@@ -42,5 +42,5 @@ def api_store_ele():
             dormitory['meter'] = _meter_index
             dormitory.save()
             return {'msg': "dormitory info stored"}
-        else
+        else:
             return {'msg': "dormitory info already stored"}
