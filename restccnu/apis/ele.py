@@ -36,7 +36,8 @@ def api_get_ele():
 @tojson
 def api_store_ele():
     if request.method == 'POST':
-        if len(connection.Dormitory.find_one().get('meter').keys()) < 2:
+        if len(connection.Dormitory.find_one().get('meter').keys()) < 2 or \
+                connection.Dormitory.find_one().get('meter') is None:
             _meter_index = colour_meter_index()
             dormitory = connection.Dormitory.find_one()
             dormitory['meter'] = _meter_index
