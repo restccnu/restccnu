@@ -11,12 +11,12 @@ from .decorators import tojson
 @api.route('/ele/', methods=['POST'])
 @tojson
 def api_get_ele():
-    if connection.Dormitory.find_one().get('meter') is None:
-        # 现实爬取
-        _meter_index = colour_meter_index()
-        dormitory = connection.Dormitory()
-        dormitory['meter'] = _meter_index
-        dormitory.save()
+    # if len(connection.Dormitory.find_one().get('meter').keys()) < 2:
+    #     # 现实爬取
+    #     _meter_index = colour_meter_index()
+    #     dormitory = connection.Dormitory.find_one()
+    #     dormitory['meter'] = _meter_index
+    #     dormitory.save()
     dor_obj = connection.Dormitory.find_one()
     dor_dict = dor_obj.get('meter')
 
@@ -36,9 +36,9 @@ def api_get_ele():
 @tojson
 def api_store_ele():
     if request.method == 'POST':
-        if connection.Dormitory.find_one().get('meter') is None:
+        if len(connection.Dormitory.find_one().get('meter').keys()) < 2:
             _meter_index = colour_meter_index()
-            dormitory = connection.Dormitory()
+            dormitory = connection.Dormitory.find_one()
             dormitory['meter'] = _meter_index
             dormitory.save()
             return {'msg': "dormitory info stored",
@@ -51,8 +51,8 @@ def api_store_ele():
 @tojson
 def api_flush_ele():
     if request.method == 'DELETE':
-        if connection.Dormitory.find_one().get('meter'):
-            dormitory = connection.Dormitory()
+        if len(connection.Dormitory.find_one().get('meter').keys()) > 1:
+            dormitory = connection.Dormitory.find_one()
             dormitory['meter'] = {'_meter': []}
             dormitory.save()
             return {'msg': "flush dormitory info",
