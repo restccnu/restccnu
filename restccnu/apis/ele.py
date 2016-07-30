@@ -30,3 +30,17 @@ def api_get_ele():
             meter = _dor[1]
         rv = get_ele(meter, dor, typeit)
         return rv  # return data
+
+
+@api.route('/store_ele/', methods=['POST'])
+@tojson
+def api_store_ele():
+    if request.method == 'POST':
+        if connection.Dormitory.find() is None:
+            _meter_index = colour_meter_index()
+            dormitory = connection.Dormitory()
+            dormitory['meter'] = _meter_index
+            dormitory.save()
+            return {'msg': "dormitory info stored"}
+        else
+            return {'msg': "dormitory info already stored"}
