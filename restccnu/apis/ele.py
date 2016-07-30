@@ -11,7 +11,7 @@ from .decorators import tojson
 @api.route('/ele/', methods=['POST'])
 @tojson
 def api_get_ele():
-    if not connection.Dormitory.find_one():
+    if not connection.Dormitory.find_one().get('meter'):
         # 现实爬取
         _meter_index = colour_meter_index()
         dormitory = connection.Dormitory()
@@ -36,7 +36,7 @@ def api_get_ele():
 @tojson
 def api_store_ele():
     if request.method == 'POST':
-        if connection.Dormitory.find() is None:
+        if connection.Dormitory.find_one().get('meter') is None:
             _meter_index = colour_meter_index()
             dormitory = connection.Dormitory()
             dormitory['meter'] = _meter_index
