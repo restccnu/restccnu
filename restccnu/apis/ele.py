@@ -41,7 +41,7 @@ def api_store_ele():
             dormitory = connection.Dormitory()
             dormitory['meter'] = _meter_index
             dormitory.save()
-            return {'msg': "dormitory info stored"
+            return {'msg': "dormitory info stored",
                     'dor_dict': dormitory['meter']}
         else:
             return {
