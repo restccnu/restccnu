@@ -42,7 +42,7 @@ def api_store_ele():
             dormitory['meter'] = _meter_index
             dormitory.save()
             return {'msg': "dormitory info stored",
-                    'dor_dict': dormitory['meter']}
+                    'dor_dict': connection.Dormitory.find_one().get('meter')}
         else:
             return {'msg': "dormitory info already stored"}
 
@@ -53,9 +53,16 @@ def api_flush_ele():
     if request.method == 'DELETE':
         if connection.Dormitory.find_one().get('meter'):
             dormitory = connection.Dormitory()
-            dormitory['meter'] = []
+            dormitory['meter'] = {'_meter': []}
             dormitory.save()
             return {'msg': "flush dormitory info",
-                    'dor_dict': dormitory['meter']}
+                    'dor_dict': connection.Dormitory.find_one().get('meter')}
         else:
             return {'msg': "dormitory info is None"}
+
+
+@api.route('/ele_dict/', methods=['GET'])
+@tojson
+def api_get_eledict():
+    dor_dict = connection.Dormitory.find_one().get('meter')
+    return {'dor_dict': dor_dict}
