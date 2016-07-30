@@ -34,4 +34,4 @@ def api_index():
     }), 200
 
 
-from . import login, lib, table, grades, ele, board, static
+from . import login, lib, table, grades, ele, board, static, apartment
