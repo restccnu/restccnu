@@ -11,7 +11,7 @@ from .decorators import tojson
 @api.route('/ele/', methods=['POST'])
 @tojson
 def api_get_ele():
-    if not connection.Dormitory.find_one().get('meter'):
+    if connection.Dormitory.find_one().get('meter') is None:
         # 现实爬取
         _meter_index = colour_meter_index()
         dormitory = connection.Dormitory()
@@ -44,6 +44,18 @@ def api_store_ele():
             return {'msg': "dormitory info stored",
                     'dor_dict': dormitory['meter']}
         else:
-            return {
-                'msg': "dormitory info already stored",
-            }
+            return {'msg': "dormitory info already stored"}
+
+
+@api.route('/flush_ele/', methods=['DELETE'])
+@tojson
+def api_flush_ele():
+    if request.method == 'DELETE':
+        if connection.Dormitory.find_one().get('meter'):
+            dormitory = connection.Dormitory()
+            dormitory['meter'] = []
+            dormitory.save()
+            return {'msg': "flush dormitory info",
+                    'dor_dict': dormitory['meter']}
+        else:
+            return {'msg': "dormitory info is None"}
