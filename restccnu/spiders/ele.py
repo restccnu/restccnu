@@ -62,7 +62,7 @@ def get_ele(meter, dor, typeit):
         degree_remain = "%.2f" % (ele_remain / _ele)
     elif typeit == 'air':
         degree_remain = float(divMeterTopBox.find('td', id='tdSYValue').text[:-1])
-        ele_remain = "%.2f" % degree_remain * _ele
+        ele_remain = "%.2f" % (degree_remain * _ele)
 
     ele_before = _tr_dict['2'].td.next_sibling.text.split('：')[1][:-2]
     ele_current = _tr_dict['3'].td.next_sibling.text.split('：')[1][:-2]
