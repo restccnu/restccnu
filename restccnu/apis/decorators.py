@@ -65,8 +65,8 @@ def admin_required(f):
             email_pass = base64.b64decode(token_header[6:])
             email = email_pass.split(':')[0]
             password = email_pass.split(':')[1]
-            if email == os.getenv('RESTCCNU_ADMIN_EMAIL') and \
-               password == os.getenv('RESTCCNU_ADMIN_PASS'):
+            if email == os.getenv('QINIU_EMAIL') and \
+               password == os.getenv('QINIU_PASS'):
                 return f(*args, **kwargs)
             else:
                 return jsonify({'msg': 'unauthorized'}), 401
