@@ -31,7 +31,7 @@ def api_index():
             'Grade Query': '/api/grade/search/?xnm=n&xqm=n',
             'Info API': '/api/info/',
             'Electric bill API': '/api/ele/',
-            'Apartment info API': '/api/apartment/'
+            'Apartment info API': '/api/apartment/',
             'Static Management': [
                 {'banner api': '/api/banner/'},
                 {'calendar api': '/api/calendar'}
