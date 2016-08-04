@@ -32,6 +32,16 @@ def api_index():
             'Info API': '/api/info/',
             'Electric bill API': '/api/ele/',
             'Apartment info API': '/api/apartment/'
+            'Static Management': [
+                {'banner api': '/api/banner/'},
+                {'calendar api': '/api/calendar'}
+            ],
+            'App Version Management': [
+                {'all ccnubox version': '/api/app/'},
+                {'add a new version': '/api/app/'},
+                {'delete a specific version': '/api/app/'},
+                {'ccnubox latest version': '/api/app/latest/'}
+            ],
         },
     }), 200
 
