@@ -3,7 +3,7 @@
 from . import api
 from restccnu import rds
 from .decorators import tojson, admin_required
-from flask import request
+from flask import request, jsonify
 
 
 @api.route('/app/', methods=['GET'])
@@ -18,7 +18,6 @@ def get_app():
 
 
 @api.route('/app/', methods=['POST'])
-@tojson
 @admin_required
 def new_app():
     """上传一个新的版本"""
@@ -43,7 +42,7 @@ def new_app():
         apps.append(app_data)
         rds.set('apps', str(apps))
         rds.save()
-        return {'msg': 'add new version data'}, 201
+        return jsonify({'msg': 'add new version data'}), 201
 
 
 @api.route('/app/latest/', methods=['GET'])
@@ -57,7 +56,6 @@ def get_latest_app():
 
 
 @api.route('/app/<version>/', methods=['DELETE'])
-@tojson
 @admin_required
 def delete_version(version):
     """删除华师匣子特定版本version的信息"""
@@ -67,4 +65,4 @@ def delete_version(version):
             del apps[n]
     rds.set('apps', str(apps))
     rds.save()
-    return {'msg': 'delete version %s' % version}, 200
+    return jsonify({'msg': 'delete version %s' % version}), 200
