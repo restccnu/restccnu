@@ -1,8 +1,10 @@
 # coding: utf-8
 
+import os
+import base64
 import functools
 import json
-from flask import make_response, jsonify
+from flask import make_response, jsonify, request, abort
 from restccnu.spiders.login import info_login, lib_login
 from restccnu.errors import ForbiddenError
 
@@ -51,4 +53,23 @@ def require_lib_login(f):
         else:
             rv = f(s, sid, *args, **kwargs)
             return rv
+    return decorator
+
+
+def admin_required(f):
+    @functools.wraps(f)
+    def decorator(*args, **kwargs):
+        # http basic auth: Basic base64(email:password)
+        token_header = request.headers.get('authorization', None)
+        if token_header:
+            email_pass = base64.b64decode(token_header[6:])
+            email = email_pass.split(':')[0]
+            password = email_pass.split(':')[1]
+            if email == os.getenv('RESTCCNU_ADMIN_EMAIL') and \
+               password == os.getenv('RESTCCNU_ADMIN_PASS'):
+                return f(*args, **kwargs)
+            else:
+                return jsonify({'msg': 'unauthorized'}), 401
+        else:
+            return jsonify({'msg': 'forbidden'}), 403
     return decorator

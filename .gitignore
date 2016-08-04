@@ -1,4 +1,5 @@
 **/*.pyc
+dump.rdb
 rest_env/
 learn/
 tests/__pycache__
