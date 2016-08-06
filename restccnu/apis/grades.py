@@ -2,7 +2,7 @@
 
 from . import api
 from .decorators import require_info_login, tojson
-from ..spiders.grade import get_grade
+from ..spiders.grade import get_grade, get_grade_detail
 from flask import request
 
 
@@ -13,3 +13,14 @@ def api_get_grade(s, sid):
     xnm = request.args.get('xnm')
     xqm = request.args.get('xqm')
     return get_grade(s, sid, xnm, xqm)
+
+
+@api.route('/grade/detail/search/')
+@tojson
+@require_info_login
+def api_get_detail_grade(s, sid):
+    xnm = request.args.get('xnm')
+    xqm = request.args.get('xqm')
+    course = request.args.get('course')
+    jxb_id = request.args.get('jxb_id')
+    return get_grade_detail(s, sid, xnm, xqm, course, jxb_id)
