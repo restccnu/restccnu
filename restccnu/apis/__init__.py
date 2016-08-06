@@ -28,7 +28,10 @@ def api_index():
                 {'add personal class': '/api/table/'},
                 {'delete personal class': '/api/table/id/'}
             ],
-            'Grade Query': '/api/grade/search/?xnm=n&xqm=n',
+            'Grade Query': {
+                'query': '/api/grade/search/?xnm=n&xqm=n',
+                'detail query': '/api/grade/detail/search/?xnm=x&xqm=x&course=x&jxb_id=x'
+            },
             'Info API': '/api/info/',
             'Electric bill API': '/api/ele/',
             'Apartment info API': '/api/apartment/',
