@@ -39,14 +39,22 @@ def api_index():
                 {'banner api': '/api/banner/'},
                 {'calendar api': '/api/calendar'}
             ],
-            'App Version Management': [
-                {'all ccnubox version': '/api/app/'},
-                {'add a new version': '/api/app/'},
-                {'delete a specific version': '/api/app/'},
-                {'ccnubox latest version': '/api/app/latest/'}
-            ],
+            'Version Management': {
+                'app version management': [
+                    {'all ccnubox version': '/api/app/'},
+                    {'add a new version': '/api/app/'},
+                    {'delete a specific version': '/api/app/'},
+                    {'ccnubox latest version': '/api/app/latest/'}
+                ],
+                'patch version management': [
+                    {'all ccnubox patches version': '/api/patch/'},
+                    {'add a new patch version': '/api/patch/'},
+                    {'delete a specific patch version': '/api/patch/'},
+                    {'latest ccnubox patch version': '/api/patch/latest/'}
+                ],
+            },
         },
     }), 200
 
 
-from . import login, lib, table, grades, ele, board, static, apartment, app
+from . import login, lib, table, grades, ele, board, static, apartment, app, patch
