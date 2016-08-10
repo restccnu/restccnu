@@ -10,10 +10,10 @@ from flask import request, current_app
 @tojson
 @require_info_login
 def api_get_grade(s, sid):
-    # xnm = request.args.get('xnm')
-    # xqm = request.args.get('xqm')
-    xnm = current_app.config['XNM']
-    xqm = current_app.config['XQM']
+    xnm = request.args.get('xnm')
+    xqm = request.args.get('xqm')
+    # xnm = current_app.config['XNM']
+    # xqm = current_app.config['XQM']
     return get_grade(s, sid, xnm, xqm)
 
 
@@ -21,10 +21,10 @@ def api_get_grade(s, sid):
 @tojson
 @require_info_login
 def api_get_detail_grade(s, sid):
-    # xnm = request.args.get('xnm')
-    # xqm = request.args.get('xqm')
-    xnm = current_app.config['XNM']
-    xqm = current_app.config['XQM']
+    xnm = request.args.get('xnm')
+    xqm = request.args.get('xqm')
+    # xnm = current_app.config['XNM']
+    # xqm = current_app.config['XQM']
     course = request.args.get('course')
     jxb_id = request.args.get('jxb_id')
     return get_grade_detail(s, sid, xnm, xqm, course, jxb_id)
