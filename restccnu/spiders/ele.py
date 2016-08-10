@@ -51,8 +51,8 @@ def get_ele(meter, dor, typeit):
 
     _tr_dict = {}; _key = 0
     for tr in divMeterTopBoxtrs:
-        _key += 1 
-        _tr_dict.update({str(_key): tr}) 
+        _key += 1
+        _tr_dict.update({str(_key): tr})
 
     _ele = float(_tr_dict['4'].td.next_sibling.text[:-1])
 

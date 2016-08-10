@@ -10,6 +10,9 @@ class Config(object):
     QINIU_BUCKET_NAME = os.getenv('QINIU_BUCKET_NAME') or 'ccnustatic'
     QINIU_BUCKET_DOMAIN = os.getenv('QINIU_BUCKET_DOMAIN') or 'oao7x1n3m.bkt.clouddn.com'
 
+    XNM = 2015
+    XQM = 12
+
 
 config = {
     'develop': Config,

@@ -11,12 +11,6 @@ from .decorators import tojson
 @api.route('/ele/', methods=['POST'])
 @tojson
 def api_get_ele():
-    # if len(connection.Dormitory.find_one().get('meter').keys()) < 2:
-    #     # 现实爬取
-    #     _meter_index = colour_meter_index()
-    #     dormitory = connection.Dormitory.find_one()
-    #     dormitory['meter'] = _meter_index
-    #     dormitory.save()
     dor_obj = connection.Dormitory.find_one()
     dor_dict = dor_obj.get('meter')
 

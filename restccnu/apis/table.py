@@ -3,7 +3,7 @@
 import base64
 import redis
 import json
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 from .decorators import require_info_login, tojson
 from . import api
 from ..spiders.table import get_table
@@ -16,8 +16,10 @@ from restccnu.models import connection, User, _zero  # 占位课程(id=0)
 @require_info_login
 @tojson
 def api_get_table(s, sid):
-    xnm = request.args.get('xnm')
-    xqm = request.args.get('xqm')
+    # xnm = request.args.get('xnm')
+    # xqm = request.args.get('xqm')
+    xnm = current_app.config['XNM']
+    xqm = current_app.config['XQM']
 
     rv = get_table(s, sid, xnm, xqm)
     user = connection.User.find_one({'sid': sid})
