@@ -56,8 +56,9 @@ def book_me(s):
         itime = text[3].strip(); otime = text[4].strip()
         date_itime = datetime.datetime.strptime(itime, "%Y-%m-%d")
         date_otime = datetime.datetime.strptime(otime, "%Y-%m-%d")
+        ctime = datetime.datetime.now().strftime("%Y-%m-%d")
         dtime = time.mktime(date_otime.timetuple()) - \
-                time.mktime(date_itime.timetuple())
+                time.mktime(datetime.datetime.now().timetuple())
         my_book_list.append({
             'book': text[2].split('/')[0].strip(),
             'author': text[2].split('/')[-1].strip(),
