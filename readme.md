@@ -1,5 +1,5 @@
 # restccnu::华师匣子后端
-![piped-piper](http://7xj431.com1.z0.glb.clouddn.com/0_thumb.jpg)
+![2016-08-11 10 20 05](https://cloud.githubusercontent.com/assets/10671733/17577484/dd44815a-5fb0-11e6-9dbd-04002a78d3f7.png)
 
 ## README See   ==>  https://ccnubox.muxixyz.com/api/
 ## API Document ==>  https://goo.gl/9lU47K
