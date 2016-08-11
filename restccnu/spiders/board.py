@@ -2,7 +2,7 @@
 import urllib
 import sys
 from bs4 import BeautifulSoup
-
+from .. import board
 from . import zizhu_url
 from . import huaqing_url
 from . import jiaowuchu_url

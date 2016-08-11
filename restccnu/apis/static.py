@@ -22,7 +22,7 @@ from flask import request
 @tojson
 def get_banner():
     json_data = []
-    banners = eval(rds.get('banners'))
+    banners = eval(rds.get('banners') or '[]')
     for banner_dict in banners:
         filename = banner_dict.keys()[0]
         update_timestamp = qiniu.info(filename).get('putTime')
@@ -41,7 +41,7 @@ def get_banner():
 @tojson
 def get_calendar():
     json_data = []
-    calendars = eval(rds.get('calendars'))
+    calendars = eval(rds.get('calendars') or '[]')
     for calendar_dict in calendars:
         filename = calendar_dict.keys()[0]
         update_timestamp = qiniu.info(filename).get('putTime')
