@@ -25,15 +25,16 @@ def get_banner():
     banners = eval(rds.get('banners') or '[]')
     for banner_dict in banners:
         filename = banner_dict.keys()[0]
-        update_timestamp = qiniu.info(filename).get('putTime')
-        #    date = datetime.datetime.fromtimestamp(update_timestamp)
-        # updte_time = date.strftime("%Y-%m-%d")
-        json_data.append({
+        if filename:
+            update_timestamp = qiniu.info(filename).get('putTime')
+            json_data.append({
                 'filename': filename,
                 'img': qiniu.url(filename),
                 'url': banner_dict.get(filename),
-                # 'update': '2016-07-22' })  # 如何获取七牛文件创建的时间呢?
-                'update': update_timestamp})
+                'update': update_timestamp
+            })
+        else:
+            json_data.append({})
     return json_data
 
 
@@ -49,7 +50,8 @@ def get_calendar():
             json_data.append({
                 'filename': filename,
                 'img': qiniu.url(filename),
-                'update': update_timestamp })
+                'update': update_timestamp
+            })
         else:
             json_data.append({})
     return json_data
