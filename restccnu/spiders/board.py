@@ -58,7 +58,7 @@ def get_huaqing_html():
     result_list = []
     for i in huaqing_list:
         title = i.a.contents[0]
-        date = i.contents[-1]
+        date = '20' + i.contents[-1]  # 20 应该可以搞好几年了吧...{0_0}
         content_url = "http://www.ccnuyouth.com" + i.a['href']
         content_page = urllib.urlopen(content_url)
         content_html = content_page.read()
@@ -139,4 +139,9 @@ def get_all_board():
     huaqing_list = get_huaqing_html()
     jiaowuchu_list = get_jiaowuchu_html()
     board_list = zizhu_list + huaqing_list +jiaowuchu_list
-    return board_list
+    date_board_list = sorted(board_list, key=lambda d: d.get('date'), reverse=True)
+    return date_board_list
+
+
+if __name__ == '__main__':
+    print get_all_board()
