@@ -1,6 +1,7 @@
 **/*.pyc
 dump.rdb
 celerybeat-schedule.db
+celerybeat.pid
 rest_env/
 learn/
 tests/__pycache__
