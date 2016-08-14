@@ -49,7 +49,7 @@ def book_me(s):
     me_url = lib_me_url
     r = s.get(me_url)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
-    _my_book_list = soup.find_all('tr')[2:]
+    _my_book_list = soup.find_all('tr')[1:]
     my_book_list = []
     for _book in _my_book_list:
         text = _book.text.split('\n')
