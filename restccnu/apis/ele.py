@@ -19,7 +19,7 @@ def api_get_ele():
         typeit = request.get_json().get('type')
         _dor = dor_dict.get(dor)
         if _dor is None:
-            return {}, 202
+            return {}, 404
         if typeit == 'light':
             meter = _dor[0]
         elif typeit == 'air':
