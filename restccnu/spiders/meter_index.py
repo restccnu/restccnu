@@ -25,7 +25,7 @@ def colour_meter_index():
             options = soup.find('tr', id='MeterDiv').find_all('option')
             _key_value = []
             for option in options:
-                if file[0] not in ['d', 's', 'x', 'y']:
+                if file[0] not in ['d', 's', 'x', 'y', 'n']:
                     # 国交bug般的存在...
                     building = file[0]
                     key = option.get('value').split('*')[-2][:-2]
