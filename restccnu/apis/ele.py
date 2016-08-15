@@ -5,7 +5,7 @@ from flask import jsonify, request
 from restccnu.models import connection
 from ..spiders.meter_index import colour_meter_index
 from ..spiders.ele import get_ele
-from .decorators import tojson
+from .decorators import tojson, admin_required
 
 
 @api.route('/ele/', methods=['POST'])
@@ -30,6 +30,7 @@ def api_get_ele():
 
 @api.route('/store_ele/', methods=['POST'])
 @tojson
+@admin_required
 def api_store_ele():
     if request.method == 'POST':
         if connection.Dormitory.find_one().get('meter') is None or \
@@ -46,6 +47,7 @@ def api_store_ele():
 
 @api.route('/flush_ele/', methods=['DELETE'])
 @tojson
+@admin_required
 def api_flush_ele():
     if request.method == 'DELETE':
         if len(connection.Dormitory.find_one().get('meter').keys()) > 1:
@@ -60,6 +62,10 @@ def api_flush_ele():
 
 @api.route('/ele_dict/', methods=['GET'])
 @tojson
+@admin_required
 def api_get_eledict():
     dor_dict = connection.Dormitory.find_one().get('meter')
-    return {'dor_dict': dor_dict}
+    return {
+            'sum': len(dor_dict.keys()),
+            'dor_dict': dor_dict
+    }

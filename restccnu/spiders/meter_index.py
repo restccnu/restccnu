@@ -15,6 +15,9 @@ meter_index = {
 """
 _meter_index = {}
 def colour_meter_index():
+    """
+    生成寝室```电表表:)```
+    """
     for dirs, subdirs, files in os.walk(html_path):
         for file in files:
             file_path = os.path.join(html_path, file)
@@ -22,8 +25,14 @@ def colour_meter_index():
             options = soup.find('tr', id='MeterDiv').find_all('option')
             _key_value = []
             for option in options:
-                key = option.get('value').split('*')[-2][:-2]
-                value = option.get('value').split('*')[0]
+                if file[0] not in ['d', 's', 'x', 'y']:
+                    # 国交bug般的存在...
+                    building = file[0]
+                    key = option.get('value').split('*')[-2][:-2]
+                    key = '国' + building + '-' + key
+                else:
+                    key = option.get('value').split('*')[-2][:-2]  # dor
+                value = option.get('value').split('*')[0]          # meter
                 if key in _meter_index.keys():
                     _meter_index[key].append(value)
                 else:
