@@ -10,7 +10,7 @@ if __name__ == '__main__':
         path = sys.argv[2]
         host, port = path.split(':')
     else:
-        host = "127.0.0.1"; port = "5000";
+        host = "127.0.0.1"; port = "6000";
     if len(sys.argv) > 1 and sys.argv[1] == 'mock':
         mock_app.run(debug=True, host=host, port=int(port))
     elif len(sys.argv) > 1 and sys.argv[1] == 'runserver':
