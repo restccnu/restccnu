@@ -27,10 +27,9 @@ def api_search_books():
 @tojson
 def api_book_detail():
     id = request.args.get('id')
-    bid = request.args.get('bid')
     book = request.args.get('book')
     author = request.args.get('author')
-    return get_book(id, bid, book, author)
+    return get_book(id, book, author)
 
 
 @api.route('/lib/me/')

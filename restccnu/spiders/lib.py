@@ -27,18 +27,21 @@ def search_books(keyword):
     book_info_list = []
     for book_info in book_list_info:
         if book_info:
-            bid_lit = book_info.h3.text.split()
-            if len(bid_lit[-1]) == 1:
-                bid = ' '.join(bid_lit[-2:])
-            else:
-                bid  = bid_lit[-1]
+            # bid_lit = book_info.h3.text.split()
+            # if len(bid_lit[-1]) == 1:
+            #     bid = ' '.join(bid_lit[-2:])
+            # elif '-' in bid_lit[-1]:
+            #     bid = ' '.join(bid_lit[-2:])
+            # else:
+            #     bid  = bid_lit[-1]
+            # bid = book_info.h3.text.split()
             book = book_info.find('a', href=re.compile('item.php*')).string
             marc_no_link = book_info.find('a').get('href')
             marc_no = marc_no_link.split('=')[-1]
             book_info_list.append({
                 'book': book,
                 'author': ' '.join(book_info.p.text.split()[2:-4]),
-                'bid': bid,
+                'bid': 'fff',
                 'intro': book_info.p.text.split()[-4],
                 'id': marc_no
             })
@@ -71,7 +74,7 @@ def book_me(s):
 
 
 # http://202.114.34.15/opac/item.php?marc_no=0001364670G
-def get_book(id, bid, book, author):
+def get_book(id, book, author):
     """
     meet problem :(
     """
@@ -79,7 +82,7 @@ def get_book(id, bid, book, author):
     r = requests.get(detail_url)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
-    bid = bid; book = book; author = author
+    book = book; author = author
     isbn = ''.join(soup.find(
         'ul', class_="sharing_zy").li.a.get('href').split('/')[-2].split('-'))
     douban = douban_url % isbn
@@ -89,15 +92,17 @@ def get_book(id, bid, book, author):
     booklist = []
     _booklist = soup.find(id='tab_item').find_all('tr', class_="whitetext")
     for _book in _booklist:
+        bid = _book.td.text
+        tid = _book.td.next_sibling.next_sibling.string
         lit = _book.text.split()
         if '-' in lit[-1]:
             date = lit[-1][-10:]
             status = lit[-1][:2]
             booklist.append({
-                "status": status, "room": lit[-2], "bid": lit[0],
-                "tid": lit[1], "date": date })
+                "status": status, "room": lit[-2], "bid": bid,
+                "tid": tid, "date": date })
         else:
-            booklist.append({"status": lit[-1], "room": lit[-2], "tid": lit[1]})
+            booklist.append({"status": lit[-1], "room": lit[-2], "tid": tid})
     return {
         'bid': bid, 'book': book,
         'author': author, 'intro': intro,
