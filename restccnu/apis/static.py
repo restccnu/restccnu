@@ -31,7 +31,9 @@ def get_banner():
                 'filename': filename,
                 'img': qiniu.url(filename),
                 'url': banner_dict.get(filename),
-                'update': update_timestamp
+                'update': update_timestamp,
+                'size': qiniu.info(filename).get('fsize'),
+                'info': qiniu.info(filename)
             })
         else:
             json_data.append({})
@@ -45,14 +47,16 @@ def get_calendar():
     calendars = eval(rds.get('calendars') or '[]')
     for calendar_dict in calendars:
         filename = calendar_dict.keys()[0]
-        size = calendar_dict.get(filename)
+        # size = calendar_dict.get(filename)
         if filename:
             update_timestamp = qiniu.info(filename).get('putTime')
             json_data.append({
                 'filename': filename,
                 'img': qiniu.url(filename),
                 'update': update_timestamp,
-                'size': size
+                # 'size': size
+                'size': qiniu.info(filename).get('fsize'),
+                'info': qiniu.info(filename)
             })
         else:
             json_data.append({})
