@@ -61,3 +61,22 @@ def get_calendar():
         else:
             json_data.append({})
     return json_data
+
+
+@api.route('/start/', methods=['post', 'get'])
+@tojson
+def get_start():
+    """
+    获取闪屏图片
+    """
+    start = eval(rds.get('start') or '{}')
+    if start:
+        filename = start.keys()[0]
+        url = start.get(filename)
+        return {
+            'img': qiniu.url(filename),
+            'url': url or '',
+            'update': qiniu.info(filename).get('putTime')
+        }
+    else:
+        return {}
