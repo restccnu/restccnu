@@ -37,7 +37,8 @@ def api_index():
             'Apartment info API': '/api/apartment/',
             'Static Management': [
                 {'banner api': '/api/banner/'},
-                {'calendar api': '/api/calendar'}
+                {'calendar api': '/api/calendar'},
+                {'start api': '/api/start/'}
             ],
             'Version Management': {
                 'app version management': [
@@ -57,4 +58,5 @@ def api_index():
     }), 200
 
 
-from . import login, lib, table, grades, ele, board, static, apartment, app, patch
+from . import login, lib, table, grades, ele, board, static, apartment, app, \
+              patch
