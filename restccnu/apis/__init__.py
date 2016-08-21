@@ -57,8 +57,8 @@ def api_index():
             'muxistudio products': [
                 {'muxistudio products': '/api/product/'},
                 {'add a product': '/api/product/'},
-                {'delete a product': '/api/product'},
-                {'update a product': '/api/product'},
+                {'delete a product': '/api/product/'},
+                {'update a product': '/api/product/'},
             ],
         },
     }), 200

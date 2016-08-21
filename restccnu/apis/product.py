@@ -22,7 +22,6 @@ def get_product():
 def add_product():
 	"""添加一个木犀的产品"""
 	if request.method == 'PUT':
-		nickname = request.get_json().get('nickname')
 		name = request.get_json().get('name')
 		icon = request.get_json().get('icon')
 		url  = request.get_json().get('url')
@@ -32,8 +31,7 @@ def add_product():
 		products_list = products_dict.get('_products')
 
 		products_list.append({
-			'name': name, 'icon': icon, 'url': url, 'intro': intro,
-			'nickname': nickname
+			'name': name, 'icon': icon, 'url': url, 'intro': intro
 		})
 
 		products_dict['_products'] = products_list
