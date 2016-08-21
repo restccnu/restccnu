@@ -9,7 +9,18 @@ from config import config
 
 qiniu = Qiniu()
 rds = redis.StrictRedis(host='localhost', port=6384, db=0)
+"""
+6384rds~>
+    1. banners: banner [{'filename':'url'}]
+    2. calendars: calendar [{'filename': 'size'}]
+    3. apps: ccnubox version
+    4. patchs: ccnubox patchs version
+    5. products: muxi products
+"""
 board = redis.StrictRedis(host='localhost', port=6381, db=0)
+"""
+    1. board_list: 通知公告缓存 []
+"""
 
 
 def create_app(config_name='default'):
