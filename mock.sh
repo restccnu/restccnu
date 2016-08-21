@@ -1,1 +1,2 @@
-supervisorctl restart restccnu
+supervisorctl stop restccnu
+supervisorctl start restccnu
