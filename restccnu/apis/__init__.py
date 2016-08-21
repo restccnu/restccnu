@@ -54,9 +54,15 @@ def api_index():
                     {'latest ccnubox patch version': '/api/patch/latest/'}
                 ],
             },
+            'muxistudio products': [
+                {'muxistudio products': '/api/product/'},
+                {'add a product': '/api/product/'},
+                {'delete a product': '/api/product'},
+                {'update a product': '/api/product'},
+            ],
         },
     }), 200
 
 
 from . import login, lib, table, grades, ele, board, static, apartment, app, \
-              patch
+              patch, product

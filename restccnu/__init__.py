@@ -15,7 +15,18 @@ rds = redis.StrictRedis(host='localhost', port=6384, db=0)
     2. calendars: calendar [{'filename': 'size'}]
     3. apps: ccnubox version
     4. patchs: ccnubox patchs version
-    5. products: muxi products
+    5. products: muxi products { "products":
+        [
+            {
+                "name": "学而",
+                "icon": "",
+                "url": "https://xueer.muxixyz.com",
+                "intro": "华师课程经验挖掘机",
+            },
+            {....}
+        ],
+        "update": "2016-08-22"
+    }
 """
 board = redis.StrictRedis(host='localhost', port=6381, db=0)
 """
