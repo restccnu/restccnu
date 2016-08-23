@@ -3,6 +3,8 @@
 import sys
 from mock.app import mock_app
 from restccnu import app
+from gevent import monkey
+monkey.patch_all()
 
 
 if __name__ == '__main__':

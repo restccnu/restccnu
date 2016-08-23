@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import gevent
 import requests
 import base64
 from flask import request
@@ -11,6 +12,17 @@ from . import lib_login_test_url
 from . import headers
 
 
+# def moni_login(LoginUrl, userName, userPass):
+#     """
+#     gevent coroutine:)
+#     """
+#     s = requests.Session()
+#     s.post(LoginUrl, {
+#         'userName': userName, 'userPass': userPass
+#     }), headers
+#     return s  # session/cookie
+ 
+
 # Authorization: Basic base64(sid:password)
 def info_login():
     LoginUrl = info_login_url
@@ -21,10 +33,11 @@ def info_login():
     id_password = base64.b64decode(base64_hashstr)
     sid, password = id_password.split(':')
 
-    # for test
+    # s = moni_login(LoginUrl, userName, userPass)
+
     s = requests.Session()
     s.post(LoginUrl, {
-        'userName': sid, 'userPass': password
+        'userName': userName, 'userPass': userPass
     }), headers
 
     r = s.get(TestUrl)
