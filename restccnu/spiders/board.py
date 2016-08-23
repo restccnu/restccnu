@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 from .. import board
 from . import zizhu_url
 from . import huaqing_url
-from . import jiaowuchu_url
+from . import jiaowuchu1
+from . import jiaowuchu2
 
 
 reload(sys)
@@ -96,8 +97,8 @@ def get_huaqing_html():
     return result_list
 
 
-def get_jiaowuchu_html():
-    jiaowuchu_page = urllib.urlopen(jiaowuchu_url)
+def get_jiaowuchu_html(get_url):
+    jiaowuchu_page = urllib.urlopen(get_url)
     jiaowuchu_html = jiaowuchu_page.read()
     jiaowuchu_soup = BeautifulSoup(jiaowuchu_html, "lxml")
     jiaowuchu_list = jiaowuchu_soup.find_all('ul')[11].find_all('li')[:5]
@@ -137,8 +138,9 @@ def get_jiaowuchu_html():
 def get_all_board():
     zizhu_list = get_zizhu_html()
     huaqing_list = get_huaqing_html()
-    jiaowuchu_list = get_jiaowuchu_html()
-    board_list = zizhu_list + huaqing_list +jiaowuchu_list
+    jiaowuchu_list = get_jiaowuchu_html(jiaowuchu1)
+    jiaowuchu_list2 = get_jiaowuchu_html(jiaowuchu2)
+    board_list = zizhu_list + huaqing_list +jiaowuchu_list + jiaowuchu_list2
     date_board_list = sorted(board_list, key=lambda d: d.get('date'), reverse=True)
     return date_board_list
 

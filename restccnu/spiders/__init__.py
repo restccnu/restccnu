@@ -39,4 +39,5 @@ ele_index_url = "http://202.114.38.46/"
 """通知公告"""
 zizhu_url = 'http://zizhu.ccnu.edu.cn/index.php?m=content&c=index&a=lists&catid=268'
 huaqing_url = 'http://www.ccnuyouth.com/a/notice/'
-jiaowuchu_url = 'http://jwc.ccnu.edu.cn/index/tzggxs.htm'
+jiaowuchu1 = 'http://jwc.ccnu.edu.cn/index/tzggxs.htm'
+jiaowuchu2 = 'http://jwc.ccnu.edu.cn/index/tzggxy.htm'
