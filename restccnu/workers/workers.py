@@ -16,5 +16,5 @@ def cute_board_spider():
     except:
         raise InternalServerError()
     board.flushdb()
-    board.save('board_list', board_list)
+    board.set('board_list', board_list)
     board.save()
