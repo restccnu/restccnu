@@ -37,7 +37,7 @@ def info_login():
 
     s = requests.Session()
     s.post(LoginUrl, {
-        'userName': userName, 'userPass': userPass
+        'userName': sid, 'userPass': password
     }), headers
 
     r = s.get(TestUrl)
