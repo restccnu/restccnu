@@ -6,6 +6,7 @@ info_login_url = "http://portal.ccnu.edu.cn/loginAction.do"
 info_login_test_url = "http://portal.ccnu.edu.cn/chpass.jsp"
 lib_login_url = "http://202.114.34.15/reader/redr_verify.php"
 lib_login_test_url = "http://202.114.34.15/reader/redr_info.php"
+link_index_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
 headers = {
     'User-Agent':"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0) Gecko/20100101 Firefox/45.0",
     'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -24,7 +25,6 @@ douban_url = "https://api.douban.com/v2/book/isbn/%s"
 """课程表"""
 table_test_url = "http://portal.ccnu.edu.cn/index_jg.jsp"
 table_index_url = "http://122.204.187.6/kbcx/xskbcx_cxXsKb.html?gnmkdmKey=N253508&sessionUserKey=%s"
-link_index_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
 
 
 """成绩查询"""
