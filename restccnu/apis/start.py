@@ -1,10 +1,10 @@
 # coding: utf-8
 
 """
-    calendars.py
-    ````````````
+    start.py
+    ````````
 
-    ccnubox calendar crud
+    ccnubox start crud
 """
 
 import json
@@ -15,20 +15,16 @@ from flask import jsonify, request
 
 
 # placeholder
-rds.hset('calendars', '_placeholder', '_placeholder')
+rds.hset('starts', '_placeholder', '_placeholder')
 
 
-@api.route('/calendar/', methods=['GET'])
-def get_calendar():
-    """
-    get calendar, key value
-    {'calendars': 'imgfilename'}
-    """
-    if rds.hlen('calendars') == 1:
+@api.route('/start/', methods=['GET'])
+def get_start():
+    if rds.hlen('starts') == 1:
         return jsonify({}), 404
     else:
-        calendar = rds.hgetall('calendars')
-        for filename in calendar:
+        starts = rds.hgetall('starts')
+        for filename in starts:
             if filename != '_placeholder':
                 try:
                     update = qiniu.info(filename)['putTime']
@@ -38,27 +34,24 @@ def get_calendar():
                     "img": qiniu.url(filename),
                     "filename": filename,
                     "update": update,
-                    'size': calendar.get(filename),
+                    'size': starts.get(filename),
                 }), 200
 
 
-@api.route('/calendar/', methods=['POST'])
+@api.route('/start/', methods=['POST'])
 @admin_required
-def new_calendar():
-    """
-    add a new calendar
-    """
+def new_start():
     if request.method == 'POST':
         img = request.get_json().get('img')
-        size = request.get_json().get('size')
+        url = request.get_json().get('url')
 
         # store in banners hash list
         # del older before add new
-        calendar = rds.hgetall('calendars')
-        for filename in calendar:
+        starts = rds.hgetall('starts')
+        for filename in starts:
             if filename != '_placeholder':
-                rds.hdel('calendars', filename)
-        rds.hset('calendars', img, size)
+                rds.hdel('starts', filename)
+        rds.hset('starts', img, url)
         rds.save()
 
         return jsonify({}), 201
