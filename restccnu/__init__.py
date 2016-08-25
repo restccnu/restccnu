@@ -8,6 +8,7 @@ from config import config
 
 
 qiniu = Qiniu()
+# 静态资源存储
 rds = redis.StrictRedis(host='localhost', port=6384, db=0)
 """
 6384rds~>
