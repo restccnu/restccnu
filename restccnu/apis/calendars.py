@@ -14,24 +14,31 @@ from .decorators import admin_required
 from flask import jsonify, request
 
 
+# placeholder
+rds.hset('calendars', '_placeholder', '_placeholder')
+
+
 @api.route('/calendar/', methods=['GET'])
 def get_calendar():
     """
     get calendar, key value
     {'calendars': 'imgfilename'}
     """
-    if not rds.get('calendars'):
+    if rds.hlen('calendars') == 1:
         return jsonify({}), 404
     else:
-        calendar = rds.get('calendars')
-        try:
-            update = qiniu.info(calendar)['putTime']
-        except KeyError:
-            update = qiniu.info(calendar)
-        return jsonify({
-            "img": qiniu.url(calendar),
-            "update": update,
-        }), 200
+        calendar = rds.hgetall('calendars')
+        for filename in calendar:
+            if filename != '_placeholder':
+                try:
+                    update = qiniu.info(filename)['putTime']
+                except KeyError:
+                    update = qiniu.info(filename)
+                return jsonify({
+                    "img": qiniu.url(filename),
+                    "update": update,
+                    'size': calendar.get(filename),
+                }), 200
 
 
 @api.route('/calendar/', methods=['POST'])
@@ -42,9 +49,10 @@ def new_calendar():
     """
     if request.method == 'POST':
         img = request.get_json().get('img')
+        size = request.get_json().get('size')
 
         # store in banners hash list
-        rds.set('calendars', img)
+        rds.hset('calendars', img, size)
         rds.bgsave()
 
         return jsonify({}), 201
