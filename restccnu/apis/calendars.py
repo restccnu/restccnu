@@ -36,6 +36,7 @@ def get_calendar():
                     update = qiniu.info(filename)
                 return jsonify({
                     "img": qiniu.url(filename),
+                    "filename": filename,
                     "update": update,
                     'size': calendar.get(filename),
                 }), 200
