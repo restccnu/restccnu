@@ -29,16 +29,17 @@ def get_banners():
     else:
         banners_list = []
         banners = rds.hgetall('banners')
-        for banner in banners.keys()[1:]:
-            try:
-                update = qiniu.info(banner)['putTime']
-            except KeyError:
-                update = qiniu.info(banner)
-            banners_list.append({
-                "img": qiniu.url(banner),
-                "url": banners.get(banner),
-                "update": update,
-            })
+        for banner in banners:
+            if banner != '_placeholder':
+                try:
+                    update = qiniu.info(banner)['putTime']
+                except KeyError:
+                    update = qiniu.info(banner)
+                banners_list.append({
+                    "img": qiniu.url(banner),
+                    "url": banners.get(banner),
+                    "update": update,
+                })
         return json.dumps(banners_list, indent=4, ensure_ascii=False), 200
 
 
