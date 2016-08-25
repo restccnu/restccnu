@@ -18,7 +18,7 @@ from flask import jsonify, request
 rds.hset('banners', '_placeholder', '_placeholder')
 
 
-@api.route('/banners/', methods=['GET'])
+@api.route('/banner/', methods=['GET'])
 def get_banners():
     """
     get all banners(a hash list)
@@ -42,7 +42,7 @@ def get_banners():
         return json.dumps(banners_list, indent=4, ensure_ascii=False), 200
 
 
-@api.route('/banners/', methods=['POST'])
+@api.route('/banner/', methods=['POST'])
 @admin_required
 def new_banner():
     """
@@ -59,7 +59,7 @@ def new_banner():
         return jsonify({}), 201
 
 
-@api.route('/banners/', methods=['DELETE'])
+@api.route('/banner/', methods=['DELETE'])
 @admin_required
 def delete_banner():
     """
