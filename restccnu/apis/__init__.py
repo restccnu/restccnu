@@ -65,4 +65,4 @@ def api_index():
 
 
 from . import login, lib, table, grades, ele, board, banners, apartment, app, \
-              patch, product
+              patch, product, calendars
