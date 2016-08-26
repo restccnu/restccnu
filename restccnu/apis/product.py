@@ -53,7 +53,7 @@ def delete_product():
                 for product in products_list:
                     if product.get('name') == name:
                         products_list.remove(product)
-                        products_dict['_products'] = products_listk
+                        products_dict['_products'] = products_list
                         products_dict['update'] = time.time()
                         rds.set('products', products_dict)
                         rds.save()
