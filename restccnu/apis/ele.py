@@ -23,7 +23,9 @@ def api_get_ele():
         if typeit == 'light':
             meter = _dor[0]
         elif typeit == 'air':
-            meter = _dor[1]
+            if len(_dor) == 1:
+                meter = 0
+            else: meter = _dor[1]
         rv = get_ele(meter, dor, typeit)
         return rv  # return data
 
