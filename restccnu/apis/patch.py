@@ -57,9 +57,9 @@ def get_latest_patch():
 @admin_required
 def delete_patch_version(version):
     """删除华师匣子特定版本补丁的信息"""
-    patches = eval(rds.get('patches'))
+    patches = eval(rds.get('patches'))  # eval is evil
     for n, patch in enumerate(patches):
-        if patches.get('version') == version:
+        if patch.get('version') == version:
             del patches[n]
     rds.set('patches', str(patches))
     rds.save()
