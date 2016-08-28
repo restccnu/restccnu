@@ -20,8 +20,8 @@ class Config(object):
             },
     }
 
-    XNM = 2015
-    XQM = 12
+    XNM = 2016
+    XQM = 3
 
 
 config = {
