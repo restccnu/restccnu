@@ -55,7 +55,7 @@ def new_banner():
 
         # store in banners hash list
         rds.hset('banners', img, url)
-        rds.bgsave()
+        rds.save()
 
         return jsonify({}), 201
 
@@ -71,6 +71,6 @@ def delete_banner():
         banners = rds.hgetall('banners')
         if img in banners:
             rds.hdel('banners', img)
-            rds.bgsave()
+            rds.save()
             return jsonify({}), 200
         else: return jsonify({}), 404
