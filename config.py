@@ -21,7 +21,7 @@ class Config(object):
     }
 
     XNM = 2016
-    XQM = 3
+    XQM = 12
 
 
 config = {
