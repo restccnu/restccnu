@@ -67,7 +67,8 @@ def delete_banner():
     delete a banner by name...
     """
     if request.method == 'DELETE':
-        img = request.get_json().get('img')
+        # img = request.get_json().get('img')
+        img = request.args.get('name')
         banners = rds.hgetall('banners')
         if img in banners:
             rds.hdel('banners', img)

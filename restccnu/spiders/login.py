@@ -12,17 +12,6 @@ from . import lib_login_test_url
 from . import headers
 
 
-# def moni_login(LoginUrl, userName, userPass):
-#     """
-#     gevent coroutine:)
-#     """
-#     s = requests.Session()
-#     s.post(LoginUrl, {
-#         'userName': userName, 'userPass': userPass
-#     }), headers
-#     return s  # session/cookie
- 
-
 # Authorization: Basic base64(sid:password)
 def info_login():
     LoginUrl = info_login_url
@@ -32,8 +21,12 @@ def info_login():
     base64_hashstr = hashstr[6:]
     id_password = base64.b64decode(base64_hashstr)
     sid, password = id_password.split(':')
-
-    # s = moni_login(LoginUrl, userName, userPass)
+    # one-way encryption for POST secure
+    # key, secret = generate_rsa(num1, num2)
+      
+    
+    # set rds lru cache for speed up resolve nginx header
+    # rds:6384 (restccnulru)
 
     s = requests.Session()
     s.post(LoginUrl, {
