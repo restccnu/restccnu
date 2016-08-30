@@ -20,6 +20,11 @@ def gcd(n1, n2):
 def ext_gcd(n1, n2):
     # 扩展欧几里德算法
     # 求最大公约数的同时, 求满足贝组公式的可能解
+    # --> n1 = pi_n, n2 = e
+    # -- ed == 1 (mod pi_n)
+    # -- ed - 1  == k(pi_n)
+    # -- ex + (pi_n)y == 1 == gcd(pi_n, e)
+    # --> x, y: x is d
     if n2 == 0:
         return 1, 0, n1
     else:

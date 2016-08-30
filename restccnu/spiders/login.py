@@ -4,6 +4,7 @@ import gevent
 import requests
 import base64
 from flask import request
+from restccnu import rds
 from restccnu.errors import ForbiddenError
 from . import info_login_url
 from . import info_login_test_url
@@ -21,12 +22,10 @@ def info_login():
     base64_hashstr = hashstr[6:]
     id_password = base64.b64decode(base64_hashstr)
     sid, password = id_password.split(':')
-    # one-way encryption for POST secure
-    # key, secret = generate_rsa(num1, num2)
       
-    
     # set rds lru cache for speed up resolve nginx header
     # rds:6384 (restccnulru)
+    password_hash = base64.b64encode(password)
 
     s = requests.Session()
     s.post(LoginUrl, {
@@ -37,6 +36,8 @@ def info_login():
     if 'window.alert' in r.content:
         raise ForbiddenError
     else:
+        rds.hset('restccnulru', sid, password_hash)
+        rds.save()
         return s, sid
 
 
