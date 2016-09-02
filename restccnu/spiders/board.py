@@ -110,13 +110,18 @@ def get_jiaowuchu_html(get_url):
         content_page = urllib.urlopen(content_url)
         content_html = content_page.read()
         content_soup = BeautifulSoup(content_html, "lxml")
-        content_strings = content_soup.find_all('div', class_='xwcon')[0].strings
+        content_ps = content_soup.find_all('div', class_='xwcon')[0].find_all('p')
+        content_strings = ''
+        for q in content_ps:
+            m = q.strings
+            for j in m:
+                content_strings += j
         content_appendix_url_list = []
         if content_soup.find_all('ul', style='list-style-type:none'):
             content_appendix_list = content_soup.find_all('ul', style='list-style-type:none')[0].find_all('li')
             if content_appendix_list:
-                for i in content_appendix_list:
-                    content_appendix_url_list.append(i.a['href'])
+                for p in content_appendix_list:
+                    content_appendix_url_list.append(p.a['href'])
         content_string = " "
         for n in content_strings:
             content_string += n
