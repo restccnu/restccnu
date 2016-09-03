@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import redis
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_zero import Qiniu
 from celery import Celery
 from config import config
@@ -51,7 +51,10 @@ app = create_app()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'iphone' in str(request.user_agent).lower():
+        return render_template('ios.html')
+    else:
+        return render_template('index.html')
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
