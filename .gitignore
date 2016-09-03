@@ -8,3 +8,5 @@ tests/__pycache__
 tests/.cache
 test/
 restccnu/spiders/htmls
+restccnu/templates/
+restccnu/static/
