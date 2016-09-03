@@ -51,10 +51,9 @@ app = create_app()
 
 @app.route('/')
 def index():
-    if 'iphone' in str(request.user_agent).lower():
-        return render_template('ios.html')
-    else:
-        return render_template('index.html')
+    # if 'iphone' in str(request.user_agent).lower():
+    #    return render_template('ios.html')
+    return render_template('index.html')
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
