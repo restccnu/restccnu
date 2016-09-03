@@ -34,7 +34,7 @@ def get_start():
                     "img": qiniu.url(filename),
                     "filename": filename,
                     "update": update,
-                    'size': starts.get(filename),
+                    "size": starts.get(filename),
                 }), 200
 
 

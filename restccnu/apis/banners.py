@@ -39,6 +39,7 @@ def get_banners():
                     "img": qiniu.url(banner),
                     "url": banners.get(banner),
                     "update": update,
+                    "filename":  banner,
                 })
         return json.dumps(banners_list, indent=4, ensure_ascii=False), 200
 
