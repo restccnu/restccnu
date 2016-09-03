@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import redis
-from flask import Flask
+from flask import Flask, render_template
 from flask_zero import Qiniu
 from celery import Celery
 from config import config
@@ -49,6 +49,9 @@ def create_app(config_name='default'):
 
 app = create_app()
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])

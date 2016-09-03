@@ -1,0 +1,239 @@
+@import './variable.scss';
+
+html,body{
+	width: 100%;
+}
+body {
+  background: url('../images/cubes.png');
+  background-color: $background-color;
+  font: 14px "MicrosoftYaHei Bold", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  position:relative;
+}
+a{
+	text-decoration: none;
+}
+
+@media screen and (min-width:64em){
+	.container{
+		max-width:950px;
+		margin:0 auto;
+		padding-top: 173px;
+		.left{
+			width: 400px;
+			display: inline-block;
+			vertical-align: top;
+			.logo{
+				vertical-align: top;
+			}
+			.content-m,.light{
+				display: none;
+			}
+			.title{
+				margin-top: -16px;
+				margin-left: 25px;
+			}
+			p{
+				font-family: "MFBanHei";
+				letter-spacing: 4px;
+				font-size: 18px;
+				color: #fff;
+				margin-bottom:30px;
+			}
+			.btn{
+				width: 8.2em;
+			    line-height: 2.5em;
+			    text-align: center;
+			    height: 2.5em;
+			    font-size: 22px;
+			    text-decoration: none;
+			    letter-spacing: .07em;
+			    border-radius: 5px;
+			    display: inline-block;
+			    cursor: pointer;
+			}
+			.btn-android{
+			    background-color:$button-color;
+			    color: #fff;
+			    border-bottom: 4px solid #ff6d33;
+				margin-right: 1.6em;
+
+			    &:active,&:hover{
+			    	position: relative;
+			    	top: 1px;
+			    	border-bottom: 0;
+			    }
+			}
+			.btn-ios{
+				background-color:#c9c9c9;
+				color: #fff;
+				border-bottom: 4px solid #616161;
+				cursor:not-allowed
+			}
+		}
+		.right{
+			display: inline-block;
+			margin-top: -105px;
+			margin-left: 15px;
+		}
+
+		.main-center{
+			.bg{
+				width: 290px;
+				height: 300px;
+				display: inline-block;
+				margin-top: 1.4em;
+			}
+			.x1{
+				background: url(../images/intro1.png) no-repeat 100% 100%;
+			}
+			.x2{
+				background: url(../images/intro2.png) no-repeat 100% 100%;
+				margin: 0 35px;
+			}
+			.x3{
+				background: url(../images/intro3.png) no-repeat 100% 100%;
+			}
+		}
+		.main-bottom{
+			text-align: center;
+			margin-top: 6em;
+			color: #fff;
+			padding-bottom: 6em;
+			h3{
+				font-size:48px;
+			}
+			p{
+				font-size: 35px;
+
+			}
+		}
+	}
+	footer{
+			position: absolute;
+			bottom: 0;
+			background-color:$footer-color;
+			text-align: center;
+			width: 100%;
+			p,a{
+				display: inline-block;
+				height: 1.6em;
+				line-height: 1.6em;
+				color: #fff;
+			}
+			a{
+				cursor: pointer;
+				margin:0 1.3em;
+			}
+			a:hover{
+				color: $background-color;
+			}
+
+	}
+}
+
+@media screen and (max-width: 63em){
+	body,html{
+		height:100%;
+	}
+	.container{
+		max-width: 45rem;
+		margin: 0 auto;
+		text-align: center;
+		padding-top: 7em;
+		.main-top{
+			img{
+				display:block;
+				margin: 0 auto;
+			}
+			.left{
+				.logo{
+					width: 5em;
+					height:5em;
+				}
+				.light{
+					width: 12em;
+					margin-top: -120px;
+					position:relative;
+					z-index: -1;
+					animation: 9.5s linear 0s normal none infinite rotate;
+					-webkit-animation:9.5s linear 0s normal none infinite rotate;
+					-moz-animation:9.5s linear 0s normal none infinite rotate;
+				}
+				.title{
+					margin-top: -20px;
+				}
+				.content-c,.btn-ios{
+					display: none;
+				}
+				.content-m{
+					font-family: "MFBanHei";
+					color: #fff;
+					font-size: 15px;
+					letter-spacing: 2px;
+				}
+				.btn-android{
+					width: 8.2em;
+				    line-height: 2.5em;
+				    text-align: center;
+				    height: 2.5em;
+				    font-size: 22px;
+				    text-decoration: none;
+				    letter-spacing: .07em;
+				    border-radius: 5px;
+				    display: inline-block;
+				    cursor: pointer;
+				    background-color:$button-color;
+				    color: #fff;
+				    border-bottom: 4px solid #ff6d33;
+						margin-top: 1.5em;
+				    &:active,&:hover{
+				    	position: relative;
+				    	top: 1px;
+				    	border-bottom: 0;
+				    }
+				}
+			}
+			.right{
+				display: none;
+			}
+		}
+		.main-center,.main-bottom{
+			display: none;
+		}
+		@keyframes rotate{
+			from{transform:rotate(0deg)}
+			to{transform:rotate(360deg)}
+		}
+		@-webkit-keyframes rotate{
+			from{-webkit-transform:rotate(0deg)}
+			to{-webkit-transform:rotate(360deg)}
+		}
+		@-moz-keyframes rotate{
+			from{-moz-transform:rotate(0deg)}
+			to{-moz-transform:rotate(360deg)}
+		}
+
+	}
+	footer{
+		position: absolute;
+		bottom: 0;
+		background-color:$footer-color;
+		text-align: center;
+		width: 100%;
+		p,a{
+			display: inline-block;
+			height: 1.6em;
+			line-height: 1.6em;
+			color: #fff;
+		}
+		a{
+			cursor: pointer;
+			margin:0 .5em;
+		}
+		a:hover{
+			color: $background-color;
+		}
+	}
+}

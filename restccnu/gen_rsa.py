@@ -28,6 +28,7 @@ def ext_gcd(n1, n2):
     if n2 == 0:
         return 1, 0, n1
     else:
+        # x mod y == (x - (x // y)*y)
         x, y, q = ext_gcd(n2, n1 % n2)
         x, y = y, ( x - (n1 // n2) * y)
         return x, y, q
