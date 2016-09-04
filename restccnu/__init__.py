@@ -55,6 +55,15 @@ def index():
     #    return render_template('ios.html')
     return render_template('index.html')
 
+@app.route('/h5/')
+def h5():
+    platform = request.user_agent.platform
+    if platform in ["android", "iphone", "ipad"]:
+        return render_template('index_m.html')
+    else:
+        return render_template('index_d.html')
+
+
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
     celery.conf.update(app.config)
