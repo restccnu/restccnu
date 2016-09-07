@@ -55,6 +55,10 @@ def index():
     #    return render_template('ios.html')
     return render_template('index.html')
 
+@app.route('/info/')
+def info():
+    return render_template('letter.html')
+
 @app.route('/h5/')
 def h5():
     platform = request.user_agent.platform
