@@ -5,3 +5,5 @@
 ## API Document ==>  https://goo.gl/9lU47K
 ## Download See ==>  https://ccnubox.muxixyz.com/
 ## Built with ❤️  and MuxiStudio
+
+## 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.
