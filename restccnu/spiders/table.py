@@ -8,6 +8,7 @@ from flask import request
 from . import table_test_url
 from . import table_index_url
 from . import link_index_url
+from . import headers
 
 
 def get_table(s, sid, xnm, xqm):
@@ -18,8 +19,8 @@ def get_table(s, sid, xnm, xqm):
     table_url = table_index_url % sid
     link_url = link_index_url
     post_data = {'xnm': xnm, 'xqm': xqm}
-    s.get(link_url)
-    r = s.post(table_url, post_data)
+    s.get(link_url, headers=headers)
+    r = s.post(table_url, post_data, headers=headers)
     json_data = r.json()
     kbList = json_data.get('kbList'); kcList = []; weeks_list = []
     for item in kbList:
@@ -58,6 +59,6 @@ def get_table(s, sid, xnm, xqm):
             'during': d_class,
             'place': item.get('xqmc') + item.get('cdmc'),
             'remind': False,
-            'color': random.randint(0, 3)})  # 如果这样的话, 每次爬取, 课表返回的颜色都不相同})
+            'color': random.randint(0, 3)})
         kcList.append(_item_dict)
     return kcList

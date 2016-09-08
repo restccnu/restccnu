@@ -41,7 +41,7 @@ def get_grade(s, sid, xnm, xqm):
         'queryModel.showCount': 15, 'queryModel.currentPage': 1,
         'queryModel.sortName': "", 'queryModel.sortOrder': 'asc',
         'time': 1 }
-    r = s.post(grade_url, post_data)
+    r = s.post(grade_url, post_data, headers=headers)
     json_data = r.json()
     gradeList = []
     # return gradeList
