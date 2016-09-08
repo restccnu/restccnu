@@ -12,6 +12,14 @@ headers = {
 }
 
 
+"""proxy"""
+proxy = {
+    # "http": "http://admin:@192.168.0.1:80",
+    "http": "http://admin:@192.168.0.22:8080",
+}
+
+
+
 """模拟登录"""
 info_login_url = "http://portal.ccnu.edu.cn/loginAction.do"
 info_login_test_url = "http://portal.ccnu.edu.cn/chpass.jsp"
