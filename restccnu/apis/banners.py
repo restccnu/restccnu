@@ -41,7 +41,8 @@ def get_banners():
                     "update": update,
                     "filename":  banner,
                 })
-        return json.dumps(banners_list, indent=4, ensure_ascii=False), 200
+                sorted_banners_list = sorted(banners_list, key=lambda x: x['filename'])
+        return json.dumps(sorted_banners_list, indent=4, ensure_ascii=False), 200
 
 
 @api.route('/banner/', methods=['POST'])
