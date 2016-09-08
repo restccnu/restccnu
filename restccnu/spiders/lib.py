@@ -10,6 +10,7 @@ from . import lib_search_url
 from . import lib_me_url
 from . import lib_detail_url
 from . import douban_url
+from . import headers
 
 
 def search_books(keyword):
@@ -19,7 +20,7 @@ def search_books(keyword):
             'historyCount': '1', 'strText': keyword, 'doctype': 'ALL',
             'displaypg': '100', 'showmode': 'list', 'sort': 'CATA_DATE',
             'orderby': 'desc', 'dept': 'ALL' }
-    r = requests.get(search_url, post_data)
+    r = requests.get(search_url, post_data, headers=headers)
     # r.encoding = 'utf-8'
     # soup = BeautifulSoup(r.content, 'lxml', from_encoding='iso-8859-1')
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
@@ -27,14 +28,6 @@ def search_books(keyword):
     book_info_list = []
     for book_info in book_list_info:
         if book_info:
-            # bid_lit = book_info.h3.text.split()
-            # if len(bid_lit[-1]) == 1:
-            #     bid = ' '.join(bid_lit[-2:])
-            # elif '-' in bid_lit[-1]:
-            #     bid = ' '.join(bid_lit[-2:])
-            # else:
-            #     bid  = bid_lit[-1]
-            # bid = book_info.h3.text.split()
             book = book_info.find('a', href=re.compile('item.php*')).string
             marc_no_link = book_info.find('a').get('href')
             marc_no = marc_no_link.split('=')[-1]
@@ -50,7 +43,7 @@ def search_books(keyword):
 
 def book_me(s):
     me_url = lib_me_url
-    r = s.get(me_url)
+    r = s.get(me_url, headers=headers)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
     _my_book_list = soup.find_all('tr')[1:]
     my_book_list = []
@@ -76,17 +69,17 @@ def book_me(s):
 # http://202.114.34.15/opac/item.php?marc_no=0001364670G
 def get_book(id, book, author):
     """
-    meet problem :(
+    meet problem :( but fixed :)
     """
     detail_url = lib_detail_url % id
-    r = requests.get(detail_url)
+    r = requests.get(detail_url, headers=headers)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
     book = book; author = author
     isbn = ''.join(soup.find(
         'ul', class_="sharing_zy").li.a.get('href').split('/')[-2].split('-'))
     douban = douban_url % isbn
-    rd = requests.get(douban)
+    rd = requests.get(douban, headers=headers)
     intro = rd.json().get('summary') or ""
     # booklist: ['status', 'room', 'date', 'tid']
     booklist = []
