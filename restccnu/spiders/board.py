@@ -96,7 +96,7 @@ def get_huaqing_html():
                 'date': date,
                 'appendix_list': content_appendix_url_list
                 })
-        result_count += 1
+            result_count += 1
     return result_list
 
 
