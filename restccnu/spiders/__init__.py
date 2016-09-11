@@ -15,7 +15,9 @@ headers = {
 """proxy"""
 proxy = {
     # "http": "http://admin:@192.168.0.1:80",
-    "http": "http://admin:@192.168.0.22:8080",
+    # "http": "http://admin:@192.168.0.100:80",
+    # "http": "http://192.168.0.100:80",
+    "http": "http://192.168.0.118:7002",
 }
 
 
