@@ -55,45 +55,48 @@ def get_huaqing_html():
     huaqing_page = urllib.urlopen(huaqing_url)
     huaqing_html = huaqing_page.read()
     huaqing_soup = BeautifulSoup(huaqing_html, "lxml")
-    huaqing_list = huaqing_soup.find_all('ul', class_='e2')[0].find_all('li')[:5]
+    huaqing_list = huaqing_soup.find_all('ul', class_='e2')[0].find_all('li')
     result_list = []
+    result_count = 0
     for i in huaqing_list:
-        title = i.a.contents[0]
-        date = '20' + i.contents[-1]  # 20 应该可以搞好几年了吧...{0_0}
-        content_url = "http://www.ccnuyouth.com" + i.a['href']
-        content_page = urllib.urlopen(content_url)
-        content_html = content_page.read()
-        content_soup = BeautifulSoup(content_html, "lxml")
-        content_strings = content_soup.find_all('div', class_='newsBody')[0].strings
-        content_appendix_url_list = []
-        content_appendix_list = content_soup.find_all('div', class_='newsBody')[0].find_all('a')
-        if content_appendix_list:
-            for m in content_appendix_list:
-                if m.has_attr('href'):
-                    ahref = m['href']
-                    if ahref[:4] == 'http':
-                        content_appendix_url_list.append(ahref)
-        content_string = " "
-        for n in content_strings:
-            content_string += n
-        if ('function' in content_string) and ('Commets(1);' in content_string):
-            sindex = content_string.index('function')
-            eindex = content_string.index('Commets(1);')
-            content_string_result1 = content_string[:sindex] + content_string[eindex+11:]
-        else:
-            content_string_result1 = content_string
-        if ('请自觉遵守互联网相关的政策法规' in content_string_result1) and ('发表评论' in content_string_result1):
-            sindex = content_string.index('请自觉遵守互联网相关的政策法规')
-            eindex = content_string.index('发表评论')
-            content_string_result2 = content_string_result1[:sindex] + content_string_result1[eindex+4:]
-        else:
-            content_string_result2 = content_string_result1
-        result_list.append({
-            'title': title,
-            'content': content_string_result2.strip(),
-            'date': date,
-            'appendix_list': content_appendix_url_list
-            })
+        if i.a and result_count < 5:
+            title = i.a.contents[0]
+            date = '20' + i.contents[-1]  # 20 应该可以搞好几年了吧...{0_0}
+            content_url = "http://www.ccnuyouth.com/" + i.a['href']
+            content_page = urllib.urlopen(content_url)
+            content_html = content_page.read()
+            content_soup = BeautifulSoup(content_html, "lxml")
+            content_strings = content_soup.find_all('div', class_='newsBody')[0].strings
+            content_appendix_url_list = []
+            content_appendix_list = content_soup.find_all('div', class_='newsBody')[0].find_all('a')
+            if content_appendix_list:
+                for m in content_appendix_list:
+                    if m.has_attr('href'):
+                        ahref = m['href']
+                        if ahref[:4] == 'http':
+                            content_appendix_url_list.append(ahref)
+            content_string = " "
+            for n in content_strings:
+                content_string += n
+            if ('function' in content_string) and ('Commets(1);' in content_string):
+                sindex = content_string.index('function')
+                eindex = content_string.index('Commets(1);')
+                content_string_result1 = content_string[:sindex] + content_string[eindex+11:]
+            else:
+                content_string_result1 = content_string
+            if ('请自觉遵守互联网相关的政策法规' in content_string_result1) and ('发表评论' in content_string_result1):
+                sindex = content_string.index('请自觉遵守互联网相关的政策法规')
+                eindex = content_string.index('发表评论')
+                content_string_result2 = content_string_result1[:sindex] + content_string_result1[eindex+4:]
+            else:
+                content_string_result2 = content_string_result1
+            result_list.append({
+                'title': title,
+                'content': content_string_result2.strip(),
+                'date': date,
+                'appendix_list': content_appendix_url_list
+                })
+            result_count += 1
     return result_list
 
 
