@@ -4,7 +4,7 @@ import json
 import requests
 import HTMLParser
 from bs4 import BeautifulSoup
-from . import headers
+from . import headers, proxy
 
 html_parser = HTMLParser.HTMLParser()
 
@@ -46,7 +46,7 @@ def get_ele(meter, dor, typeit):
                 "PartList": "",
                 "SelectPart": 1}
         r = requests.post(ele_url, data=json.dumps(post_data),
-                          headers={'Content-Type': 'application/json'})
+                          headers={'Content-Type': 'application/json'}, proxies=proxy)
         # content = r.content  # utf-8
         content = r.json()
         main_html = content.get('d').split('|')[1].replace('', '')

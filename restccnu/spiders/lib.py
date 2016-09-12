@@ -21,7 +21,7 @@ def search_books(keyword):
             'historyCount': '1', 'strText': keyword, 'doctype': 'ALL',
             'displaypg': '100', 'showmode': 'list', 'sort': 'CATA_DATE',
             'orderby': 'desc', 'dept': 'ALL' }
-    r = requests.get(search_url, post_data, headers=headers)
+    r = requests.get(search_url, post_data, headers=headers, proxies=proxy)
     # r.encoding = 'utf-8'
     # soup = BeautifulSoup(r.content, 'lxml', from_encoding='iso-8859-1')
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
