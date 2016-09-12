@@ -3,14 +3,14 @@ from bs4 import BeautifulSoup
 from . import grade_index_url
 from . import link_index_url
 from . import grade_detail_url
-from . import headers
+from . import headers, proxy
 
 
 def get_grade_detail(s, sid, xnm, xqm, course, jxb_id):
     grade_detail = {}
     detail_url = grade_detail_url % sid
     link_url = link_index_url
-    s.get(link_url)  # 新版与旧版信息门户过渡, 获取cookie
+    s.get(link_url, proxies=proxy)  # 新版与旧版信息门户过渡, 获取cookie
     data = {'xh_id': sid, 'xnm': xnm, 'xqm': xqm,
             'jxb_id': jxb_id, 'kcmc': course}
     r = s.post(detail_url, data, headers=headers)
@@ -34,19 +34,7 @@ def get_grade_detail(s, sid, xnm, xqm, course, jxb_id):
 def get_grade(s, sid, xnm, xqm):
     grade_url = grade_index_url % sid
     link_url = link_index_url
-    # s.headers.update({
-    # 	"x-forwarded-for": "127.0.0.1",
-    #     "x-originating-ip": "127.0.0.1",
-    #     "x-remote-addr": "127.0.0.1",
-    #     "x-remote-ip": "127.0.0.1"
-    # })
-    headers = {
-    	"x-forwarded-for": "127.0.0.1",
-        "x-originating-ip": "127.0.0.1",
-        "x-remote-addr": "127.0.0.1",
-        "x-remote-ip": "127.0.0.1"
-    }
-    s.get(link_url, headers=headers)  # 中转过度, 获取cookie
+    s.get(link_url, headers=headers, proxies=proxy)  # 中转过度, 获取cookie
     post_data = {
         'xnm': xnm, 'xqm': xqm,
         '_search': 'false', 'nd': '1466767885488',

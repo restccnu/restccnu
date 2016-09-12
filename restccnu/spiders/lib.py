@@ -73,7 +73,7 @@ def get_book(id, book, author):
     meet problem :( but fixed :)
     """
     detail_url = lib_detail_url % id
-    r = requests.get(detail_url, headers=headers)
+    r = requests.get(detail_url, headers=headers, proxies=proxy)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
     book = book; author = author

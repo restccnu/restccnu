@@ -8,7 +8,7 @@ from flask import request
 from . import table_test_url
 from . import table_index_url
 from . import link_index_url
-from . import headers
+from . import headers, proxy
 
 
 def get_table(s, sid, xnm, xqm):
@@ -19,7 +19,7 @@ def get_table(s, sid, xnm, xqm):
     table_url = table_index_url % sid
     link_url = link_index_url
     post_data = {'xnm': xnm, 'xqm': xqm}
-    s.get(link_url, headers=headers)
+    s.get(link_url, headers=headers, proxies=proxy)
     r = s.post(table_url, post_data, headers=headers)
     json_data = r.json()
     kbList = json_data.get('kbList'); kcList = []; weeks_list = []

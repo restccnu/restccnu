@@ -10,7 +10,7 @@ from . import info_login_url
 from . import info_login_test_url
 from . import lib_login_url
 from . import lib_login_test_url
-from . import headers
+from . import headers, proxy
 
 
 # Authorization: Basic base64(sid:password)
@@ -30,7 +30,7 @@ def info_login():
     s = requests.Session()
     s.post(LoginUrl, {
         'userName': sid, 'userPass': password
-    }), headers
+    }, headers=headers, proxies=proxy)
 
     r = s.get(TestUrl)
     if 'window.alert' in r.content:
@@ -54,7 +54,7 @@ def lib_login():
     s = requests.Session()
     s.post(LoginUrl, {
         'number': sid, 'passwd': password, 'select': 'cert_no'
-    }), headers
+    }, headers=headers, proxies=proxy)
 
     r = s.get(TestUrl)
     if '123456' in r.content:
