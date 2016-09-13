@@ -61,7 +61,8 @@ def get_huaqing_html():
     for i in huaqing_list:
         if i.a and result_count < 5:
             title = i.a.contents[0]
-            date = '20' + i.contents[-1]  # 20 应该可以搞好几年了吧...{0_0}
+            # date = '20' + i.contents[-1]  # 20 应该可以搞好几年了吧...{0_0}
+            date = i.contents[-1]  # 华青改版了...
             content_url = "http://www.ccnuyouth.com/" + i.a['href']
             content_page = urllib.urlopen(content_url)
             content_html = content_page.read()
