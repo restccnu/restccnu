@@ -28,7 +28,13 @@ def api_get_table(s, sid):
         u['sid'] = sid; u['table'] = [_zero]
         u.save()
     user = connection.User.find_one({'sid': sid})
-    return user['table'] + rv
+
+    infocourse_dict = []
+    for index, course in enumerate(rv):
+        course.update({'color': index - 4*(index//4)})
+        infocourse_dict.append(course)
+
+    return user['table'] + infocourse_dict
 
 
 @api.route('/table/', methods=['POST'])
