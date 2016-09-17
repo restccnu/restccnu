@@ -50,6 +50,15 @@ def get_table(s, sid, xnm, xqm):
         _class = item.get('jcs').split('-')
         s_class = int(_class[0]); e_class = int(_class[-1])
         d_class = e_class - s_class + 1
+        color_dict = {
+                '0': [1, 5, 9],
+                '1': [2, 6, 10, 13],
+                '2': [3, 7, 11, 14],
+                '3': [4, 8, 12]
+        }
+        for _color in color_dict:
+            if s_class in color_dict[_color]:
+                color = _color
         _item_dict = dict({
             'course': item.get('kcmc'),
             'teacher': item.get('xm'),
@@ -59,6 +68,7 @@ def get_table(s, sid, xnm, xqm):
             'during': d_class,
             'place': item.get('xqmc') + item.get('cdmc'),
             'remind': False,
-            'color': random.randint(0, 3)})
+            # 'color': random.randint(0, 3)
+            'color': color})
         kcList.append(_item_dict)
     return kcList
