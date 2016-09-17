@@ -51,10 +51,10 @@ def get_table(s, sid, xnm, xqm):
         s_class = int(_class[0]); e_class = int(_class[-1])
         d_class = e_class - s_class + 1
         color_dict = {
-                '0': [1, 5, 9],
-                '1': [2, 6, 10, 13],
-                '2': [3, 7, 11, 14],
-                '3': [4, 8, 12]
+                '0': [1, 8, 9],
+                '1': [2, 7, 10, 14],
+                '2': [3, 6, 11, 13],
+                '3': [4, 5, 12]
         }
         for _color in color_dict:
             if s_class in color_dict[_color]:
