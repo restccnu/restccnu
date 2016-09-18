@@ -76,6 +76,10 @@ def get_huaqing_html():
                         ahref = m['href']
                         if ahref[:4] == 'http':
                             content_appendix_url_list.append(ahref)
+                        elif ahref[:4] == '/sys':
+                            content_appendix_url_list.append(''.join(['http://www.ccnuyouth.com', ahref]))
+                        elif ahref[:4] == '../.':
+                            content_appendix_url_list.append(''.join([content_url, '/../', ahref]))
             content_string = " "
             for n in content_strings:
                 content_string += n
