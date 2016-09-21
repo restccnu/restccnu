@@ -29,9 +29,11 @@ def colour_meter_index():
                     # 国交bug般的存在...
                     building = file[0]
                     key = option.get('value').split('*')[-2][:-2]
-                    key = '国' + building + '-' + key
+                    key = u'国' + building + '-' + key
                 else:
                     key = option.get('value').split('*')[-2][:-2]  # dor
+                    key.replace("新", "")
+                    key.replace("新增", "")
                 value = option.get('value').split('*')[0]          # meter
                 if key in _meter_index.keys():
                     _meter_index[key].append(value)
