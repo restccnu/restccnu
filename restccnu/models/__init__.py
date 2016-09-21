@@ -4,7 +4,8 @@ from mongokit import Connection
 
 
 # config
-MONGODB_HOST = 'localhost'
+# MONGODB_HOST = 'localhost'
+MONGODB_HOST = '123.56.41.13'
 MONGODB_PORT = 27020
 
 #  使用mongodb进行课表数据存储
