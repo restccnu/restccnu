@@ -7,7 +7,6 @@ celery==3.1.23
 click==6.6
 Flask==0.11.1
 Flask-QiniuStorage==0.9.3
-Flask-Zero==0.9.4
 futures==3.0.5
 greenlet==0.4.10
 gunicorn==19.6.0

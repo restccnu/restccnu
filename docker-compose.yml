@@ -1,0 +1,14 @@
+restccnu:
+    build: .
+    command: python manage.py runserver
+    ports:
+        - "5060:5060"
+    volumes:
+        - .:/restccnu
+    links:
+        - mongo
+        - redis
+mongo:
+    image: mongo:3.0.2
+redis:
+    image: redis
