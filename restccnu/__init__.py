@@ -59,6 +59,10 @@ def index():
 def info():
     return render_template('letter.html')
 
+@app.route('/qa/')
+def qa():
+    return render_template('qaindex.html')
+
 @app.route('/h5/')
 def h5():
     platform = request.user_agent.platform
