@@ -1,22 +1,21 @@
 restccnu:
     build: .
-    command: python manage.py runserver
+    command: gunicorn --name restccnu -b 0.0.0.0:5060 -w 4 wsgi:app
     ports:
         - "5060:5060"
     volumes:
         - .:/restccnu
     links:
-        - mongo
-        - redis
-mongo:
-    image: mongo:3.0.2
-    command: mongod --port 27020
-    # command: mongod --bind_ip 0.0.0.0:27020
-    ports:
-        - "27020:27020"
+        - redis1
+        - redis2
 
-redis:
+redis1:
     image: redis
-    command: redis-server --port 6384
+    command: redis-server --port 6384  # 静态资源存储
     ports:
         - "6384:6384"
+redis2:
+    image: redis
+    command: redis-server --port 6381  # 通知公告缓存
+    ports:
+        - "6381:6381"

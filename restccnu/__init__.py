@@ -10,7 +10,7 @@ from config import config
 qiniu = Qiniu()
 # 静态资源存储
 # rds = redis.StrictRedis(host='localhost', port=6384, db=0)
-rds = redis.StrictRedis(host='redis', port=6384, db=0)
+rds = redis.StrictRedis(host='redis1', port=6384, db=0)
 """
 6384rds~>
     1. banners: banner [{'filename':'url'}]
@@ -30,7 +30,7 @@ rds = redis.StrictRedis(host='redis', port=6384, db=0)
         "update": "2016-08-22"
     }
 """
-board = redis.StrictRedis(host='localhost', port=6381, db=0)
+board = redis.StrictRedis(host='redis2', port=6381, db=0)
 """
     1. board_list: 通知公告缓存 []
 """

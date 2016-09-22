@@ -1,13 +1,13 @@
 # coding: utf-8
+
+import os
 from .mongodoc import User, Dormitory
 from mongokit import Connection
 
 
 # config
-# MONGODB_HOST = 'localhost'
-# MONGODB_HOST = '127.0.0.1'
-MONGODB_HOST = 'mongo'
-MONGODB_PORT = 27020
+MONGODB_HOST = os.getenv("REST_MONGO_HOST")
+MONGODB_PORT = int(os.getenv("REST_MONGO_PORT"))
 
 #  使用mongodb进行课表数据存储
 connection = Connection(MONGODB_HOST, MONGODB_PORT)
