@@ -10,5 +10,13 @@ restccnu:
         - redis
 mongo:
     image: mongo:3.0.2
+    command: mongod --port 27020
+    # command: mongod --bind_ip 0.0.0.0:27020
+    ports:
+        - "27020:27020"
+
 redis:
     image: redis
+    command: redis-server --port 6384
+    ports:
+        - "6384:6384"
