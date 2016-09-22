@@ -42,10 +42,12 @@ def get_table(s, sid, xnm, xqm):
                     weeks_list += _weeks_list
                 else:
                     weeks_list.append(week[:-1])
-        else:
+        elif '-' in _weeks: 
             weeks = _weeks.split('-')
             _start = int(weeks[0]); _last = int(weeks[-1][:-1])
             weeks_list = range(_start, _last+1)
+        else:
+            weeks_list = [int(_weeks[:-1])]
         str_weeks_list = [str(i) for i in weeks_list]
         _class = item.get('jcs').split('-')
         s_class = int(_class[0]); e_class = int(_class[-1])
