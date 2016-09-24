@@ -1,40 +1,20 @@
 # coding: utf-8
 
+import os
 import redis
 from flask import Flask, render_template, request
 from flask_zero import Qiniu
 from celery import Celery
 from config import config
+from raven.contrib.flask import Sentry
 
 
 qiniu = Qiniu()
 # 静态资源存储
 rds = redis.StrictRedis(host='localhost', port=6384, db=0)
 # rds = redis.StrictRedis(host='redis1', port=6384, db=0)
-"""
-6384rds~>
-    1. banners: banner [{'filename':'url'}]
-    2. calendars: calendar [{'filename': 'size'}]
-    3. apps: ccnubox version
-    4. patchs: ccnubox patchs version
-    5. products: muxi products { "products":
-        [
-            {
-                "name": "学而",
-                "icon": "",
-                "url": "https://xueer.muxixyz.com",
-                "intro": "华师课程经验挖掘机",
-            },
-            {....}
-        ],
-        "update": "2016-08-22"
-    }
-"""
 board = redis.StrictRedis(host='localhost', port=6381, db=0)
 # hboard = redis.StrictRedis(host='redis2', port=6381, db=0)
-"""
-    1. board_list: 通知公告缓存 []
-"""
 
 
 def create_app(config_name='default'):
@@ -50,6 +30,8 @@ def create_app(config_name='default'):
 
 
 app = create_app()
+sentry = Sentry(app, dsn=os.getenv('DSN_KEY'))
+
 
 @app.route('/')
 def index():
