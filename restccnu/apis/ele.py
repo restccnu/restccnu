@@ -62,11 +62,11 @@ def api_flush_ele():
 
 
 @api.route('/ele_dict/', methods=['GET'])
-@tojson
+# @tojson
 @admin_required
 def api_get_eledict():
     dor_dict = connection.Dormitory.find_one().get('meter')
-    return {
+    return jsonify({
             'sum': len(dor_dict.keys()),
             'dor_dict': dor_dict
-    }
+    })
