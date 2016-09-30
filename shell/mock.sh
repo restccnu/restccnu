@@ -1,2 +1,3 @@
-supervisorctl stop restccnu
-supervisorctl start restccnu
+docker-compose build
+docker-compose up -d
+docker-compose logs
