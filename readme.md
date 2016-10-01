@@ -1,9 +1,28 @@
-# restccnu::华师匣子后端
-![2016-08-11 10 20 05](https://cloud.githubusercontent.com/assets/10671733/17577484/dd44815a-5fb0-11e6-9dbd-04002a78d3f7.png)
+<p align="center">
+  <img src="https://avatars1.githubusercontent.com/u/22377500?v=3&s=200" width="60" />RestCCNU<br><br>
+</p>
 
-## README See   ==>  https://ccnubox.muxixyz.com/api/
-## API Document ==>  https://goo.gl/9lU47K
-## Download See ==>  https://ccnubox.muxixyz.com/
+> 华师匣子API
+
+## 部署
+
+    $ git clone https://github.com/restccnu/restccnu
+    $ docker-compose build
+    $ docker-compose up -d (后台运行)
+    $ docker-compose logs (查看log)
+
+## API文档
+
++ https://goo.gl/9lU47K
+
+## 华师匣子下载
+
++ https://ccnubox.muxixyz.com/
+
+## 备注
+
++ **2016年9月**
+    - 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.(现已恢复)
+
 ## Built with ❤️  and MuxiStudio
-
-## 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.
+![炮姐](https://github.com/orgs/restccnu/people/neo1218)
