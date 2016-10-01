@@ -1,4 +1,5 @@
 **/*.pyc
+Dockerfile.local
 dump.rdb
 celerybeat-schedule.db
 celerybeat.pid

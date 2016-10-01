@@ -13,9 +13,9 @@ redis1:
     image: redis
     command: redis-server --port 6384  # 静态资源存储
     ports:
-        - "6384:6384"
+        - "7384:6384"
 redis2:
     image: redis
     command: redis-server --port 6381  # 通知公告缓存
     ports:
-        - "6381:6381"
+        - "7381:6381"
