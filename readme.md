@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="https://avatars1.githubusercontent.com/u/22377500?v=3&s=200" width="60" />RestCCNU<br><br>
+  <img src="https://avatars1.githubusercontent.com/u/22377500?v=3&s=200" width="60" /><br>RestCCNU<br>{华师匣子API}</br>
 </p>
-
-> 华师匣子API
 
 ## 部署
 
@@ -21,8 +19,11 @@
 
 ## 备注
 
++ **2016年10月**
+    - 华师匣子主服务ship on docker:)
+
 + **2016年9月**
     - 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.(现已恢复)
 
 ## Built with ❤️  and MuxiStudio
-![炮姐](https://github.com/orgs/restccnu/people/neo1218)
+![railgun](http://7xj431.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-10-02%20%E4%B8%8A%E5%8D%883.01.11.png)
