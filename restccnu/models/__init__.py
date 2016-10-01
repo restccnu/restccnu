@@ -6,7 +6,7 @@ from mongokit import Connection
 
 
 # config
-MONGODB_HOST = os.getenv("REST_MONGO_HOST")
+MONGODB_HOST = os.getenv("REST_MONGO_HOST") 
 MONGODB_PORT = 27020
 
 #  使用mongodb进行课表数据存储
