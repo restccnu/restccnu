@@ -1,5 +1,7 @@
 restccnu:
     build: .
+    env_file:
+        - restccnu.env
     command: gunicorn --name restccnu -b 0.0.0.0:5060 -w 4 wsgi:app
     ports:
         - "5060:5060"
