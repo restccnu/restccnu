@@ -18,21 +18,28 @@ def get_zizhu_html():
     zizhu_page = urllib.urlopen(zizhu_url)
     zizhu_html = zizhu_page.read()
     zizhu_soup = BeautifulSoup(zizhu_html, "lxml")
-    zizhu_list = zizhu_soup.find_all('ul')[2].find_all('li')[:5]
+    zizhu_list = zizhu_soup.find_all('ul', class_='main-r-x')[0].find_all('li')[:5]
     result_list = []
     for i in zizhu_list:
         title = i.a.contents[0]
-        date = i.span.contents[0]
-        content_url = i.a['href']
+        date = i.small.contents[0]
+        content_url = ''.join(['http://zizhu.ccnu.edu.cn/', i.a['href']])
         content_page = urllib.urlopen(content_url)
         content_html = content_page.read()
         content_soup = BeautifulSoup(content_html, "lxml")
-        content_strings = content_soup.find_all('div', id='details')[0].strings
+        try:
+            content_strings = content_soup.find_all('div', id='vsb_content')[0].strings
+        except IndexError:
+            content_strings = content_soup.find_all('div', id='vsb_content_2')[0].strings
         content_appendix_url_list = []
-        content_appendix_list = content_soup.find_all('div', id='details')[0].find_all('a')
+        content_appendix_list_all = content_soup.find_all('ul', style='list-style-type:none')
+        if content_appendix_list_all:
+            content_appendix_list = content_appendix_list_all[0].find_all('li')
+        else:
+            content_appendix_list = []
         if content_appendix_list:
             for m in content_appendix_list:
-                content_appendix_url_list.append(m['href'])
+                content_appendix_url_list.append(''.join(['http://zizhu.ccnu.edu.cn', m.a['href']]))
         content_string = " "
         for n in content_strings:
             content_string += n
