@@ -26,4 +26,4 @@
     - 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.(现已恢复)
 
 ## Built with ❤️  and MuxiStudio
-![railgun]((https://cloud.githubusercontent.com/assets/10671733/19018598/54b60372-889b-11e6-8622-3b83c2f4da2f.png)
+![railgun](https://cloud.githubusercontent.com/assets/10671733/19018598/54b60372-889b-11e6-8622-3b83c2f4da2f.png)
