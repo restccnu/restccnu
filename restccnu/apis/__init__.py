@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, redirect
 
 
 api = Blueprint('api', __name__)
@@ -62,7 +62,6 @@ def api_index():
             ],
         },
     }), 200
-
 
 from . import login, lib, table, grades, ele, board, banners, apartment, app, \
               patch, product, calendars, start
