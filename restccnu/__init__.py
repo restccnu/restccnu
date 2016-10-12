@@ -11,9 +11,7 @@ from raven.contrib.flask import Sentry
 
 qiniu = Qiniu()
 # 静态资源存储
-# rds = redis.StrictRedis(host='localhost', port=6384, db=0)
 rds = redis.StrictRedis(host='redis1', port=6384, db=0)
-# board = redis.StrictRedis(host='localhost', port=6381, db=0)
 board = redis.StrictRedis(host='redis2', port=6381, db=0)
 
 

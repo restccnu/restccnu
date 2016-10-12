@@ -4,6 +4,7 @@ restccnu.env
 dump.rdb
 celerybeat-schedule.db
 celerybeat.pid
+celerybeat-schedule
 rest_env/
 learn/
 tests/__pycache__
