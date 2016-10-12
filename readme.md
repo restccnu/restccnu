@@ -2,12 +2,37 @@
   <img src="https://avatars1.githubusercontent.com/u/22377500?v=3&s=200" width="60" /><br>RestCCNU<br>{华师匣子API}</br>
 </p>
 
-## 部署
+## 项目组织结构
+
+- fuckccnu: 反反爬虫
+    - IPool: 代理池(没写)
+    - multiUA: userAgent模拟(300+userAgent)
+- mock: 虚拟数据
+- server: 服务器配置
+    - nginx: 前端代理服务器
+    - gunicorn: 后端服务器
+- shell: 使用到的shell脚本
+    - docker_deploy.sh: docker部署脚本
+    - mongobackup.sh: mongodb数据库备份脚本
+    - supervisor_deploy.sh: supervisor部署脚本(已停止使用)
+- supervisor: supervisor进程监控配置(已停止使用)
+- restccnu: 核心代码
+    - apis: api
+    - models: 数据库
+    - spiders: 爬虫
+    - workers: celery定时任务
+- tests: 测试(没写)
+- config.py: 项目配置
+
+## 部署流程(docker, docker-compose)
 
     $ git clone https://github.com/restccnu/restccnu
     $ docker-compose build
     $ docker-compose up -d (后台运行)
     $ docker-compose logs (查看log)
+
+## restccnu架构图
+![restccnu架构](https://cloud.githubusercontent.com/assets/10671733/19296662/fcbfccb6-906f-11e6-8c03-adbe5e3e5ba9.png)
 
 ## API文档
 
@@ -19,9 +44,10 @@
 
 ## 备注
 
++ **2016年10月12日**
+    - restccnu重构
 + **2016年10月**
     - 华师匣子主服务ship on docker:)
-
 + **2016年9月**
     - 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.(现已恢复)
 
