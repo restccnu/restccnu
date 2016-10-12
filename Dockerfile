@@ -7,8 +7,8 @@ ENV USER_AGENT_FILE /restccnu/fuckccnu/multiUA/user_agents.txt
 RUN mkdir -p $DEPLOY_PATH
 WORKDIR $DEPLOY_PATH
 
-COPY requirements.txt requirements.txt
+Add requirements.txt requirements.txt
 RUN pip install --index-url http://pypi.doubanio.com/simple/ -r requirements.txt --trusted-host=pypi.doubanio.com
 # RUN pip install --index-url https://pypi.python.org/simple/ -r requirements.txt --trusted-host=pypi.python.org
 
-COPY . .
+Add . .
