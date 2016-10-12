@@ -34,6 +34,26 @@
 ## restccnu架构图
 ![restccnu架构](https://cloud.githubusercontent.com/assets/10671733/19296662/fcbfccb6-906f-11e6-8c03-adbe5e3e5ba9.png)
 
+## nginx负载均衡分布
+(团队3台server)
+
+### 模拟登录负载
+
++ **入口Server**: 123.56.41.13 <- ccnubox.muxixyz.com
+    - 123.56.41.13
+    - 120.25.166.213
+    - 121.42.176.189 (备用:自己的服务器)
+### 成绩查询负载
+
++ **入口Server**: 120.25.166.213 <- grade.muxixyz.com
+    - 120.25.166.213
+    - 121.42.176.189
+### 课表查询负载
+
++ **入口Server**: 123.56.41.13 <- ccnubox.muxixyz.com
+    - 123.56.41.13 (weight=3)
+    - 218.199.196.131 (备用:学校恶心的服务器)
+
 ## API文档
 
 + https://goo.gl/9lU47K
