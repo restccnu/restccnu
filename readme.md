@@ -2,7 +2,7 @@
   <img src="https://avatars1.githubusercontent.com/u/22377500?v=3&s=200" width="60" /><br>RestCCNU<br>{华师匣子API}</br>
 </p>
 
-## 部署流程(docker, docker-compose)
+## $-部署流程(docker, docker-compose)
 ### 1. 配置环境
 编写 ```restccnu.env```, 配置项如下: <br/>
 
@@ -28,11 +28,15 @@
 
 运行在ip:5486端口(如果是Mac且不是docker for mac, ip就是docker-machine ip)
 
-## 运行测试
+## $-运行测试
 ### 本地测试(docker, unittest)
 本地测试运行在docker中(docker-compose.test.yml), 确保测试环境和部署环境完全一致. <br/>
 
-**1.配置环境(同部署)** <br/>
+**1.配置环境(除部署配置项外, 还需)** <br/>
+
++ USER_NAME: 你的信息门户学号
++ USER_PASS: 你的信息门户密码
+
 **2.运行本地测试**
 
     $ sh shell/restccnu_test.sh
@@ -43,10 +47,10 @@ pass
 
 + 测试覆盖见[ISSUE37](https://github.com/restccnu/restccnu/issues/37)
 
-## restccnu架构图
+## $-restccnu架构图
 ![restccnu架构](https://cloud.githubusercontent.com/assets/10671733/19296662/fcbfccb6-906f-11e6-8c03-adbe5e3e5ba9.png)
 
-## nginx负载均衡分布
+## $-nginx负载均衡分布
 (团队3台server)
 
 ### 模拟登录负载
@@ -68,7 +72,7 @@ pass
     - 123.56.41.13 (weight=3)
     - 218.199.196.131 (备用:学校恶心的服务器)
 
-## 项目组织结构
+## $-项目组织结构
 
 - ```fuckccnu```: 反反爬虫
     - IPool: 代理池(没写)
@@ -90,15 +94,15 @@ pass
 - ```tests```: 测试(没写)
 - ```config.py```: 项目配置
 
-## API文档
+## $-API文档
 
 + https://goo.gl/9lU47K
 
-## 华师匣子下载
+## $-华师匣子下载
 
 + https://ccnubox.muxixyz.com/
 
-## 备注
+## $-备注
 
 + **2016年10月12日**
     - restccnu重构
@@ -107,5 +111,5 @@ pass
 + **2016年9月**
     - 由于访问量太大, 学校关闭外网访问, 导致部分API无法使用.(现已恢复)
 
-## Built with ❤️  and MuxiStudio
-![railgun](https://cloud.githubusercontent.com/assets/10671733/19018598/54b60372-889b-11e6-8622-3b83c2f4da2f.png)
+## $-Built with ❤️  and MuxiStudio
+![railgun](https://avatars3.githubusercontent.com/u/10671733?v=3&s=466)
