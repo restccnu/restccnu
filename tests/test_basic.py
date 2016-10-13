@@ -22,7 +22,8 @@ class APITestCase(unittest.TestCase):
     def get_api_headers(self, username, password):
         return {
             'Authorization': 'Basic ' + base64.b64encode(
-                (username + ':' + password).encode('utf-8')).decode('utf-8'),
+                (username + ':' + password),
+            ),
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
