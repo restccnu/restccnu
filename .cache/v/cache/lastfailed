@@ -1,0 +1,4 @@
+{
+  "rest_env/lib/python2.7/site-packages/amqp/tests/test_channel.py": true, 
+  "rest_env/lib/python2.7/site-packages/billiard/tests/test_common.py": true
+}

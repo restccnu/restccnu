@@ -9,6 +9,7 @@ rest_env/
 learn/
 tests/__pycache__
 tests/.cache
+tests/venv/
 test/
 restccnu/spiders/htmls
 restccnu/templates/
