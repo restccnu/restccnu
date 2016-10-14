@@ -1,7 +1,7 @@
 **/*.pyc
 Dockerfile.local
-restccnu.env
 dump.rdb
+restccnu.env
 celerybeat-schedule.db
 celerybeat.pid
 celerybeat-schedule

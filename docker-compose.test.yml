@@ -6,8 +6,6 @@ restccnu_test:
     command: python manage.py test
     ports:
         - "5060:5060"
-    # volumes:
-    #    - .:/restccnu
     links:
         - redis1
         - redis2
@@ -18,8 +16,6 @@ celery:
     env_file:
         - restccnu.env
     command: celery worker -A restccnu.workers.workers.celery --loglevel=INFO
-    # volumes:
-    #    - .:/restccnu
     links:
         - redis3
         - redis1
@@ -30,8 +26,6 @@ celery_beats:
     env_file:
         - restccnu.env
     command: celery -A restccnu.workers.workers.celery beat --loglevel=INFO
-    # volumes:
-    #    - .:/restccnu
     links:
         - redis3
         - redis1
