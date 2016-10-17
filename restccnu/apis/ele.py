@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    ele.py
+    ``````
+
+    电费查询
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 from . import api
 from flask import jsonify, request
@@ -11,6 +20,13 @@ from .decorators import tojson, admin_required
 @api.route('/ele/', methods=['POST'])
 @tojson
 def api_get_ele():
+    """
+    :function: api_get_ele
+    :args: none
+    :rv: get_ele spider function return value
+
+    电费查询(light, air)
+    """
     dor_obj = connection.Dormitory.find_one()
     dor_dict = dor_obj.get('meter')
 
@@ -34,6 +50,13 @@ def api_get_ele():
 @tojson
 @admin_required
 def api_store_ele():
+    """
+    :function: api_store_ele
+    :args: none
+    :rv: json message
+
+    更新mongodb数据库宿舍电表存储
+    """
     if request.method == 'POST':
         mongobj = connection.Dormitory.find_one()
         if len(mongobj.get('meter').get('_meter')) == 0:
@@ -50,6 +73,13 @@ def api_store_ele():
 @tojson
 @admin_required
 def api_flush_ele():
+    """
+    :function: api_flush_ele
+    :args: none
+    :rv: json message
+
+    清除当前mongodb数据库宿舍电表存储
+    """
     if request.method == 'DELETE':
         mongobj = connection.Dormitory.find_one()
         if len(mongobj.get('meter').keys()) > 1:
@@ -62,9 +92,15 @@ def api_flush_ele():
 
 
 @api.route('/ele_dict/', methods=['GET'])
-# @tojson
 @admin_required
 def api_get_eledict():
+    """
+    :function: api_get_eledict
+    :args: none
+    :rv: dormitory electron dict
+
+    返回mongodb存储的寝室电表字典
+    """
     dor_dict = connection.Dormitory.find_one().get('meter')
     return jsonify({
             'sum': len(dor_dict.keys()),

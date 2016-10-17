@@ -1,4 +1,10 @@
 # coding: utf-8
+"""
+    table.py
+    `````````
+
+    华师匣子课表API模块
+"""
 
 import base64
 import redis
@@ -16,8 +22,14 @@ from restccnu.models import connection, User, _zero  # 占位课程(id=0)
 @require_info_login
 @tojson
 def api_get_table(s, sid):
-    # xnm = request.args.get('xnm')
-    # xqm = request.args.get('xqm')
+    """
+    :function: api_get_table
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号 
+
+    模拟登录信息门户、获取课表
+    """
     xnm = current_app.config['XNM']
     xqm = current_app.config['XQM']
 
@@ -40,6 +52,14 @@ def api_get_table(s, sid):
 @api.route('/table/', methods=['POST'])
 @require_info_login
 def api_add_table(s, sid):
+    """
+    :function: api_add_table
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+
+    添加自定义课程, 存储mongodb数据库
+    """
     if request.method == 'POST':
         user = connection.User.find_one({'sid': sid})
         if user is None:
@@ -72,6 +92,15 @@ def api_add_table(s, sid):
 @api.route('/table/<int:id>/', methods=['DELETE'])
 @require_info_login
 def api_delete_table(s, sid, id):
+    """
+    :function: api_delete_table
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+        - id: 对应课表本地存储(客户端缓存)的id
+
+    删除课程
+    """
     if request.method == 'DELETE':
         user = connection.User.find_one({'sid': sid})
         if user is None:

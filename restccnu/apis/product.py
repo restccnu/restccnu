@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    product.py
+    ``````````
+
+    木犀产品展示API
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 from . import api
 from restccnu import rds  # 应用信息存入6384redis中
@@ -10,7 +19,20 @@ import time
 
 @api.route('/product/', methods=['GET'])
 def get_product():
-    """木犀应用展示"""
+    """
+    :function: get_product
+
+    redis1(6384)~products
+        key: products
+        value: "{ 'update': 时间戳,
+            '_products': [{
+                'name': name, 'url': url
+                'icon': icon, 'intro': intro
+            }]
+        }"
+
+    木犀应用展示
+    """
     if eval(rds.get('products') or '{}'):
     	products_dict = eval(rds.get('products'))
     	return jsonify(products_dict)
@@ -20,7 +42,11 @@ def get_product():
 @api.route('/product/', methods=['PUT'])
 @admin_required
 def add_product():
-    """添加一个木犀的产品"""
+    """
+    :function: add_product
+
+    添加一个木犀的产品
+    """
     if request.method == 'PUT':
         name = request.get_json().get('name')
         icon = request.get_json().get('icon')
@@ -43,7 +69,11 @@ def add_product():
 @api.route('/product/', methods=['DELETE'])
 @admin_required
 def delete_product():
-    """删除某个应用"""
+    """
+    :function: delete_product
+
+    删除某个应用
+    """
     if request.method == 'DELETE':
         if request.args.get('name'):
             name = request.args.get('name')

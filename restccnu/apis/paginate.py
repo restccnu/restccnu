@@ -1,4 +1,14 @@
 # coding: utf-8
+"""
+    paginate.py
+    ```````````
+
+    资源分页模块
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+
+"""
 
 from json import JSONEncoder
 from collections import MutableSequence
@@ -7,7 +17,9 @@ from flask import url_for
 
 class _Pagination(MutableSequence, JSONEncoder):
     """
-    pagination class
+    :class: _Pagination
+
+    资源分页
     """
     def __init__(self, resources, current, per_page):
         super(_Pagination, self).__init__()

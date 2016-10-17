@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    decorator
+    `````````
+
+    装饰器模块
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import os
 import base64
@@ -10,6 +19,14 @@ from restccnu.errors import ForbiddenError
 
 
 def tojson(f):
+    """
+    :function: tojson
+    :args:
+        - f: 被修饰的函数
+    :rv: f()
+
+    将视图函数的返回值转化成json的形式
+    """
     @functools.wraps(f)
     def decorator(*args, **kwargs):
         rv = f(*args, **kwargs)
@@ -31,9 +48,18 @@ def tojson(f):
 
 
 def require_info_login(f):
+    """
+    :function: require_info_login
+    :args:
+        - f: 被修饰的函数
+    :rv: f()
+
+    需要信息门户登录
+    """
     @functools.wraps(f)
     def decorator(*args, **kwargs):
         try:
+            # s: 爬虫session对象; sid: 学号
             s, sid = info_login()
         except ForbiddenError as e:
             return jsonify({}), e.status_code
@@ -44,9 +70,18 @@ def require_info_login(f):
 
 
 def require_lib_login(f):
+    """
+    :function: require_lib_login
+    :args:
+        -f: 被修饰的函数
+    :rv: f()
+
+    需要图书馆登录
+    """
     @functools.wraps(f)
     def decorator(*args, **kwargs):
         try:
+            # s: 爬虫session对象; sid: 学号
             s, sid = lib_login()
         except ForbiddenError as e:
             return jsonify({}), e.status_code
@@ -57,6 +92,14 @@ def require_lib_login(f):
 
 
 def admin_required(f):
+    """
+    :function: admin_required
+    :args:
+        -f: 被修饰的函数
+    :rv: f()
+
+    管理员登录权限
+    """
     @functools.wraps(f)
     def decorator(*args, **kwargs):
         # http basic auth: Basic base64(email:password)

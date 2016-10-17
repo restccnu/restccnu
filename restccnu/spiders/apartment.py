@@ -1,13 +1,13 @@
 # coding: utf-8
 
 """
-[{
-    "apartment": "学生事务大厅",
-    "time": "8:00-9:00", # 值班时间
-    "phone": ["67867510",],
-    "place": "文华公书林东侧二楼"
-}，
-{}]
+    restccnu::apis::apartment
+    `````````````````````````
+
+    部门信息
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
 """
 
 _apartment_list = [

@@ -9,6 +9,7 @@ restccnu:
     links:
         - redis1
         - redis2
+        - redis3
 
 #-------------------- celery --------------------------
 celery:
