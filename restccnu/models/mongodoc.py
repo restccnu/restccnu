@@ -1,11 +1,21 @@
 # coding: utf-8
+"""
+    mongodoc.py
+    ```````````
+
+    mongodb数据库文档结构定义, 使用mongokit
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 from mongokit import Document
 
 
 class User(Document):
     """
-    存储用户对应的课表json数据(全部)
-    mongodb文档结构: db->collection->data
+    :class: User
+
+    用户课表存储
     """
     __collection__ = 'users'
     __database__ = 'userdb'
@@ -21,7 +31,9 @@ class User(Document):
 
 class Dormitory(Document):
     """
-    存储 _meter_index 字典
+    :class: Dormitory
+
+    宿舍电表存储
     """
     __collection__ = 'dormitories'
     __database__ = 'dordb'

@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    lib.py
+    ``````
+
+    图书馆爬虫
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import re
 import time
@@ -15,6 +24,17 @@ from . import proxy
 
 
 def search_books(keyword):
+    """
+    :function: search_books
+    :args:
+        - keyword: 搜索关键字
+    :rv:
+    
+    搜索图书结果
+
+    :20161017:
+        - 目前只能搜书名和部分作者
+    """
     search_url = lib_search_url
     post_data = {
             'strSearchType': 'title', 'match_flag': 'forward',
@@ -22,8 +42,6 @@ def search_books(keyword):
             'displaypg': '100', 'showmode': 'list', 'sort': 'CATA_DATE',
             'orderby': 'desc', 'dept': 'ALL' }
     r = requests.get(search_url, post_data, headers=headers, proxies=proxy)
-    # r.encoding = 'utf-8'
-    # soup = BeautifulSoup(r.content, 'lxml', from_encoding='iso-8859-1')
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
     book_list_info = soup.find_all('li', class_='book_list_info')
     book_info_list = []
@@ -43,6 +61,14 @@ def search_books(keyword):
 
 
 def book_me(s):
+    """
+    :function: book_me
+    :args:
+        - s: 爬虫session对象
+    :rv:
+
+    我的图书馆爬虫
+    """
     me_url = lib_me_url
     r = s.get(me_url, headers=headers)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
@@ -67,10 +93,15 @@ def book_me(s):
     return my_book_list
 
 
-# http://202.114.34.15/opac/item.php?marc_no=0001364670G
 def get_book(id, book, author):
     """
-    meet problem :( but fixed :)
+    :function: get_book
+    :args:
+        - id: 图书id
+        - book: 图书名称
+        - author: 作者名称
+
+    图书详情
     """
     detail_url = lib_detail_url % id
     r = requests.get(detail_url, headers=headers, proxies=proxy)
@@ -82,7 +113,6 @@ def get_book(id, book, author):
     douban = douban_url % isbn
     rd = requests.get(douban, headers=headers)
     intro = rd.json().get('summary') or ""
-    # booklist: ['status', 'room', 'date', 'tid']
     booklist = []
     _booklist = soup.find(id='tab_item').find_all('tr', class_="whitetext")
     for _book in _booklist:
@@ -100,4 +130,5 @@ def get_book(id, book, author):
     return {
         'bid': bid, 'book': book,
         'author': author, 'intro': intro,
-        'books': booklist }
+        'books': booklist
+    }

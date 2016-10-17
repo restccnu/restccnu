@@ -1,4 +1,15 @@
 # coding: utf-8
+"""
+    models
+    ``````
+
+    mongodb数据库存储
+        - 课表存储: 存储自定义课表
+        - 寝室电表号存储: 存储爬取的寝室电表号
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import os
 from .mongodoc import User, Dormitory

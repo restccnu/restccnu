@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+"""
+    board.py
+    ````````
+
+    通知公告API
+
+    :MAINTAINER: kasheelew
+    :OWNER: muxistudio
+
+"""
 import urllib
 import sys
 from bs4 import BeautifulSoup
@@ -8,13 +18,17 @@ from . import huaqing_url
 from . import jiaowuchu1
 from . import jiaowuchu2
 
-
+# 字符编码设置
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-
 def get_zizhu_html():
+    """
+    :function: get_zizhu_html
+
+    资助网爬虫
+    """
     zizhu_page = urllib.urlopen(zizhu_url)
     zizhu_html = zizhu_page.read()
     zizhu_soup = BeautifulSoup(zizhu_html, "lxml")
@@ -54,11 +68,16 @@ def get_zizhu_html():
             'content': content_string_result.strip(),
             'date': date,
             'appendix_list': content_appendix_url_list
-            })
+        })
     return result_list
 
 
 def get_huaqing_html():
+    """
+    :function: get_huaqing_html
+
+    华大青年爬虫
+    """
     huaqing_page = urllib.urlopen(huaqing_url)
     huaqing_html = huaqing_page.read()
     huaqing_soup = BeautifulSoup(huaqing_html, "lxml")
@@ -113,6 +132,11 @@ def get_huaqing_html():
 
 
 def get_jiaowuchu_html(get_url):
+    """
+    :function: get_jiaowuchu_html
+
+    教务处爬虫
+    """
     jiaowuchu_page = urllib.urlopen(get_url)
     jiaowuchu_html = jiaowuchu_page.read()
     jiaowuchu_soup = BeautifulSoup(jiaowuchu_html, "lxml")
@@ -156,6 +180,11 @@ def get_jiaowuchu_html(get_url):
 
 
 def get_all_board():
+    """
+    :function: get_all_board
+
+    运行所有爬虫, 返回按时间排序的结果列表
+    """
     zizhu_list = get_zizhu_html()
     huaqing_list = get_huaqing_html()
     jiaowuchu_list = get_jiaowuchu_html(jiaowuchu1)
@@ -166,4 +195,5 @@ def get_all_board():
 
 
 if __name__ == '__main__':
+    # 主模块, 测试用
     print get_all_board()

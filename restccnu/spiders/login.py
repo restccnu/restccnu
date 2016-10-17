@@ -1,4 +1,16 @@
 # coding: utf-8
+"""
+    login.py
+    ````````
+
+    模拟登录爬虫
+        - 图书馆
+        - 信息门户
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+
+"""
 
 import gevent
 import requests
@@ -15,6 +27,11 @@ from . import headers, proxy
 
 # Authorization: Basic base64(sid:password)
 def info_login():
+    """
+    :function: info_login
+
+    模拟登录信息门户
+    """
     LoginUrl = info_login_url
     TestUrl = info_login_test_url
 
@@ -27,7 +44,7 @@ def info_login():
     # rds:6384 (restccnulru)
     password_hash = base64.b64encode(password)
 
-    s = requests.Session()
+    s = requests.Session()  # s: 爬虫session对象
     s.post(LoginUrl, {
         'userName': sid, 'userPass': password
     }, headers=headers, proxies=proxy)
@@ -43,6 +60,11 @@ def info_login():
 
 # Authorization: Basic base64(sid:password)
 def lib_login():
+    """
+    :function: lib_login
+
+    模拟登录图书馆
+    """
     LoginUrl = lib_login_url
     TestUrl = lib_login_test_url
 

@@ -1,5 +1,14 @@
 # coding: utf-8
-#
+"""
+    ele.py
+    ``````
+
+    电费信息爬虫
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
+
 import json
 import requests
 import HTMLParser
@@ -11,52 +20,44 @@ html_parser = HTMLParser.HTMLParser()
 
 def get_ele(meter, dor, typeit):
     """
-    {
-        'degree': {
-            'remain': xxx,
-            'before': xxx,
-            'current': xxx
-        },
-        'ele': {
-            'remain': xxx,
-            'before': xxx,
-            'current': xxx
-        }
-    }
+    :function: get_ele
+    :args:
+        - meter: 电表号
+        - dor: 宿舍号
+        - typeit: 电费类别
+            - light: 照明
+            - air: 空调
+    :rv:
+
+    查询电费信息
     """
     ele_url = "http://202.114.38.46/SelectPage.aspx/SerBindTabDate"
     if meter == 0:
-        return {
-            'dor': dor,
+        return {'dor': dor,
             'degree': {
-                 'remain': "",
-                 'before': "",
-                 'current': "",
-            },
+                'remain': "",
+                'before': "",
+                'current': "", },
             'ele': {
-                 '_ele': "",
-                 'remain': "",
-                 'before': "",
-                 'current': "",
-            } }
+                '_ele': "",
+                'remain': "",
+                'before': "",
+                'current': "", }
+        }
     else:
         post_data = {
                 "nodeInText": "%s*Meter" % meter,
-                # "nodeInText": "3145*Meter",
                 "PartList": "",
                 "SelectPart": 1}
         r = requests.post(ele_url, data=json.dumps(post_data),
                           headers={'Content-Type': 'application/json'}, proxies=proxy)
-        # content = r.content  # utf-8
         content = r.json()
         main_html = content.get('d').split('|')[1].replace('', '')
         parse_html = html_parser.unescape(main_html)
         html = '<html><body>' + parse_html + '</body></html>'
 
-        # return html
         soup = BeautifulSoup(html, 'lxml', from_encoding='utf-8')
 
-        # degree_remain = soup.__str__()
         divMeterTopBox = soup.find('div', id='divMeterTopBox')
         divMeterTopBoxtrs = divMeterTopBox.tr.next_siblings
 
@@ -67,7 +68,6 @@ def get_ele(meter, dor, typeit):
 
         _ele = float(_tr_dict['4'].td.next_sibling.text[:-1])
 
-        # light: ele_remain, air: degree_remain
         if typeit == 'light':
             ele_remain = float(divMeterTopBox.find('td', id='tdSYValue').text[:-1])
             degree_remain = "%.2f" % (ele_remain / _ele)
@@ -93,4 +93,5 @@ def get_ele(meter, dor, typeit):
                  'remain': ele_remain,
                  'before': ele_before,
                  'current': ele_current,
-            } }
+            }
+        }
