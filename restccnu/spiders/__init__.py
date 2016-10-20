@@ -60,7 +60,7 @@ grade_detail_url = "http://122.204.187.6/cjcx/cjcx_cxCjxq.html?time=146824332458
 ele_index_url = "http://202.114.38.46/"
 
 """通知公告"""
-zizhu_url = 'http://zizhu.ccnu.edu.cn'
+zizhu_url = 'http://zizhu.ccnu.edu.cn/index.htm'
 huaqing_url = 'http://www.ccnuyouth.com/tzgg.htm'
 jiaowuchu1 = 'http://jwc.ccnu.edu.cn/index/tzggxs.htm'
 jiaowuchu2 = 'http://jwc.ccnu.edu.cn/index/tzggxy.htm'
