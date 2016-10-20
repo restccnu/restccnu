@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    table.py
+    ````````
+
+    课表爬虫
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import random
 import json
@@ -13,7 +22,14 @@ from . import headers, proxy
 
 def get_table(s, sid, xnm, xqm):
     """
-    s: 信息门户登录操作句柄
+    :function: get_table
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+        - xnm: 学年
+        - xqm: 学期
+
+    信息门户课表爬虫
     """
     test_url = table_test_url
     table_url = table_index_url % sid

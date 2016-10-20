@@ -1,10 +1,12 @@
 # coding: utf-8
-
 """
     calendars.py
     ````````````
 
-    ccnubox calendar crud
+    校历API
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
 """
 
 import json
@@ -21,8 +23,15 @@ rds.hset('calendars', '_placeholder', '_placeholder')
 @api.route('/calendar/', methods=['GET'])
 def get_calendar():
     """
-    get calendar, key value
-    {'calendars': 'imgfilename'}
+    :function: get_calendar
+    :args: none
+    :rv: calendar json info
+
+    redis1(6384):
+        key: <calendar name>-<qiniu resource name>
+        value: size
+
+    返回校历信息
     """
     if rds.hlen('calendars') == 1:
         return jsonify({}), 404
@@ -46,14 +55,16 @@ def get_calendar():
 @admin_required
 def new_calendar():
     """
-    add a new calendar
+    :function: new_calendar
+    :args: none
+    :rv: json message
+
+    上传一个新的校历
     """
     if request.method == 'POST':
         img = request.get_json().get('img')
         size = request.get_json().get('size')
 
-        # store in banners hash list
-        # del older before add new
         calendar = rds.hgetall('calendars')
         for filename in calendar:
             if filename != '_placeholder':

@@ -1,10 +1,12 @@
 # coding: utf-8
-
 """
     banners.py
     ``````````
 
-    ccnubox banner crud
+    华师匣子bannerAPI
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
 """
 
 import json
@@ -21,8 +23,15 @@ rds.hset('banners', '_placeholder', '_placeholder')
 @api.route('/banner/', methods=['GET'])
 def get_banners():
     """
-    get all banners(a hash list)
-    [{'filename':'url'}, {'filename':'url'}]
+    :function: get_banners
+    :args: none
+    :rv: 按资源文件名排序的所有banner列表
+
+    redis1(6384): hash list
+        key: <banner name>-<qiniu resource name>
+        value: <banner url>
+
+    获取所有banner(列表, 按资源文件名排序)
     """
     if rds.hlen('banners') == 1:
         return jsonify({}), 404
@@ -49,7 +58,11 @@ def get_banners():
 @admin_required
 def new_banner():
     """
-    add a new banner
+    :function: new_banner
+    :args: none
+    :rv: json message
+
+    添加一个新的banner
     """
     if request.method == 'POST':
         img = request.get_json().get('img')
@@ -66,7 +79,11 @@ def new_banner():
 @admin_required
 def delete_banner():
     """
-    delete a banner by name...
+    :function: delete_banner
+    :args: none
+    :rv: json message
+    
+    根据名字删除banner
     """
     if request.method == 'DELETE':
         # img = request.get_json().get('img')

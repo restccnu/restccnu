@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    lib.py
+    ``````
+
+    图书馆API模块
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import json
 from . import api
@@ -11,6 +20,13 @@ from .paginate import _Pagination
 @api.route('/lib/search/')
 @tojson
 def api_search_books():
+    """
+    :function: api_search_books
+    :args: none
+    :rv: 图书信息
+
+    搜索图书, 返回图书相关信息, 分页(每页20条)
+    """
     per_page = 20
     keyword = request.args.get('keyword')
     page = int(request.args.get('page') or '1')
@@ -26,6 +42,13 @@ def api_search_books():
 @api.route('/lib/')
 @tojson
 def api_book_detail():
+    """
+    :function: api_book_detail
+    :args: none
+    :rv: 图书详细信息
+
+    图书详情
+    """
     id = request.args.get('id')
     book = request.args.get('book')
     author = request.args.get('author')
@@ -36,4 +59,10 @@ def api_book_detail():
 @require_lib_login
 @tojson
 def api_book_me(s, sid):
+    """
+    :function: api_book_me
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+    """
     return book_me(s)

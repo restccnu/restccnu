@@ -1,4 +1,11 @@
 # coding: utf-8
+"""
+    restccnu::apis
+    ``````````````
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 from flask import Blueprint, jsonify, redirect
 
@@ -13,6 +20,7 @@ def api_index():
             'project': 'restccnu',
             'version': 'v1',
             'source code': 'https://github.com/Muxi-Studio/restccnu',
+            'lang': 'python',
             'author': ['@neo1218', '@kasheemlew'],
         },
         'apis': {
@@ -62,6 +70,7 @@ def api_index():
             ],
         },
     }), 200
+
 
 from . import login, lib, table, grades, ele, board, banners, apartment, app, \
               patch, product, calendars, start

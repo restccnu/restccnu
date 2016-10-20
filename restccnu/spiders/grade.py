@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    grade.py
+    ````````
+
+    成绩爬虫
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 from bs4 import BeautifulSoup
 from . import grade_index_url
 from . import link_index_url
@@ -7,6 +16,22 @@ from . import headers, proxy
 
 
 def get_grade_detail(s, sid, xnm, xqm, course, jxb_id):
+    """
+    :function: get_grade_detail
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+        - xnm: 学年
+        - xqm: 学期
+        - course: 课程名
+        - jxb_id: 课程号
+    :rv:
+
+    某门课的平时成绩查询
+
+    :20161017:
+        - 学校信息门户移除了平时成绩, 此爬虫预计在第二版移除(再见..不舍)
+    """
     grade_detail = {}
     detail_url = grade_detail_url % sid
     link_url = link_index_url
@@ -32,6 +57,17 @@ def get_grade_detail(s, sid, xnm, xqm, course, jxb_id):
 
 
 def get_grade(s, sid, xnm, xqm):
+    """
+    :function: get_grade
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+        - xnm: 学年
+        - xqm: 学期
+    :rv:
+
+    总成绩爬虫
+    """
     grade_url = grade_index_url % sid
     link_url = link_index_url
     s.get(link_url, headers=headers, proxies=proxy)  # 中转过度, 获取cookie

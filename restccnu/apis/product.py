@@ -1,5 +1,15 @@
 # coding: utf-8
+"""
+    product.py
+    ``````````
 
+    木犀产品展示API
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
+
+import ast
 from . import api
 from restccnu import rds  # 应用信息存入6384redis中
 from .decorators import tojson
@@ -10,9 +20,22 @@ import time
 
 @api.route('/product/', methods=['GET'])
 def get_product():
-    """木犀应用展示"""
-    if eval(rds.get('products') or '{}'):
-    	products_dict = eval(rds.get('products'))
+    """
+    :function: get_product
+
+    redis1(6384)~products
+        key: products
+        value: "{ 'update': 时间戳,
+            '_products': [{
+                'name': name, 'url': url
+                'icon': icon, 'intro': intro
+            }]
+        }"
+
+    木犀应用展示
+    """
+    if ast.literal_eval(rds.get('products') or '{}'):
+    	products_dict = ast.literal_eval(rds.get('products'))
     	return jsonify(products_dict)
     else: return jsonify({})
 
@@ -20,14 +43,18 @@ def get_product():
 @api.route('/product/', methods=['PUT'])
 @admin_required
 def add_product():
-    """添加一个木犀的产品"""
+    """
+    :function: add_product
+
+    添加一个木犀的产品
+    """
     if request.method == 'PUT':
         name = request.get_json().get('name')
         icon = request.get_json().get('icon')
         url  = request.get_json().get('url')
         intro = request.get_json().get('intro')
 
-        products_dict = eval(rds.get('products') or '{"_products":[], "update":""}')
+        products_dict = ast.literal_eval(rds.get('products') or '{"_products":[], "update":""}')
         products_list = products_dict.get('_products')
         products_list.append({
 	    'name': name, 'icon': icon, 'url': url, 'intro': intro
@@ -43,11 +70,15 @@ def add_product():
 @api.route('/product/', methods=['DELETE'])
 @admin_required
 def delete_product():
-    """删除某个应用"""
+    """
+    :function: delete_product
+
+    删除某个应用
+    """
     if request.method == 'DELETE':
         if request.args.get('name'):
             name = request.args.get('name')
-            products_dict = eval(rds.get('products') or '{"_products":[], "update":""}')
+            products_dict = ast.literal_eval(rds.get('products') or '{"_products":[], "update":""}')
             products_list = products_dict.get('_products')
             if products_list:
                 for product in products_list:

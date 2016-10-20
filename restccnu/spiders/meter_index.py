@@ -1,5 +1,13 @@
 # coding: utf-8
-# meter_index file
+"""
+    meter_index.py
+    ``````````````
+
+    宿舍电表号爬虫
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import os
 import requests
@@ -7,14 +15,12 @@ from bs4 import BeautifulSoup
 
 
 html_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'htmls'))
-"""
-==> meter_index 格式
-meter_index = {
-    'x1101': ['29275', '2'], 'x1102': ['29276', '3'], 'x1103': ['29277', '4'],
-}
-"""
+
+
 def colour_meter_index():
     """
+    :function: colour_meter_index
+
     生成寝室```电表表:)```
     """
     _meter_index = {}

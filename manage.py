@@ -1,4 +1,13 @@
 # coding: utf-8
+"""
+    manage.py
+    `````````
+
+    应用管理    
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
 
 import sys
 from mock.app import mock_app
