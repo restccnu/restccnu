@@ -9,6 +9,7 @@
     :OWNER: muxistudio
 """
 
+import ast
 from . import api
 from restccnu import rds
 from .decorators import tojson, admin_required
@@ -36,8 +37,7 @@ def get_app():
         rds.set('apps', "[{'name':'ccnubox'}]")
         rds.save()
     apps = rds.get('apps')
-    # eval is evil
-    return eval(apps)
+    return ast.literal_eval(apps)
 
 
 @api.route('/app/', methods=['POST'])
@@ -67,7 +67,7 @@ def new_app():
         }
         if not rds.get('apps'):
             rds.set('apps', "[{'name':'ccnubox'}]")
-        apps = eval(rds.get('apps'))
+        apps = ast.literal_eval(rds.get('apps'))
         apps.append(app_data)
         rds.set('apps', str(apps))
         rds.save()
@@ -87,7 +87,7 @@ def get_latest_app():
     if not rds.get('apps'):
         rds.set(apps, "[]")
     apps = rds.get("apps")
-    return eval(apps)[-1]
+    return ast.literal_eval(apps)[-1]
 
 
 @api.route('/app/<version>/', methods=['DELETE'])
@@ -101,7 +101,7 @@ def delete_version(version):
 
     删除华师匣子特定版本version的信息
     """
-    apps = eval(rds.get('apps'))  # eval is evil
+    apps = ast.lteral_eval(rds.get('apps'))
     for n, app in enumerate(apps):
         if app.get('version') == version:
             del apps[n]

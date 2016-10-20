@@ -9,6 +9,7 @@
     :OWNER: muxistudio
 """
 
+import ast
 import json
 from . import api
 from .. import board
@@ -29,5 +30,5 @@ def get_info():
     if not board.get('board_list'):
         board_list = get_all_board()
         board.set('board_list', board_list)
-    all_board = eval(board.get('board_list'))
+    all_board = ast.literal_eval(board.get('board_list'))
     return jsonify(all_board)

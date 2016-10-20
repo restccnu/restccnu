@@ -9,6 +9,7 @@
     :OWNER: muxistudio
 """
 
+import ast
 from . import api
 from restccnu import rds  # 应用信息存入6384redis中
 from .decorators import tojson
@@ -33,8 +34,8 @@ def get_product():
 
     木犀应用展示
     """
-    if eval(rds.get('products') or '{}'):
-    	products_dict = eval(rds.get('products'))
+    if ast.literal_eval(rds.get('products') or '{}'):
+    	products_dict = ast.literal_eval(rds.get('products'))
     	return jsonify(products_dict)
     else: return jsonify({})
 
@@ -53,7 +54,7 @@ def add_product():
         url  = request.get_json().get('url')
         intro = request.get_json().get('intro')
 
-        products_dict = eval(rds.get('products') or '{"_products":[], "update":""}')
+        products_dict = ast.literal_eval(rds.get('products') or '{"_products":[], "update":""}')
         products_list = products_dict.get('_products')
         products_list.append({
 	    'name': name, 'icon': icon, 'url': url, 'intro': intro
@@ -77,7 +78,7 @@ def delete_product():
     if request.method == 'DELETE':
         if request.args.get('name'):
             name = request.args.get('name')
-            products_dict = eval(rds.get('products') or '{"_products":[], "update":""}')
+            products_dict = ast.literal_eval(rds.get('products') or '{"_products":[], "update":""}')
             products_list = products_dict.get('_products')
             if products_list:
                 for product in products_list:
