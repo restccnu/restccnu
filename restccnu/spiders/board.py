@@ -160,7 +160,7 @@ def get_jiaowuchu_html(get_url):
             content_appendix_list = content_soup.find_all('ul', style='list-style-type:none')[0].find_all('li')
             if content_appendix_list:
                 for p in content_appendix_list:
-                    content_appendix_url_list.append(p.a['href'])
+                    content_appendix_url_list.append(''.join(['http://jwc.ccnu.edu.cn',p.a['href']]))
         content_string = " "
         for n in content_strings:
             content_string += n
