@@ -15,18 +15,36 @@ class User(Document):
     """
     :class: User
 
-    用户课表存储
+    用户自定义课表存储
     """
     __collection__ = 'users'
     __database__ = 'userdb'
     structure = {
-            'sid': basestring,
-            'table': list
+        'sid': basestring,
+        'table': list
     }
     required_fields = ['sid', 'table']
 
     def __repr__(self):
         return '<Mongo User>'
+
+
+class Table(Document):
+    """
+    :class: table
+
+    信息门户课表存储
+    """
+    __collection__ = 'tables'
+    __database__ = 'tabledb'
+    structure = {
+        'sid': basestring,
+        'table': list
+    }
+    required_fields = ['sid', 'table']
+
+    def __repr__(self):
+        return '<Mongo Table>'
 
 
 class Dormitory(Document):
@@ -38,7 +56,7 @@ class Dormitory(Document):
     __collection__ = 'dormitories'
     __database__ = 'dordb'
     structure = {
-            'meter': dict
+        'meter': dict
     }
     required_fields = ['meter']
 

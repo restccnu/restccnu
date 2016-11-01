@@ -18,8 +18,9 @@ celery:
         - restccnu.env
     command: celery worker -A restccnu.workers.workers.celery --loglevel=INFO
     links:
-        - redis3
         - redis1
+        - redis2
+        - redis3
 
 #------------------- celery beats----------------------
 celery_beats:
@@ -28,8 +29,9 @@ celery_beats:
         - restccnu.env
     command: celery -A restccnu.workers.workers.celery beat --loglevel=INFO
     links:
-        - redis3
         - redis1
+        - redis2
+        - redis3
 
 #------------------- redis servers---------------------
 redis1:
