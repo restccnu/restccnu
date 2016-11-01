@@ -28,7 +28,7 @@ board = redis.StrictRedis(host='redis2', port=6381, db=0)
 
 def create_app(config_name='default'):
     """
-    :function: create_app 
+    :function: create_app
     :args:
         - config_name('default'):
             配置的名称, 默认是default

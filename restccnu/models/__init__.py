@@ -12,18 +12,19 @@
 """
 
 import os
-from .mongodoc import User, Dormitory
+from .mongodoc import User, Dormitory, Table
 from mongokit import Connection
 
 
 # config
-MONGODB_HOST = os.getenv("REST_MONGO_HOST") 
+MONGODB_HOST = os.getenv("REST_MONGO_HOST")
 MONGODB_PORT = 27020
 
 #  使用mongodb进行课表数据存储
 connection = Connection(MONGODB_HOST, MONGODB_PORT)
 connection.register([User])
 connection.register([Dormitory])
+connection.register([Table])
 
 # _zero: 占位课程, id=0
 ## mongodb😓 的特性, 只有数据写入的时候创建数据库

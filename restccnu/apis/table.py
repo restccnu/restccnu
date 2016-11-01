@@ -26,9 +26,11 @@ def api_get_table(s, sid):
     :function: api_get_table
     :args:
         - s: 爬虫session对象
-        - sid: 学号 
+        - sid: 学号
 
     模拟登录信息门户、获取课表
+
+    v1.0.3: ~用户可以删除信息门户课表
     """
     xnm = current_app.config['XNM']
     xqm = current_app.config['XQM']
@@ -37,16 +39,26 @@ def api_get_table(s, sid):
     user = connection.User.find_one({'sid': sid})
     if user is None:
         u = connection.User()
-        u['sid'] = sid; u['table'] = [_zero]
+        u['sid'] = sid; u['table'] = [_zero]  # mongodb占位
         u.save()
     user = connection.User.find_one({'sid': sid})
+    # 从数据库中读取信息门户课表
+    table = connection.Table.find_one({'sid': sid})
+    if table is None:
+        # 第一次获取table的时候, 将
+        # 信息门户中的课程数据写入数据库, 并添加id
+        infocourse_list = []
+        for index, course in enumerate(rv):
+            course.update({'color': index-4*(index//4)})
+            course.update({'id': str(0-index)})
+            infocourse_list.append(course)
+        u = connection.Table()
+        u['sid'] = sid; u['table'] = infocourse_list
+        u.save()
+    table = connection.Table.find_one({'sid': sid})
 
-    infocourse_dict = []
-    for index, course in enumerate(rv):
-        course.update({'color': index - 4*(index//4)})
-        infocourse_dict.append(course)
-
-    return user['table'] + infocourse_dict
+    # 返回: 用户自定义课程 + 信息门户课程
+    return user['table'] + table['table']
 
 
 @api.route('/table/', methods=['POST'])
@@ -100,14 +112,27 @@ def api_delete_table(s, sid, id):
         - id: 对应课表本地存储(客户端缓存)的id
 
     删除课程
+
+    v1.0.3: ~用户可以删除信息门户课表
     """
     if request.method == 'DELETE':
-        user = connection.User.find_one({'sid': sid})
-        if user is None:
-            return jsonify({}), 404
-        table = user['table']
-        for i, item in enumerate(table):
-            if item.get('id') == str(id):
-                del table[i]
-        user.save()
-        return jsonify({}), 200
+        if id > 0:
+            user = connection.User.find_one({'sid': sid})
+            if user is None:
+                return jsonify({}), 404
+            tables = user['table']
+            for i, item in enumerate(tables):
+                if item.get('id') == str(id):
+                    del tables[i]
+                user.save()
+            return jsonify({}), 200
+        else:
+            table = connection.Table.find_one({'sid': sid})
+            if table is None:
+                return jsonify({}), 404
+            tables = table['table']
+            for i, item in enumerate(tables):
+                if item.get('id') == str(id):
+                    del tables[i]
+                table.save()
+            return jsonify({}), 200
