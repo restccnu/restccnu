@@ -50,7 +50,7 @@ def api_get_table(s, sid):
         infocourse_list = []
         for index, course in enumerate(rv):
             course.update({'color': index-4*(index//4)})
-            course.update({'id': str(0-index)})
+            course.update({'id': str(1024+index)})
             infocourse_list.append(course)
         u = connection.Table()
         u['sid'] = sid; u['table'] = infocourse_list
@@ -116,7 +116,7 @@ def api_delete_table(s, sid, id):
     v1.0.3: ~用户可以删除信息门户课表
     """
     if request.method == 'DELETE':
-        if id > 0:
+        if id < 1024:
             user = connection.User.find_one({'sid': sid})
             if user is None:
                 return jsonify({}), 404
