@@ -46,5 +46,9 @@ _site_list = [
     {
         "site": "校医院",
         "url": "http://hosp.ccnu.edu.cn/"
+    },
+    {
+        "site": "图书馆研习室预约",
+        "url": "http://202.114.34.12:8088/reserveSystem/readerIndex.html"
     }
 ]
