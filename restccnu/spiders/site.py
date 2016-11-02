@@ -12,8 +12,8 @@
 
 _site_list = [
     {
-        "site": "尔雅课",
-        "url": "http://ccnu.benke.chaoxing.com/"
+        "site": "信息门户",
+        "url": "http://portal.ccnu.edu.cn/"
     },
     {
         "site": "交电费",
@@ -22,10 +22,6 @@ _site_list = [
     {
         "site": "学生信息服务平台",
         "url": "http://xssw.ccnu.edu.cn/zfca/login"
-    },
-    {
-        "site": "信息门户",
-        "url": "http://portal.ccnu.edu.cn/"
     },
     {
         "site": "微课程平台",
@@ -50,5 +46,9 @@ _site_list = [
     {
         "site": "图书馆研习室预约",
         "url": "http://202.114.34.12:8088/reserveSystem/readerIndex.html"
-    }
+    },
+    {
+        "site": "尔雅课",
+        "url": "http://ccnu.benke.chaoxing.com/"
+    },
 ]
