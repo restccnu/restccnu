@@ -1,0 +1,50 @@
+# coding: utf-8
+
+"""
+    restccnu::apis::site
+    ````````````````````
+
+    常用网站数据
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
+"""
+
+_site_list = [
+    {
+        "site": "尔雅课",
+        "url": "http://ccnu.benke.chaoxing.com/"
+    },
+    {
+        "site": "交电费",
+        "url": "http://jnb.ccnu.edu.cn/weixin/example/demo/index.html?code=021wJ4Wb1xxPps0spOVb1BM2Wb1wJ4WJ&state=STATE"
+    },
+    {
+        "site": "学生信息服务平台",
+        "url": "http://xssw.ccnu.edu.cn/zfca/login"
+    },
+    {
+        "site": "信息门户",
+        "url": "http://portal.ccnu.edu.cn/"
+    },
+    {
+        "site": "微课程平台",
+        "url": "http://wk.ccnu.edu.cn/hsd-web/index.do"
+    },
+    {
+        "site": "素质课程管理平台",
+        "url": "http://122.204.187.9/jwglxt/xtgl/dl_loginForward.html"
+    },
+    {
+        "site": "教务处",
+        "url": "http://jwc.ccnu.edu.cn/"
+    },
+    {
+        "site": "网上自主缴费平台",
+        "url": "http://218.199.196.90/"
+    },
+    {
+        "site": "校医院",
+        "url": "http://hosp.ccnu.edu.cn/"
+    }
+]
