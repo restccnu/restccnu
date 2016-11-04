@@ -51,4 +51,8 @@ _site_list = [
         "site": "尔雅课",
         "url": "http://ccnu.benke.chaoxing.com/"
     },
+    {
+        "site": "网络课",
+        "url": "http://wk.ccnu.edu.cn/hsd-web/index.do"
+    },
 ]
