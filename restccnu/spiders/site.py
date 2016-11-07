@@ -16,10 +16,6 @@ _site_list = [
         "url": "http://portal.ccnu.edu.cn/"
     },
     {
-        "site": "电费缴纳",
-        "url": "http://jnb.ccnu.edu.cn/weixin/example/demo/index.html?code=021wJ4Wb1xxPps0spOVb1BM2Wb1wJ4WJ&state=STATE"
-    },
-    {
         "site": "学生信息服务平台",
         "url": "http://xssw.ccnu.edu.cn/zfca/login"
     },
