@@ -101,6 +101,43 @@ def api_add_table(s, sid):
         return jsonify({}), 201
 
 
+@api.route('/ios/table/', methods=['POST'])
+@require_info_login
+def api_ios_add_table(s, sid):
+    """
+    api_ios_add_table: 
+        课表添加ios临时接口
+    """
+    if request.method == 'POST':
+        user = connection.User.find_one({'sid': sid})
+        if user is None:
+            return jsonify({}), 404
+
+        course = request.get_json().get('course')
+        teacher = request.get_json().get('teacher')
+        weeks = request.get_json().get('weeks')
+        day = request.get_json().get('day')
+        start = request.get_json().get('start')
+        during = request.get_json().get('during')
+        place = request.get_json().get('place')
+        remind = request.get_json().get('remind')
+        # id = request.get_json().get('id')
+        table = user['table']
+        item_id = [int(item.get('id')) for item in table]
+        max_id = max(item_id)
+        id = str(max_id + 1)
+        new_json = {'course': course, 'teacher': teacher, 'weeks': weeks,
+                    'day': day, 'start': start, 'during': during,
+                    'place': place, 'remind': remind, 'id': id, 'color': 0}
+        table.append(new_json)
+        user['table'] = table;
+        user.save()
+
+        return jsonify({}), 201
+
+
+
+
 @api.route('/table/<int:id>/', methods=['DELETE'])
 @require_info_login
 def api_delete_table(s, sid, id):
