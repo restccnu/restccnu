@@ -101,7 +101,7 @@ def delete_version(version):
 
     删除华师匣子特定版本version的信息
     """
-    apps = ast.lteral_eval(rds.get('apps'))
+    apps = ast.literal_eval(rds.get('apps'))
     for n, app in enumerate(apps):
         if app.get('version') == version:
             del apps[n]
