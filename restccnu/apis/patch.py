@@ -66,7 +66,7 @@ def new_patch():
         }
         if not rds.get('patches'):
             rds.set('patches', "[{'name':'ccnubox_patch'}]")
-        patches = literal_eval(rds.get('patches'))
+        patches = ast.literal_eval(rds.get('patches'))
         patches.append(patch_data)
         rds.set('patches', str(patches))
         rds.save()
@@ -86,7 +86,7 @@ def get_latest_patch():
     if not rds.get('patches'):
         rds.set(patches, "[]")
     patches = rds.get("patches")
-    return literal_eval(patches)[-1]
+    return ast.literal_eval(patches)[-1]
 
 
 @api.route('/patch/<version>/', methods=['DELETE'])
@@ -100,7 +100,7 @@ def delete_patch_version(version):
 
     删除华师匣子特定版本补丁的信息
     """
-    patches = literal_eval(rds.get('patches'))
+    patches = ast.literal_eval(rds.get('patches'))
     for n, patch in enumerate(patches):
         if patch.get('version') == version:
             del patches[n]
