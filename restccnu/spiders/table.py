@@ -44,6 +44,10 @@ def get_table(s, sid, xnm, xqm):
         if '(' in _weeks:
             weeks =  _weeks.split('(')
             time = weeks[0]; mode = weeks[-1]
+            if ',' in time:
+                times = time.split(',')
+                weeks_list.append(times[0][:-1])
+                time = times[1]
             _time = time.split('-')
             _start = int(_time[0]); _last = int(_time[-1][:-1])
             if mode:
@@ -53,7 +57,10 @@ def get_table(s, sid, xnm, xqm):
             for week in weeks:
                 if '-' in week:
                     _start = int(week.split('-')[0])
-                    _last = int(week.split('-')[1][:-1])
+                    if '双' in week.split('-')[1]:
+                        _last = int(week.split('-')[1][:-4])
+                    else:
+                        _last = int(week.split('-')[1][:-1])
                     _weeks_list = range(_start, _last+1)
                     weeks_list += _weeks_list
                 else:
