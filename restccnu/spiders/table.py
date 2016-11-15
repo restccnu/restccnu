@@ -57,10 +57,7 @@ def get_table(s, sid, xnm, xqm):
             for week in weeks:
                 if '-' in week:
                     _start = int(week.split('-')[0])
-                    if '双' in week.split('-')[1]:
-                        _last = int(week.split('-')[1][:-4])
-                    else:
-                        _last = int(week.split('-')[1][:-1])
+                    _last = int(week.split('-')[1][:-1])
                     _weeks_list = range(_start, _last+1)
                     weeks_list += _weeks_list
                 else:
