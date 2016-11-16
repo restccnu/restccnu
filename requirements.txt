@@ -31,3 +31,4 @@ flask-zero
 gevent
 raven[flask]
 blinker
+pushjack
