@@ -20,6 +20,7 @@ from . import api
 
 
 @api.route('/push/register/', methods=['GET', 'POST'])
+@admin_required
 def push_register():
     """
     :function: push_register
@@ -51,6 +52,13 @@ def push_register():
 @api.route('/push/ids/', methods=["GET"])
 @admin_required
 def get_ids():
+    """
+    :function: get_ids
+    :args: 无
+    :rv: 所有设备id json列表
+
+    返回所有注册的设备id
+    """
     return jsonify({
         'ids': ast.literal_eval(rds.get('ids'))
     })
@@ -59,6 +67,11 @@ def get_ids():
 @api.route('/push/', methods=['GET', 'POST'])
 @admin_required
 def push_notification():
+    """
+    :function: push_notification
+    :args: 无
+    :rv: 无, 如果出错, 返回错误设备token和信息
+    """
     if request.method == 'POST':
         title = request.get_json().get('title')
         # body = request.get_json().get('body')
