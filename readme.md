@@ -17,6 +17,7 @@
 + ADMIN_PASS: 管理员密码
 + C_FORCE_ROOT: (true) root运行celery
 + CELERY_ACCEPT_CONTENT: (json) pickle root运行celery有漏洞
++ IOS_CERTIFICATE: ios pem文件
 
 ### 2. 部署运行
 部署运行命令:

@@ -11,8 +11,8 @@
 
 import os
 import ast
-# from pushjack import APNSClient
-from pushjack import APNSSandboxClient
+from pushjack import APNSClient
+# from pushjack import APNSSandboxClient
 from flask import request, jsonify
 from restccnu import rds
 from .decorators import admin_required
@@ -77,8 +77,8 @@ def push_notification():
         # body = request.get_json().get('body')
         ids = ast.literal_eval(rds.get('ids'))
 
-        # client = APNSClient(
-        client = APNSSandboxClient(
+        client = APNSClient(
+        # client = APNSSandboxClient(
             certificate=os.getenv("IOS_CERTIFICATE"),
             default_error_timeout=10,
             default_expiration_offset=2592000,
