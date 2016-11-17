@@ -4,6 +4,9 @@
     `````````
 
     华师匣子课表API模块
+
+    :MAINTAINER: neo1218
+    :OWNER: muxistudio
 """
 
 import base64
