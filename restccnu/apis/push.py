@@ -86,4 +86,6 @@ def push_notification():
         )
 
         res = client.send(ids, title)
-        return jsonify(res.token_errors)
+        return jsonify({
+            "error": str(res.token_errors)
+        })
