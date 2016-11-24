@@ -41,10 +41,30 @@ def get_zizhu_html():
         content_page = urllib.urlopen(content_url)
         content_html = content_page.read()
         content_soup = BeautifulSoup(content_html, "lxml")
-        try:
-            content_strings = content_soup.find_all('div', id='vsb_content')[0].strings
-        except IndexError:
-            content_strings = content_soup.find_all('div', id='vsb_content_2')[0].strings
+
+        # different pages have different classes for main content
+        find_content = content_soup.find_all('div', id='vsb_content')
+        find_content_2 = content_soup.find_all('div', id='vsb_content_2')
+        find_content_6 = content_soup.find_all('div', id='vsb_content_6')
+        find_content_3 = content_soup.find_all('div', id='vsb_content_3')
+        find_content_4 = content_soup.find_all('div', id='vsb_content_4')
+        find_content_5 = content_soup.find_all('div', id='vsb_content_5')
+        find_content_7 = content_soup.find_all('div', id='vsb_content_7')
+        if find_content:
+            content_strings = find_content[0].strings
+        elif find_content_2:
+            content_strings = find_content_2[0].strings
+        elif find_content_6:
+            content_strings = find_content_6[0].strings
+        elif find_content_3:
+            content_strings = find_content_3[0].strings
+        elif find_content_4:
+            content_strings = find_content_4[0].strings
+        elif find_content_5:
+            content_strings = find_content_5[0].strings
+        elif find_content_7:
+            content_strings = find_content_7[0].strings
+
         content_appendix_url_list = []
         content_appendix_list_all = content_soup.find_all('ul', style='list-style-type:none')
         if content_appendix_list_all:
