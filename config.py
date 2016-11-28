@@ -28,7 +28,7 @@ class Config(object):
             'restart_redis_every_86400s': {
                 # 每隔1天爬取通知公告
                 'task': 'cute_board_spider',
-                'schedule': timedelta(seconds=24*3600)
+                'schedule': timedelta(seconds=12*3600)
             },
     }
 
