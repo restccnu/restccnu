@@ -139,8 +139,6 @@ def api_ios_add_table(s, sid):
         return jsonify({}), 201
 
 
-
-
 @api.route('/table/<int:id>/', methods=['DELETE'])
 @require_info_login
 def api_delete_table(s, sid, id):
@@ -176,3 +174,40 @@ def api_delete_table(s, sid, id):
                     del tables[i]
                 table.save()
             return jsonify({}), 200
+
+@api.route('/table/<int:id>/', methods=['PUT', 'GET'])
+@require_info_login
+def api_edit_table(s, sid, id):
+    """
+    :function: api_edit_table
+    :args:
+        - id: 待修改的课程的id
+
+    修改指定id的课程(用户自定义课程, 信息门户课程)
+    """
+    if request.method == 'PUT':
+        course = request.get_json().get("course")
+        teacher = request.get_json().get("teacher")
+        weeks = request.get_json().get("weeks")
+        day = request.get_json().get("day")
+        start = request.get_json().get("start")
+        during = request.get_json().get("during")
+        place = request.get_json().get("place")
+        remind = request.get_json().get("remind")
+
+        courses = connection.User.find_one({'sid': sid}) if id < 1024 else \
+                  connection.Table.find_one({'sid': sid})
+        tables = courses['table']; _course = None
+        for i, item in enumerate(tables):
+            if item.get('id') == str(id):
+                _course = tables[i]
+        if _course is None:
+            return jsonify({}), 404
+        _course['course'] = course; _course['teacher'] = teacher
+        _course['weeks'] = weeks; _course['day'] = day
+        _course['start'] = start; _course['during'] = during
+        _course['place'] = place; _course['remind'] = remind
+        ## update _course
+        courses['table'] = tables
+        courses.save()
+    return jsonify({}), 200
