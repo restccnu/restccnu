@@ -1,6 +1,6 @@
 #coding: utf-8
 """
-    restccnu::apis::site
+    restccnu::apis::website
 
     常用网站API
 
@@ -9,7 +9,7 @@
 
 """
 
-from restccnu.spiders.site import _site_list
+from restccnu.spiders.website import _site_list
 from . import api
 from .decorators import tojson
 
