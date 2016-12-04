@@ -27,6 +27,6 @@ def api_index():
 
 
 from . import login, lib, table, grades, ele, board, banners, apartment, app, \
-              patch, product, calendars, start, site
+              patch, product, calendars, start, website
 # ios 
 from . import ios_banners, ios_calendars, push

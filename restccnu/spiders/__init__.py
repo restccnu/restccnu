@@ -58,6 +58,8 @@ grade_detail_url = "http://122.204.187.6/cjcx/cjcx_cxCjxq.html?time=146824332458
 
 """电费查询"""
 ele_index_url = "http://202.114.38.46/"
+ele_url = "http://202.114.38.46/SelectPage.aspx/SerBindTabDate"
+new_ele_url = "http://jnb.ccnu.edu.cn/weixin/example/demo/search.php"
 
 """通知公告"""
 zizhu_url = 'http://zizhu.ccnu.edu.cn/index.htm'
