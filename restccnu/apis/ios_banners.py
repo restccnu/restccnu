@@ -18,6 +18,7 @@ from flask import jsonify, request
 
 # placeholder, make sure banners hash-list exist
 rds.hset('ios_banners', '_placeholder', '_placeholder')
+rds.hset('ios_banners_num', '_placeholder', '_placeholder')
 
 
 @api.route('/ios/banner/', methods=['GET'])
@@ -49,8 +50,9 @@ def get_ios_banners():
                     "url": banners.get(banner),
                     "update": update,
                     "filename":  banner,
+                    "num": rds.hget("ios_banners_num", qiniu.url(banner))
                 })
-                sorted_banners_list = sorted(banners_list, key=lambda x: x['filename'])
+        sorted_banners_list = sorted(banners_list, key=lambda x: x['num'])
         return json.dumps(sorted_banners_list, indent=4, ensure_ascii=False), 200
 
 
@@ -67,9 +69,11 @@ def new_ios_banner():
     if request.method == 'POST':
         img = request.get_json().get('img')
         url = request.get_json().get('url')
+        num = request.get_json().get('num')
 
         # store in banners hash list
         rds.hset('ios_banners', img, url)
+        rds.hset('ios_banners_num', img, num)
         rds.save()
 
         return jsonify({}), 201
