@@ -18,6 +18,7 @@ from flask import jsonify, request
 
 # placeholder, make sure banners hash-list exist
 rds.hset('banners', '_placeholder', '_placeholder')
+rds.hset('banners_num', '_placeholder', '_placeholder')
 
 
 @api.route('/banner/', methods=['GET'])
@@ -49,8 +50,10 @@ def get_banners():
                     "url": banners.get(banner),
                     "update": update,
                     "filename":  banner,
+                    "num": rds.hget('banners_num', qiniu.url(banner))
                 })
-                sorted_banners_list = sorted(banners_list, key=lambda x: x['filename'])
+        # sorted_banners_list = sorted(banners_list, key=lambda x: x['filename'])
+        sorted_banners_list = sorted(banners_list, key=lambda x: int(x['num']))
         return json.dumps(sorted_banners_list, indent=4, ensure_ascii=False), 200
 
 
@@ -67,9 +70,11 @@ def new_banner():
     if request.method == 'POST':
         img = request.get_json().get('img')
         url = request.get_json().get('url')
+        num = request.get_json().get('num')
 
         # store in banners hash list
         rds.hset('banners', img, url)
+        rds.hset('banners_num', img, num)
         rds.save()
 
         return jsonify({}), 201
@@ -82,7 +87,7 @@ def delete_banner():
     :function: delete_banner
     :args: none
     :rv: json message
-    
+
     根据名字删除banner
     """
     if request.method == 'DELETE':
