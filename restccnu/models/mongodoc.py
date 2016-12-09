@@ -62,3 +62,20 @@ class Dormitory(Document):
 
     def __repr__(self):
         return '<Mongo Dormitory>'
+
+class Feedback(Document):
+    """
+    :class: Feedback
+
+    ios用户反馈存储
+    """
+    __collection__ = 'feedbacks'
+    __database__ = 'feedb'
+    structure = {
+        'contact': basestring,
+        'feedback': basestring
+    }
+    required_fields = ['feedback', 'contact']
+
+    def __repr__(self):
+        return '<Mongo Feedback>'

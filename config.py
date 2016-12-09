@@ -17,6 +17,17 @@ class Config(object):
     """
     配置基类
     """
+    # 邮件务器配置
+    MAIL_SERVER = 'smtp.163.com'
+    MAIL_PORT = 25
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.getenv('RESTCCNU_MAIL_USERNAME')
+    MAIL_PASSWORD = os.getenv('RESTCCNU_MAIL_PASSWORD')
+    MAIL_DEFAULT_SENDER = 'muxistudio@163.com'
+    MAIL_SUBJECT_PREFIX = 'dead [feedback] bug'
+    ADMIN_EMAIL = 'muxistudio@qq.com'
+
+    # 七牛服务配置
     QINIU_ACCESS_KEY = os.getenv('QINIU_ACCESS_KEY')  # 七牛access key
     QINIU_SECRET_KEY = os.getenv('QINIU_SECRET_KEY')  # 七牛secret key
     QINIU_BUCKET_NAME = os.getenv('QINIU_BUCKET_NAME') or 'ccnustatic'  # 七牛bucket名称

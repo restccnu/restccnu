@@ -85,7 +85,7 @@ def get_latest_app():
     获取最新版本华师匣子信息
     """
     if not rds.get('apps'):
-        rds.set(apps, "[]")
+        rds.set('apps', "[]")
     apps = rds.get("apps")
     return ast.literal_eval(apps)[-1]
 
