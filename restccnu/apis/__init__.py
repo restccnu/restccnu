@@ -10,7 +10,10 @@
 from flask import Blueprint, jsonify, redirect
 
 
-api = Blueprint('api', __name__)
+api = Blueprint('api',
+     __name__,
+     template_folder='templates'
+)
 
 
 @api.route('/')
@@ -29,4 +32,4 @@ def api_index():
 from . import login, lib, table, grades, ele, board, banners, apartment, app, \
               patch, product, calendars, start, website
 # ios 
-from . import ios_banners, ios_calendars, push
+from . import ios_banners, ios_calendars, push, ios_feedback

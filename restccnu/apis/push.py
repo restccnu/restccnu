@@ -35,15 +35,24 @@ def push_register():
     """
     if request.method == 'POST':
         unique_id = request.get_json().get('unique_id')
+        sid = request.get_json().get('sid')  # 学号
         # 将unique_id写入数据库
         if not rds.get('ids'):
             rds.set('ids', "[]")
             rds.save()
         ids = ast.literal_eval(rds.get('ids'))
         if unique_id not in ids:
-            ids.append(unique_id)
-            rds.set('ids', ids)
-            rds.save()
+            if not sid:
+                ids.append(unique_id)
+            else: ids.append("%s:%s" % (unique_id, sid))
+        elif unique_id in ids:
+            index = ids.index(unique_id)
+            del ids[index]
+            ids.append("%s:%s" % (unique_id, sid))
+        # db commit
+        rds.set('ids', ids)
+        rds.save()
+            
         return jsonify({
             'message': 'add new unique_id'
         }), 201
@@ -74,8 +83,12 @@ def push_notification():
     """
     if request.method == 'POST':
         title = request.get_json().get('title')
-        # body = request.get_json().get('body')
+        userinfo = request.get_json().get('userinfo')
+        
+        _ids = []
         ids = ast.literal_eval(rds.get('ids'))
+        for id in ids:
+            _ids.append(id.split(':')[0])
 
         client = APNSClient(
         # client = APNSSandboxClient(
@@ -85,7 +98,8 @@ def push_notification():
             default_batch_size=100
         )
 
-        res = client.send(ids, title)
+        res = client.send(_ids, title,
+                          extra=userinfo)
         return jsonify({
             "error": str(res.token_errors)
         })
