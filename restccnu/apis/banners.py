@@ -88,14 +88,36 @@ def delete_banner():
     :args: none
     :rv: json message
 
-    根据名字删除banner
+    根据名字删除banner, 删除排序表中的banner
     """
     if request.method == 'DELETE':
         # img = request.get_json().get('img')
         img = request.args.get('name')
         banners = rds.hgetall('banners')
+        banners_num = rds.hgetall('banners_num')
         if img in banners:
-            rds.hdel('banners', img)
+            rds.hdel('banners', img)     # 删除banner
+            rds.hdel('banners_num', img) # 删除排序表中的banner
+            rds.save()
+            return jsonify({}), 200
+        else: return jsonify({}), 404
+
+
+@api.route('/banner/', methods=['GET', 'PUT'])
+@admin_required
+def update_banner():
+    """
+    :function: update_banner
+    
+    更新banner(排序)
+    """
+    if request.method == 'PUT':
+        img = request.get_json().get('img')  # 待修改的图片七牛外链
+        num = request.get_json().get('num')  # 被修改后的排序num
+
+        banners = rds.hgetall('banners')
+        if img in banners:
+            rds.hset('banners_num', img, num)
             rds.save()
             return jsonify({}), 200
         else: return jsonify({}), 404
