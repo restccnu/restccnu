@@ -95,6 +95,27 @@ def delete_ios_banner():
         banners = rds.hgetall('ios_banners')
         if img in banners:
             rds.hdel('ios_banners', img)
+            rds.hdel('ios_banners_num', img)
+            rds.save()
+            return jsonify({}), 200
+        else: return jsonify({}), 404
+
+
+@api.route('/ios/banner/', methods=['GET', 'PUT'])
+@admin_required
+def update_ios_banner():
+    """
+    :function: update_ios_banner
+    
+    更新banner(排序)
+    """
+    if request.method == 'PUT':
+        img = request.get_json().get('img')  # 待修改的图片七牛外链
+        num = request.get_json().get('num')  # 被修改后的排序num
+
+        banners = rds.hgetall('ios_banners')
+        if img in banners:
+            rds.hset('ios_banners_num', img, num)
             rds.save()
             return jsonify({}), 200
         else: return jsonify({}), 404
