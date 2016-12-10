@@ -4,20 +4,29 @@
 
 ## $-部署流程(docker, docker-compose)
 ### 1. 配置环境
-编写 ```restccnu.env```, 配置项如下: <br/>
+编写 ```restccnu.env```或者系统环境变量, 配置项如下: <br/>
 
-+ REST_MONGO_HOST: mongodb数据库 host ip
-+ QINIU_EMAIL: 七牛账号
-+ QINIU_PASS: 七牛密码
-+ QINIU_ACCESS_KEY: 七牛账号公钥
-+ QINIU_SECRET_KEY: 七牛账号私钥
-+ QINIU_BUCKET_NAME: 七牛bucket名称
-+ QINIU_BUCKET_DOMAIN: 七牛bucket域名
-+ ADMIN_EMAIL: 管理员账号
-+ ADMIN_PASS: 管理员密码
-+ C_FORCE_ROOT: (true) root运行celery
-+ CELERY_ACCEPT_CONTENT: (json) pickle root运行celery有漏洞
-+ IOS_CERTIFICATE: ios pem文件
++ **mongodb数据库配置**
+    + REST_MONGO_HOST: mongodb数据库 host ip
++ **七牛静态资源管理配置**
+    + QINIU_EMAIL: 七牛账号
+    + QINIU_PASS: 七牛密码
+    + QINIU_ACCESS_KEY: 七牛账号公钥
+    + QINIU_SECRET_KEY: 七牛账号私钥
+    + QINIU_BUCKET_NAME: 七牛bucket名称
+    + QINIU_BUCKET_DOMAIN: 七牛bucket域名
++ **管理员账号配置**
+    + ADMIN_EMAIL: 管理员账号
+    + ADMIN_PASS: 管理员密码
++ **celery配置**
+    + C_FORCE_ROOT: (true) root运行celery
+    + CELERY_ACCEPT_CONTENT: (json) pickle root运行celery有漏洞
++ **IOS配置**
+    + IOS_CERTIFICATE: ios pem文件
++ **redis配置**
+    + REDIS1_HOST: 运行redis1容器的主机(Linux系统就是本机IP, Mac如果用的是docker-machine, 那么就是docker daemon的ip[查看:docker-machine env])
+    + REDIS2_HOST: [同上
+    + REDIS3_HOST: [同上[同上
 
 ### 2. 部署运行
 部署运行命令:
