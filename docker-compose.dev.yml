@@ -1,0 +1,38 @@
+#-------------------- celery --------------------------
+celery:
+    build: .
+    env_file:
+        - restccnu.env
+    command: celery worker -A restccnu.workers.workers.celery --loglevel=INFO
+    links:
+        - redis1
+        - redis2
+        - redis3
+
+#------------------- celery beats----------------------
+celery_beats:
+    build: .
+    env_file:
+        - restccnu.env
+    command: celery -A restccnu.workers.workers.celery beat --loglevel=INFO
+    links:
+        - redis1
+        - redis2
+        - redis3
+
+#------------------- redis servers---------------------
+redis1:
+    image: redis
+    command: redis-server --port 6384  # 静态资源存储
+    ports:
+        - "7384:6384"
+redis2:
+    image: redis
+    command: redis-server --port 6381  # 通知公告缓存
+    ports:
+        - "7381:6381"
+redis3:
+    image: redis
+    command: redis-server --port 6383 # celery result backend
+    ports:
+        - "7383:6383"

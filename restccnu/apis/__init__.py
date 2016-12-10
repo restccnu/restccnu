@@ -25,6 +25,7 @@ def api_index():
             'source code': 'https://github.com/Muxi-Studio/restccnu',
             'lang': 'python',
             'author': ['@neo1218', '@kasheemlew'],
+            'status': 'I tell you everything is ok!'
         },
     }), 200
 
