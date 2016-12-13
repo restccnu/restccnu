@@ -74,7 +74,7 @@ def new_banner():
 
         # store in banners hash list
         rds.hset('banners', img, url)
-        rds.hset('banners_num', img, num)
+        rds.hset('banners_num', qiniu.url(img), num)
         rds.save()
 
         return jsonify({}), 201
