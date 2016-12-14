@@ -73,7 +73,7 @@ def new_ios_banner():
 
         # store in banners hash list
         rds.hset('ios_banners', img, url)
-        rds.hset('ios_banners_num', img, num)
+        rds.hset('ios_banners_num', qiniu.url(img), num)
         rds.save()
 
         return jsonify({}), 201
