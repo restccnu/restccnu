@@ -73,7 +73,7 @@ def new_ios_banner():
 
         # store in banners hash list
         rds.hset('ios_banners', img, url)
-        rds.hset('ios_banners_num', img, num)
+        rds.hset('ios_banners_num', qiniu.url(img), num)
         rds.save()
 
         return jsonify({}), 201
@@ -113,8 +113,8 @@ def update_ios_banner():
         img = request.get_json().get('img')  # 待修改的图片七牛外链
         num = request.get_json().get('num')  # 被修改后的排序num
 
-        banners = rds.hgetall('ios_banners')
-        if img in banners:
+        banners_num = rds.hgetall('ios_banners_num')
+        if img in banners_num:
             rds.hset('ios_banners_num', img, num)
             rds.save()
             return jsonify({}), 200

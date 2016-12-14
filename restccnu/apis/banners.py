@@ -115,8 +115,8 @@ def update_banner():
         img = request.get_json().get('img')  # 待修改的图片七牛外链
         num = request.get_json().get('num')  # 被修改后的排序num
 
-        banners = rds.hgetall('banners')
-        if img in banners:
+        banners_num = rds.hgetall('banners_num')
+        if img in banners_num:
             rds.hset('banners_num', img, num)
             rds.save()
             return jsonify({}), 200
