@@ -107,4 +107,4 @@ def delete_version(version):
             del apps[n]
     rds.set('apps', str(apps))
     rds.save()
-    return jsonify({'msg': 'delete version %s' % version}), 200
+    return jsonify({'msg': 'delete version %s' % version}), 200j
