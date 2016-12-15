@@ -42,10 +42,8 @@ def push_register():
             rds.save()
         ids = ast.literal_eval(rds.get('ids'))
         if unique_id not in ids:
-            if not sid:
-                ids.append(unique_id)
-            else: ids.append("%s:%s" % (unique_id, sid))
-        elif unique_id in ids:
+            ids.append("%s:%s" % (unique_id, sid)) if sid else ids.append(unique_id)
+        elif (unique_id in ids) and sid:
             index = ids.index(unique_id)
             del ids[index]
             ids.append("%s:%s" % (unique_id, sid))
