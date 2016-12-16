@@ -50,7 +50,6 @@ def push_register():
         # db commit
         rds.set('ids', ids)
         rds.save()
-            
         return jsonify({
             'message': 'add new unique_id'
         }), 201
@@ -82,7 +81,7 @@ def push_notification():
     if request.method == 'POST':
         title = request.get_json().get('title')
         userinfo = request.get_json().get('userinfo')
-        
+
         _ids = []
         ids = ast.literal_eval(rds.get('ids'))
         for id in ids:
@@ -91,7 +90,7 @@ def push_notification():
         client = APNSClient(
         # client = APNSSandboxClient(
             certificate=os.getenv("IOS_CERTIFICATE"),
-            default_error_timeout=10,
+            default_error_timeout=1000,
             default_expiration_offset=2592000,
             default_batch_size=100
         )
