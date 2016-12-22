@@ -46,6 +46,7 @@ link_index_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
 lib_search_url = "http://202.114.34.15/opac/openlink.php"
 lib_me_url = "http://202.114.34.15/reader/book_lst.php"
 lib_detail_url = "http://202.114.34.15/opac/item.php?marc_no=%s"
+lib_renew_url = "http://202.114.34.15/reader/ajax_renew.php"
 douban_url = "https://api.douban.com/v2/book/isbn/%s"
 
 """课程表"""
