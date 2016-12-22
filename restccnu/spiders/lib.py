@@ -119,15 +119,12 @@ def renew_book(s, bar_code, check)
             'time': now
             }
     res = s.post(renew_url, params=payload)
-    res_info = res.BeautifulSoup(res.content, "lxml", from_encoding='utf-8').string
+    res_info = BeautifulSoup(res.content, "lxml", from_encoding='utf-8').string
     return {
             'bar_code': bar_code,
             'check': check,
             'renew_info': res_info
             }
-
-
-
 
 
 def get_book(id, book, author):
