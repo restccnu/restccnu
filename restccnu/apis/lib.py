@@ -70,7 +70,7 @@ def api_book_me(s, sid):
 
 @api.route('/lib/renew/')
 @require_lib_login
-@to_json
+@tojson
 def api_renew_book(s, bar_code, check):
     """
     :function: api_renew_book

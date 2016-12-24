@@ -13,7 +13,7 @@ import random
 import json
 import requests
 from bs4 import BeautifulSoup
-from flask import request
+from flask import request, jsonify
 from . import table_test_url
 from . import table_index_url
 from . import link_index_url
@@ -35,9 +35,12 @@ def get_table(s, sid, xnm, xqm):
     table_url = table_index_url % sid
     link_url = link_index_url
     post_data = {'xnm': xnm, 'xqm': xqm}
-    s.get(link_url, headers=headers, proxies=proxy)
-    r = s.post(table_url, post_data, headers=headers)
-    json_data = r.json()
+    # s.get(link_url, headers=headers, proxies=proxy)
+    s.get("http://h5.muxixyz.com", headers=headers, proxies=proxy)
+    try:
+        r = s.post(table_url, post_data, headers=headers)
+        json_data = r.json()
+    except: return jsonify({}), 500
     kbList = json_data.get('kbList'); kcList = []; weeks_list = []
     for item in kbList:
         _weeks = item.get('zcd')
