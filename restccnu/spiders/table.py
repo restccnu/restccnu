@@ -35,8 +35,7 @@ def get_table(s, sid, xnm, xqm):
     table_url = table_index_url % sid
     link_url = link_index_url
     post_data = {'xnm': xnm, 'xqm': xqm}
-    # s.get(link_url, headers=headers, proxies=proxy)
-    s.get("http://h5.muxixyz.com", headers=headers, proxies=proxy)
+    s.get(link_url, headers=headers, proxies=proxy)
     try:
         r = s.post(table_url, post_data, headers=headers)
         json_data = r.json()
