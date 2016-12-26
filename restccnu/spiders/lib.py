@@ -119,11 +119,15 @@ def renew_book(s, bar_code, check)
             'time': now
             }
     res = s.post(renew_url, params=payload)
-    res_info = BeautifulSoup(res.content, "lxml", from_encoding='utf-8').string
+    res_color = BeautifulSoup(res.content, "lxml", from_encoding='utf-8').find('font')['color']
+
+    if res_color == 'green':
+        res_code = 200
+    elif res_color == 'red':
+        res_code = 404
+
     return {
-            'bar_code': bar_code,
-            'check': check,
-            'renew_info': res_info
+            'renew_code': res_code
             }
 
 
