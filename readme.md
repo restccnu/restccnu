@@ -44,6 +44,16 @@
 
 运行在ip:5486端口(如果是Mac且不是docker for mac, ip就是docker-machine ip)
 
+## $-代理状态下运行
+如果学校断外网访问, restccnu可以运行在校内服务器代理模式下(感谢无名间谍服务器:) <br/>
+配置环境变量```PROXY=ON```
+
+    $ docker-compose -f docker-compose.sss.yml build
+    $ docker-compose -f docker-compose.sss.yml up -d
+    $ docker-compose -f docker-compose.sss.yml ps
+
++ ❌[目前开代理后, 信息门户登录403 BUG](https://github.com/restccnu/restccnu/issues/94)
+
 ## $-运行测试
 ### 本地测试(docker, unittest)
 本地测试运行在docker中(docker-compose.test.yml), 确保测试环境和部署环境完全一致. <br/>
