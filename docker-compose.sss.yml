@@ -3,14 +3,13 @@ restccnu:
     build: .
     env_file:
         - restccnu.env
-    command: gunicorn --name restccnu -b 0.0.0.0:5486 -w 2 wsgi:app
+    command: sh ssstart.sh
     ports:
         - "5486:5486"
     links:
         - redis1
         - redis2
         - redis3
-          # - shadowsocks-client
  
 #-------------------- celery --------------------------
 celery:
@@ -22,7 +21,6 @@ celery:
         - redis1
         - redis2
         - redis3
-        - shadowsocks-client
 
 #------------------- celery beats----------------------
 celery_beats:
@@ -34,7 +32,6 @@ celery_beats:
         - redis1
         - redis2
         - redis3
-        - shadowsocks-client
 
 #------------------- redis servers---------------------
 redis1:
