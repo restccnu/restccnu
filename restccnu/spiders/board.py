@@ -5,7 +5,7 @@
 
     通知公告API
 
-    :MAINTAINER: kasheelew
+    :MAINTAINER: kasheemlew
     :OWNER: muxistudio
 
 """

@@ -12,7 +12,7 @@
 import json
 from . import api
 from flask import request, jsonify
-from ..spiders.lib import search_books, get_book, book_me
+from ..spiders.lib import search_books, get_book, book_me, renew_book
 from .decorators import tojson, require_lib_login
 from .paginate import _Pagination
 
@@ -66,3 +66,17 @@ def api_book_me(s, sid):
         - sid: 学号
     """
     return book_me(s)
+
+
+@api.route('/lib/renew/')
+@require_lib_login
+@tojson
+def api_renew_book(s, bar_code, check):
+    """
+    :function: api_renew_book
+    :args:
+        - s: 爬虫session对象
+        - bar_code: 图书bar_code字段
+        - check: 图书check字段
+    """
+    return renew_book(s, bar_code, check)

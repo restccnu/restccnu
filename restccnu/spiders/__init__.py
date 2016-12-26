@@ -10,6 +10,7 @@
     :MAINTAINER: neo1218
     :OWNER: muxistudio
 """
+import os
 import random
 from fuckccnu.multiUA import LoadUserAgents
 
@@ -19,20 +20,19 @@ headers
 """
 uas = LoadUserAgents()
 ua = random.choice(uas)
-headers = {
-        'User-Agent': ua,
-        'Connection': 'close',
-}
-
+headers = { 'User-Agent': ua }
 
 """
 proxy
--> 校内服务代理, 防止万恶的学校封外网
+-> 校内SOCKS5代理, 防止万恶的学校封外网
 """
-proxy = {
-    "https": "https://:fuckccnu@218.199.196.131:8388"
-}
-
+PROXY = os.getenv("PROXY")
+if PROXY == "ON":
+    proxy = {
+            'http': 'socks5:127.0.0.1:1080',
+            'https': 'socks5:127.0.0.1:1080'
+    }
+elif PROXY == "OFF": proxy = None
 
 # URL MAP
 """模拟登录"""
@@ -46,6 +46,7 @@ link_index_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
 lib_search_url = "http://202.114.34.15/opac/openlink.php"
 lib_me_url = "http://202.114.34.15/reader/book_lst.php"
 lib_detail_url = "http://202.114.34.15/opac/item.php?marc_no=%s"
+lib_renew_url = "http://202.114.34.15/reader/ajax_renew.php"
 douban_url = "https://api.douban.com/v2/book/isbn/%s"
 
 """课程表"""
@@ -66,3 +67,5 @@ zizhu_url = 'http://zizhu.ccnu.edu.cn/index.htm'
 huaqing_url = 'http://www.ccnuyouth.com/tzgg.htm'
 jiaowuchu1 = 'http://jwc.ccnu.edu.cn/index/tzggxs.htm'
 jiaowuchu2 = 'http://jwc.ccnu.edu.cn/index/tzggxy.htm'
+myccnu_url = 'http://ccnu.chunkao.cn'
+myccnu_cookie = 'PHPSESSID=uv2cdkv1uql14ofgmoe5ob4e44'

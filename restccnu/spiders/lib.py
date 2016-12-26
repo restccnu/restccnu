@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup
 from . import lib_search_url
 from . import lib_me_url
 from . import lib_detail_url
+from . import lib_renew_url
 from . import douban_url
 from . import headers
 from . import proxy
@@ -29,7 +30,7 @@ def search_books(keyword):
     :args:
         - keyword: 搜索关键字
     :rv:
-    
+
     搜索图书结果
 
     :20161017:
@@ -82,15 +83,52 @@ def book_me(s):
         ctime = datetime.datetime.now().strftime("%Y-%m-%d")
         dtime = time.mktime(date_otime.timetuple()) - \
                 time.mktime(datetime.datetime.now().timetuple())
+
+        renew_button = _book.find('input')['onclick']
+        renew_info = [eval(i) for i in renew_button[renew_button.index('(')+1: renew_button.index(')')].split(',')]
+        bar_code = renew_info[0]
+        check = renew_info[1]
+
         my_book_list.append({
             'book': text[2].split('/')[0].strip(),
             'author': text[2].split('/')[-1].strip(),
             'itime': str(itime),
             "otime": str(otime),
             "time": int(dtime/(24*60*60)),
-            "room": text[6].strip()
+            "room": text[6].strip(),
+            "bar_code": bar_code,
+            "check": check
         })
     return my_book_list
+
+
+def renew_book(s, bar_code, check):
+    """
+    :function: renew_book
+    :args:
+        - s: 爬虫session对象
+    :rv:
+
+    续借函数
+    """
+    renew_url = lib_renew_url
+    now = int(time.time()*1000)
+    payload = {
+            'bar_code': bar_code,
+            'check': check,
+            'time': now
+            }
+    res = s.post(renew_url, params=payload)
+    res_color = BeautifulSoup(res.content, "lxml", from_encoding='utf-8').find('font')['color']
+
+    if res_color == 'green':
+        res_code = 200
+    elif res_color == 'red':
+        res_code = 404
+
+    return {
+            'renew_code': res_code
+            }
 
 
 def get_book(id, book, author):

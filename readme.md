@@ -27,6 +27,12 @@
     + REDIS1_HOST: 运行redis1容器的主机(Linux系统就是本机IP, Mac如果用的是docker-machine, 那么就是docker daemon的ip[查看:docker-machine env])
     + REDIS2_HOST: [同上
     + REDIS3_HOST: [同上[同上
++ **校内SOCKS5代理配置**
+    + PROXY 是否开启校内代理
+        - PROXY=ON  开启
+        - PROXY=OFF 关闭
++ **UserAgent配置**
+    + USER_AGENT_FILE=/restccnu/fuckccnu/multiUA/user_agents.txt 随机UA
 
 ### 2. 部署运行
 部署运行命令:
