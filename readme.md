@@ -31,6 +31,8 @@
     + PROXY 是否开启校内代理
         - PROXY=ON  开启
         - PROXY=OFF 关闭
++ **UserAgent配置**
+    + USER_AGENT_FILE=/restccnu/fuckccnu/multiUA/user_agents.txt 随机UA
 
 ### 2. 部署运行
 部署运行命令:

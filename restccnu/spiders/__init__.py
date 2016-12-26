@@ -20,11 +20,7 @@ headers
 """
 uas = LoadUserAgents()
 ua = random.choice(uas)
-headers = {
-        'User-Agent': ua,
-        'Connection': 'close',
-}
-
+headers = { 'User-Agent': ua }
 
 """
 proxy
