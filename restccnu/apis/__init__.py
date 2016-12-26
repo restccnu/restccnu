@@ -7,6 +7,7 @@
     :OWNER: muxistudio
 """
 
+import os
 from flask import Blueprint, jsonify, redirect
 
 
@@ -25,7 +26,8 @@ def api_index():
             'source code': 'https://github.com/Muxi-Studio/restccnu',
             'lang': 'python',
             'author': ['@neo1218', '@kasheemlew'],
-            'status': 'I tell you everything is ok!'
+            'status': '✅',
+            'proxy': os.getenv('PROXY')
         },
     }), 200
 
