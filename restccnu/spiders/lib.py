@@ -123,8 +123,16 @@ def renew_book(s, bar_code, check)
 
     if res_color == 'green':
         res_code = 200
-    elif res_color == 'red':
-        res_code = 404
+    else:
+        res_string = BeautifulSoup(res.content, "lxml", from_encoding='utf-8').string.strip()
+        early = u'\u4e0d\u5230\u7eed\u501f\u65f6\u95f4\uff0c\u4e0d\u5f97\u7eed\u501f\uff01'
+        unavailable = u'\u8d85\u8fc7\u6700\u5927\u7eed\u501f\u6b21\u6570\uff0c\u4e0d\u5f97\u7eed\u501f\uff01'
+        if res_string == early:
+            res_code = 404
+        elif res_string == unavailable:
+            res_code = 403
+        else:
+            res_code = 400
 
     return {
             'renew_code': res_code
