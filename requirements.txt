@@ -33,3 +33,6 @@ raven[flask]
 blinker
 pushjack
 flask-mail
+shadowsocks
+requests[socks]
+pysocks
