@@ -10,7 +10,6 @@ restccnu:
         - redis1
         - redis2
         - redis3
-          # - shadowsocks-client
  
 #-------------------- celery --------------------------
 celery:
@@ -22,7 +21,6 @@ celery:
         - redis1
         - redis2
         - redis3
-        - shadowsocks-client
 
 #------------------- celery beats----------------------
 celery_beats:
@@ -34,7 +32,6 @@ celery_beats:
         - redis1
         - redis2
         - redis3
-        - shadowsocks-client
 
 #------------------- redis servers---------------------
 redis1:

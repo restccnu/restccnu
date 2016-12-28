@@ -31,11 +31,19 @@ def colour_meter_index():
             options = soup.find('tr', id='MeterDiv').find_all('option')
             _key_value = []
             for option in options:
-                if file[0] not in ['d', 's', 'x', 'y', 'n']:
-                    # 国交bug般的存在...
+                if file[0] not in ['d', 's', 'x', 'y', 'n', 'c']:
+                    # 国交
                     building = file[0]
                     key = option.get('value').split('*')[-2][:-2]
                     key = u'国' + building + '-' + key
+                elif file[0] == 'c':
+                    # 产宿
+                    key = option.get('value').split('*')[-2][:-2]
+                    if '-' in key:
+                        _key = key.split('-')
+                        if len(_key[-1]) == 1:
+                            _key[-1] = "0"+_key[-1]
+                        key = _key[0] + '-' + _key[1][:-1] + _key[-1]
                 else:
                     key = option.get('value').split('*')[-2][:-2]  # dor
                     key = key.replace(u"新", "")
