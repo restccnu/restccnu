@@ -43,7 +43,7 @@ def colour_meter_index():
                         _key = key.split('-')
                         if len(_key[-1]) == 1:
                             _key[-1] = "0"+_key[-1]
-                        key = _key[0] + '-' + _key[1][:-1] + _key[-1]
+                        key = (_key[0][0]+_key[0][-1]) + '-' + _key[1][:-1] + _key[-1]
                 else:
                     key = option.get('value').split('*')[-2][:-2]  # dor
                     key = key.replace(u"新", "")
