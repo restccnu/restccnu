@@ -84,7 +84,7 @@ def get_new_ele(meter, dor, typeit):
     """
     # set cookie
     cookies = {'ammeterid': meter}
-    r = requests.get(new_ele_url, cookies=cookies, timeout=7)
+    r = requests.get(new_ele_url, cookies=cookies, timeout=7, proxies=proxy)
     html = r.content
     soup = BeautifulSoup(html, 'lxml', from_encoding='utf-8')
 
