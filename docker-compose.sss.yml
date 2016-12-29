@@ -4,6 +4,7 @@ restccnu:
     env_file:
         - restccnu.env
     command: sh ssstart.sh
+          #command: python manage.py test
     ports:
         - "5486:5486"
     links:
