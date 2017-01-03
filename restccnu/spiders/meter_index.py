@@ -56,8 +56,10 @@ def colour_meter_index():
                 else:
                     # 其他寝室
                     key = option.get('value').split('*')[-2][:-2]  # dor
-                    key = key.replace(u"新", "")
-                    key = key.replace(u"新增", "")
+                    if "新增" in key:
+                        key = key.replace(u"新增", "")
+                    elif "新" in key:
+                        key = key.replace(u"新", "")
                 value = option.get('value').split('*')[0]          # meter
                 if key in _meter_index.keys():
                     _meter_index[key].append(value)
