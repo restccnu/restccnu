@@ -62,3 +62,22 @@ class Dormitory(Document):
 
     def __repr__(self):
         return '<Mongo Dormitory>'
+
+
+class Attention(Document):
+    """
+    :class: Attention
+
+    用户图书关注
+    """
+    __collection__ = 'attentions'
+    __database__ = 'attendb'
+    structure = {
+        'bar_code': basestring,
+        'book_info': dict,
+        'sid': list
+    }
+    required_fields = ['bar_code', 'book_info', 'sid']
+
+    def __repr__(self):
+        return '<Mongo Attention>'

@@ -133,10 +133,7 @@ def renew_book(s, bar_code, check)
             res_code = 403
         else:
             res_code = 400
-
-    return {
-            'renew_code': res_code
-            }
+    return res_code
 
 
 def get_book(id, book, author):
