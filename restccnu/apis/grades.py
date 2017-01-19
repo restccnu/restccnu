@@ -16,8 +16,8 @@ from flask import request, current_app
 
 
 @api.route('/grade/search/')
-@tojson
 @require_info_login
+@tojson
 def api_get_grade(s, sid):
     """
     :function: api_get_grade
@@ -34,8 +34,8 @@ def api_get_grade(s, sid):
 
 
 @api.route('/grade/detail/search/')
-@tojson
 @require_info_login
+@tojson
 def api_get_detail_grade(s, sid):
     """
     :function: api_get_detail_grade
