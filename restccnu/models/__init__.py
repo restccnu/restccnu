@@ -12,7 +12,7 @@
 """
 
 import os
-from .mongodoc import User, Dormitory, Table, Attention
+from .mongodoc import User, Dormitory, Table, Attention, Classroom
 from mongokit import Connection
 
 
@@ -26,6 +26,7 @@ connection.register([User])
 connection.register([Dormitory])
 connection.register([Table])
 connection.register([Attention])
+connection.register([Classroom])
 
 # _zero: 占位课程, id=0
 ## mongodb😓 的特性, 只有数据写入的时候创建数据库

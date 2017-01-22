@@ -32,3 +32,4 @@ gevent
 raven[flask]
 blinker
 pushjack
+xlrd

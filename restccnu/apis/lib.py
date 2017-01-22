@@ -99,23 +99,13 @@ def api_attention_book(s, sid):
         if user is None:
             return jsonify({}), 403
 
-        bar_code = request.get_json().get('bar_code')
         book_name = request.get_json().get('book_name')
-        author = request.get_json().get('author')
-
-        book_info = {
-                'bar_code': bar_code,
-                'book_name': book_name,
-                'author': author
-                }
-
-        book = connection.Attention.find_one({'bar_code': bar_code})
+        book = connection.Attention.find_one({'book_name': book_name})
         if book is None:
-            a = connection.Attention()
-            a['bar_code'] = bar_code
-            a['book_info'] = book_info
-            a['sid'] = [sid]
-            a.save()
+            atten = connection.Attention()
+            atten['book_name'] = book_name
+            atten['sid'] = [sid]
+            atten.save()
         else:
             if sid in book['sid']:
                 return jsonify({}), 409
@@ -124,7 +114,53 @@ def api_attention_book(s, sid):
         return jsonify({}), 201
 
 
-@api.route('/lib/rmattention/', methods=['POST'])
+@api.route('/lib/haveattention/')
+@require_lib_login
+def api_haveattention(s, sid):
+    """
+    :function: api_haveattention
+    :args:
+        - s: 爬虫session对象
+        - sid: 学号
+
+    关注的图书已可借
+    """
+    def get_status(id):
+        bs = get_book(id, '', '')['books']
+        for b in bs:
+            if b['status'] == '\xe5\x8f\xaf\xe5\x80\x9f':
+                return 1
+        return 0
+
+    user = connection.User.find_one({'sid': sid})
+    if user is None:
+        return jsonify({}), 403
+
+    books = []
+    atten_list = []
+    attens = connection.Attention.find()
+    for atten in attens:
+        if sid in atten['sid']:
+            books.append(atten['book_name'])
+    for book in books:
+        book_list = search_books(book)
+        ids = list(each['id'] for each in book_list)
+        book = ''
+        author = ''
+        for id in ids:
+            if get_status(id):
+                atten_list.append(book)
+                break
+
+    if len(atten_list) == 0:
+        return jsonify({}), 404
+    else
+        return jsonify({
+            'book_list': book_list
+            }), 200
+
+
+@api.route('/lib/rmattention/', methods=['DELETE'])
 @require_lib_login
 def api_rmattention_book(s, sid):
     """
@@ -135,13 +171,13 @@ def api_rmattention_book(s, sid):
 
     删除关注图书
     """
-    if request.method == 'POST':
+    if request.method == 'DELETE':
         user = connection.User.find_one({'sid': sid})
         if user is None:
             return jsonify({}), 403
 
-        bar_code = request.get_json().get('bar_code')
-        book = connection.Attention.find_one({'bar_code': bar_code})
+        book_name = request.get_json().get('book_name')
+        book = connection.Attention.find_one({'book_name': book_name})
         if book is None:
             return jsonify({}), 404
         book['sid'].remove(sid)

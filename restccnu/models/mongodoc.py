@@ -68,16 +68,37 @@ class Attention(Document):
     """
     :class: Attention
 
-    用户图书关注
+    用户图书关注存储
     """
     __collection__ = 'attentions'
     __database__ = 'attendb'
     structure = {
-        'bar_code': basestring,
-        'book_info': dict,
+        'book_name': basestring,
         'sid': list
     }
     required_fields = ['bar_code', 'book_info', 'sid']
 
     def __repr__(self):
         return '<Mongo Attention>'
+
+
+class Classroom(Document):
+    """
+    :class: Classroom
+
+    空闲教室存储
+    """
+    __collection__ = 'classrooms'
+    __database__ = 'roomdb'
+    structure = {
+            'weekNo': basestring,
+            'mon': dict,
+            'tue': dict,
+            'wed': dict,
+            'thu': dict,
+            'fri': dict
+    }
+    required_fields = ['mon', 'tue', 'wed', 'thu', 'fri']
+
+    def __repr__(self):
+        return '<Mongo Classroom>'
