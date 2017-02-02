@@ -82,15 +82,16 @@ class Attention(Document):
         return '<Mongo Attention>'
 
 
-class Classroom(Document):
+class Week(Document):
     """
-    :class: Classroom
+    :class: Week
 
-    空闲教室存储
+    每周空闲教室存储
     """
-    __collection__ = 'classrooms'
-    __database__ = 'roomdb'
+    __collection__ = 'weeks'
+    __database__ = 'weekdb'
     structure = {
+            'bno': basestring,
             'weekNo': basestring,
             'mon': dict,
             'tue': dict,
@@ -98,7 +99,6 @@ class Classroom(Document):
             'thu': dict,
             'fri': dict
     }
-    required_fields = ['mon', 'tue', 'wed', 'thu', 'fri']
 
     def __repr__(self):
-        return '<Mongo Classroom>'
+        return '<Mongo Week>'
