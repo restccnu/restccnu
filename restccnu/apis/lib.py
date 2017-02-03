@@ -94,39 +94,44 @@ def api_attention_book(s, sid):
 
     添加关注图书, 存储mongodb数据库
     """
+    def init_atten(connection):
+        """提醒初始化"""
+        atten = connection.Attention()
+        atten['book_name'] = book_name
+        atten['sid'] = list()
+        atten.save()
+        return atten
+
     if request.method == 'POST':
         user = connection.User.find_one({'sid': sid})
         if user is None:
             return jsonify({}), 403
 
         book_name = request.get_json().get('book_name')
-        book = connection.Attention.find_one({'book_name': book_name})
-        if book is None:
-            atten = connection.Attention()
-            atten['book_name'] = book_name
-            atten['sid'] = [sid]
-            atten.save()
-        else:
-            if sid in book['sid']:
-                return jsonify({}), 409
-            book['sid'].append(sid)
+        atten = connection.Attention.find_one({'book_name': book_name}) or init_atten(connection)
 
+        if sid in atten['sid']:
+                return jsonify({}), 409
+
+        atten['sid'].append(sid)
+        atten.save()
         return jsonify({}), 201
 
 
 @api.route('/lib/haveattention/')
 @require_lib_login
-def api_haveattention(s, sid):
+def api_have_attention(s, sid):
     """
-    :function: api_haveattention
+    :function: api_have_attention
     :args:
         - s: 爬虫session对象
         - sid: 学号
 
-    关注的图书已可借
+    关注的图书可借提醒
     """
-    def get_status(id):
-        bs = get_book(id, '', '')['books']
+    def get_status(bid):
+        """获取图书是否可借"""
+        bs = get_book(bid, '', '')['books']
         for b in bs:
             if b['status'] == '\xe5\x8f\xaf\xe5\x80\x9f':
                 return 1
@@ -136,28 +141,31 @@ def api_haveattention(s, sid):
     if user is None:
         return jsonify({}), 403
 
-    books = []
-    atten_list = []
+    book_names = list()
+    atten_list = list()
     attens = connection.Attention.find()
+
+    # 获取关注的所有图书名字
     for atten in attens:
         if sid in atten['sid']:
-            books.append(atten['book_name'])
-    for book in books:
-        book_list = search_books(book)
-        ids = list(each['id'] for each in book_list)
-        book = ''
-        author = ''
-        for id in ids:
-            if get_status(id):
-                atten_list.append(book)
+            book_names.append(atten['book_name'])
+
+    for book_name in book_names:
+        book_list = search_books(book_name)
+        bids = list(each['id'] for each in book_list) # 所有关注图书的id
+        for bid in bids:
+            if get_status(bid):
+                atten_list.append(book_name)
+                atten = connection.Attention.find_one({'book_name': book_name})
+                atten['sid'].remove(sid)
+                atten.save()
+                if not len(atten['sid']): atten.delete()
                 break
 
-    if len(atten_list) == 0:
+    if not len(atten_list):
         return jsonify({}), 404
-    else
-        return jsonify({
-            'book_list': book_list
-            }), 200
+    else:
+        return jsonify({'book_list': atten_list}), 200
 
 
 @api.route('/lib/rmattention/', methods=['DELETE'])
@@ -169,18 +177,19 @@ def api_rmattention_book(s, sid):
         - s: 爬虫session对象
         - sid: 学号
 
-    删除关注图书
+    删除图书关注提醒
     """
     if request.method == 'DELETE':
+        book_name = request.get_json().get('book_name')
+
         user = connection.User.find_one({'sid': sid})
         if user is None:
             return jsonify({}), 403
 
-        book_name = request.get_json().get('book_name')
-        book = connection.Attention.find_one({'book_name': book_name})
-        if book is None:
-            return jsonify({}), 404
+        atten = connection.Attention.find_one({'book_name': book_name})
+        if not atten: return jsonify({}), 404
+
         book['sid'].remove(sid)
-        if len(book['sid']) == 0:
-            book.delete()
+        book.save()
+        if not len(book['sid']): book.delete()
         return jsonify({}), 201
