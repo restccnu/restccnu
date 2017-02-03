@@ -3,7 +3,8 @@ restccnu:
     build: .
     env_file:
         - restccnu.env
-    command: gunicorn --name restccnu -b 0.0.0.0:5486 -w 2 wsgi:app
+    command: sh ssstart.sh
+          #command: python manage.py test
     ports:
         - "5486:5486"
     links:

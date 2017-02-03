@@ -13,17 +13,21 @@ import os
 import redis
 from flask import Flask, render_template, request
 from flask_zero import Qiniu
+from flask_mail import Mail
 from celery import Celery
 from config import config
 from raven.contrib.flask import Sentry
 
 
+# 邮件发送
+mail = Mail()
 # qiniu管理
 qiniu = Qiniu()
 # redis静态资源存储~redis1容器~6384端口
-rds = redis.StrictRedis(host='redis1', port=6384, db=0)
+# rds = redis.StrictRedis(host='redis1', port=6384, db=0)
+rds = redis.StrictRedis(host=os.getenv('REDIS1_HOST'), port=7384, db=0)
 # redis通知公告缓存~redis2容器~6381端口
-board = redis.StrictRedis(host='redis2', port=6381, db=0)
+board = redis.StrictRedis(host=os.getenv('REDIS2_HOST'), port=7381, db=0)
 
 
 def create_app(config_name='default'):
@@ -42,6 +46,7 @@ def create_app(config_name='default'):
     app.config.from_object(config[config_name])
 
     qiniu.init_app(app)
+    mail.init_app(app)
 
     from apis import api
     app.register_blueprint(api, url_prefix='/api')

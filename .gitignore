@@ -5,6 +5,7 @@ restccnu.env
 celerybeat-schedule.db
 celerybeat.pid
 celerybeat-schedule
+shadowsocks/shadowsocks.json
 rest_env/
 learn/
 tests/__pycache__
@@ -14,3 +15,4 @@ test/
 restccnu/spiders/htmls
 restccnu/templates/
 restccnu/static/
+.vscode/
