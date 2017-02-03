@@ -102,7 +102,7 @@ def book_me(s):
     return my_book_list
 
 
-def renew_book(s, bar_code, check)
+def renew_book(s, bar_code, check):
     """
     :function: renew_book
     :args:

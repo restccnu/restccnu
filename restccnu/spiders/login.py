@@ -12,6 +12,7 @@
 
 """
 
+import time
 import gevent
 import requests
 import base64
@@ -36,6 +37,8 @@ def info_login():
     TestUrl = info_login_test_url
 
     hashstr = request.headers.get('Authorization')
+    if hashstr is None:
+        raise ForbiddenError()
     base64_hashstr = hashstr[6:]
     id_password = base64.b64decode(base64_hashstr)
     sid, password = id_password.split(':')
@@ -51,7 +54,7 @@ def info_login():
 
     r = s.get(TestUrl)
     if 'window.alert' in r.content:
-        raise ForbiddenError
+        raise ForbiddenError()
     else:
         rds.hset('restccnulru', sid, password_hash)
         rds.save()
@@ -69,6 +72,8 @@ def lib_login():
     TestUrl = lib_login_test_url
 
     hashstr = request.headers.get('Authorization')
+    if hashstr is None:
+        raise ForbiddenError()
     base64_hashstr = hashstr[6:]
     id_password = base64.b64decode(base64_hashstr)
     sid, password = id_password.split(':')
@@ -80,6 +85,6 @@ def lib_login():
 
     r = s.get(TestUrl)
     if '123456' in r.content:
-        raise ForbiddenError
+        raise ForbiddenError()
     else:
         return s, sid

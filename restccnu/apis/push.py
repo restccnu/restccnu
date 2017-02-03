@@ -11,6 +11,7 @@
 
 import os
 import ast
+import json
 from pushjack import APNSClient
 # from pushjack import APNSSandboxClient
 from flask import request, jsonify
@@ -35,15 +36,19 @@ def push_register():
     """
     if request.method == 'POST':
         unique_id = request.get_json().get('unique_id')
+        sid = request.get_json().get('sid')  # 学号
         # 将unique_id写入数据库
         if not rds.get('ids'):
             rds.set('ids', "[]")
             rds.save()
         ids = ast.literal_eval(rds.get('ids'))
-        if unique_id not in ids:
+        if unique_id and (unique_id not in ids):
             ids.append(unique_id)
-            rds.set('ids', ids)
-            rds.save()
+        if sid:
+            rds.hset('idsids', unique_id, sid)
+        # db commit
+        rds.set('ids', ids)
+        rds.save()
         return jsonify({
             'message': 'add new unique_id'
         }), 201
@@ -60,7 +65,10 @@ def get_ids():
     返回所有注册的设备id
     """
     return jsonify({
-        'ids': ast.literal_eval(rds.get('ids'))
+        'ids': ast.literal_eval(rds.get('ids')),
+        'id_sid': ast.literal_eval(
+            json.dumps(rds.hgetall('idsids'))
+        )
     })
 
 
@@ -74,18 +82,18 @@ def push_notification():
     """
     if request.method == 'POST':
         title = request.get_json().get('title')
-        # body = request.get_json().get('body')
+        userinfo = request.get_json().get('userinfo')
+
         ids = ast.literal_eval(rds.get('ids'))
 
         client = APNSClient(
-        # client = APNSSandboxClient(
             certificate=os.getenv("IOS_CERTIFICATE"),
             default_error_timeout=10,
             default_expiration_offset=2592000,
             default_batch_size=100
         )
 
-        res = client.send(ids, title)
+        res = client.send(ids, title, extra=userinfo)
         return jsonify({
             "error": str(res.token_errors)
         })

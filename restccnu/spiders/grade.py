@@ -70,6 +70,7 @@ def get_grade(s, sid, xnm, xqm):
     """
     grade_url = grade_index_url % sid
     link_url = link_index_url
+    # blocking...
     s.get(link_url, headers=headers, proxies=proxy)  # 中转过度, 获取cookie
     post_data = {
         'xnm': xnm, 'xqm': xqm,
@@ -89,5 +90,6 @@ def get_grade(s, sid, xnm, xqm):
             'grade': item.get('cj'),
             'category': item.get('kclbmc'),
             'type': item.get('kcgsmc'),
-            'jxb_id': item.get('jxb_id')})
+            'jxb_id': item.get('jxb_id'),
+            'kcxzmc': item.get('kcxzmc')})
     return gradeList

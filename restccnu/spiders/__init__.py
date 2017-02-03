@@ -10,6 +10,7 @@
     :MAINTAINER: neo1218
     :OWNER: muxistudio
 """
+import os
 import random
 from fuckccnu.multiUA import LoadUserAgents
 
@@ -19,20 +20,19 @@ headers
 """
 uas = LoadUserAgents()
 ua = random.choice(uas)
-headers = {
-        'User-Agent': ua,
-        'Connection': 'close',
-}
-
+headers = { 'User-Agent': ua }
 
 """
 proxy
--> 校内服务代理, 防止万恶的学校封外网
+-> 校内SOCKS5代理, 防止万恶的学校封外网
 """
-proxy = {
-    "https": "https://:fuckccnu@218.199.196.131:8388"
-}
-
+PROXY = os.getenv("PROXY")
+if PROXY == "ON":
+    proxy = {
+            'http': 'socks5:127.0.0.1:1080',
+            'https': 'socks5:127.0.0.1:1080'
+    }
+elif PROXY == "OFF": proxy = None
 
 # URL MAP
 """模拟登录"""
@@ -59,6 +59,8 @@ grade_detail_url = "http://122.204.187.6/cjcx/cjcx_cxCjxq.html?time=146824332458
 
 """电费查询"""
 ele_index_url = "http://202.114.38.46/"
+ele_url = "http://202.114.38.46/SelectPage.aspx/SerBindTabDate"
+new_ele_url = "http://jnb.ccnu.edu.cn/weixin/example/demo/search.php"
 
 """通知公告"""
 zizhu_url = 'http://zizhu.ccnu.edu.cn/index.htm'

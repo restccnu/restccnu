@@ -31,15 +31,35 @@ def colour_meter_index():
             options = soup.find('tr', id='MeterDiv').find_all('option')
             _key_value = []
             for option in options:
-                if file[0] not in ['d', 's', 'x', 'y', 'n']:
-                    # 国交bug般的存在...
+                if file[0] not in ['d', 's', 'x', 'y', 'n', 'c']:
+                    # 国交
                     building = file[0]
+                    key = option.get('value').split('*')[-2]
+                    if '国' not in key:
+                        if (("空调" in key) or ("照明" in key)):
+                            key = u'国' + building + '-' + key[:-2]
+                        else: key = u'国' + building + '-' + key
+                elif file[0] == 'c':
+                    # 产宿
                     key = option.get('value').split('*')[-2][:-2]
-                    key = u'国' + building + '-' + key
+                    if '-' in key:
+                        _key = key.split('-')
+                        if len(_key[-1]) == 1:
+                            _key[-1] = "0"+_key[-1]
+                        key = (_key[0][0]+_key[0][-1]) + '-' + _key[1][:-1] + _key[-1]
+                elif file[0] == 's':
+                    # 南湖
+                    # 南湖有的寝室没有空调(((ﾟДﾟ;)))
+                    key = option.get('value').split('*')[-2]
+                    if (("空调" in key) or ("照明" in key)):
+                        key = key[:-2]
                 else:
+                    # 其他寝室
                     key = option.get('value').split('*')[-2][:-2]  # dor
-                    key = key.replace(u"新", "")
-                    key = key.replace(u"新增", "")
+                    if "新增" in key:
+                        key = key.replace(u"新增", "")
+                    elif "新" in key:
+                        key = key.replace(u"新", "")
                 value = option.get('value').split('*')[0]          # meter
                 if key in _meter_index.keys():
                     _meter_index[key].append(value)

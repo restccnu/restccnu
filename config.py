@@ -17,18 +17,30 @@ class Config(object):
     """
     配置基类
     """
+    # 邮件务器配置
+    MAIL_SERVER = 'smtp.163.com'
+    MAIL_PORT = 25
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.getenv('RESTCCNU_MAIL_USERNAME')
+    MAIL_PASSWORD = os.getenv('RESTCCNU_MAIL_PASSWORD')
+    MAIL_DEFAULT_SENDER = 'muxistudio@163.com'
+    MAIL_SUBJECT_PREFIX = 'dead [feedback] bug'
+    ADMIN_EMAIL = 'muxistudio@qq.com'
+
+    # 七牛服务配置
     QINIU_ACCESS_KEY = os.getenv('QINIU_ACCESS_KEY')  # 七牛access key
     QINIU_SECRET_KEY = os.getenv('QINIU_SECRET_KEY')  # 七牛secret key
     QINIU_BUCKET_NAME = os.getenv('QINIU_BUCKET_NAME') or 'ccnustatic'  # 七牛bucket名称
     QINIU_BUCKET_DOMAIN = os.getenv('QINIU_BUCKET_DOMAIN') or 'static.muxixyz.com'  # 七牛资源域名
 
-    CELERY_BROKER_URL = 'redis://@redis3:6383/0'  # celery消息代理, redis3容器
-    CELERY_RESULT_BACKEND = 'redis://@redis3:6383/0' # celery消息存储, redis3容器
+    # celery消息代理[存储]配置
+    CELERY_BROKER_URL = 'redis://@{host}:7383/0'.format(host=os.getenv('REDIS3_HOST'))  # celery消息代理, redis3容器
+    CELERY_RESULT_BACKEND = 'redis://@{host}:7383/0'.format(host=os.getenv('REDIS3_HOST')) # celery消息存储, redis3容器
     CELERYBEAT_SCHEDULE = {  # celery beat 定时任务
             'restart_redis_every_86400s': {
                 # 每隔1天爬取通知公告
                 'task': 'cute_board_spider',
-                'schedule': timedelta(seconds=24*3600)
+                'schedule': timedelta(seconds=12*3600)
             },
     }
 
