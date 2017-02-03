@@ -32,6 +32,7 @@ gevent
 raven[flask]
 blinker
 pushjack
+xlrd
 flask-mail
 shadowsocks
 requests[socks]

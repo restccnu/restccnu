@@ -62,7 +62,46 @@ class Dormitory(Document):
 
     def __repr__(self):
         return '<Mongo Dormitory>'
+      
+class Attention(Document):
+    """
+    :class: Attention
 
+    用户图书关注存储
+    """
+    __collection__ = 'attentions'
+    __database__ = 'attendb'
+    structure = {
+        'book_name': basestring,
+        'sid': list
+    }
+    required_fields = ['bar_code', 'book_info', 'sid']
+
+    def __repr__(self):
+        return '<Mongo Attention>'
+
+
+class Week(Document):
+    """
+    :class: Week
+
+    每周空闲教室存储
+    """
+    __collection__ = 'weeks'
+    __database__ = 'weekdb'
+    structure = {
+            'bno': basestring,
+            'weekNo': basestring,
+            'mon': dict,
+            'tue': dict,
+            'wed': dict,
+            'thu': dict,
+            'fri': dict
+    }
+
+    def __repr__(self):
+        return '<Mongo Week>'
+      
 class Feedback(Document):
     """
     :class: Feedback
