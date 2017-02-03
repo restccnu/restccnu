@@ -19,6 +19,26 @@ from .decorators import tojson, admin_required
 from restccnu.models import connection, Building
 
 
+@api.route('/classroom/get_classroom/')
+def api_get_classrooom():
+    """
+    :function: api_get_classroom
+    :args: none
+
+    获取空闲教室表
+    """
+    weekno = request.args.get('weekno')
+    weekday = request.args.get('weekday')
+    building = request.args.get('building')
+
+    try:
+        week = connection.Week.find_one({'weekNo': 'week'+weekno, 'bno': building})
+        classroom_list = week[weekday]
+        return jsonify(classroom_list)
+    except:
+        return jsonify({}), 502
+
+
 @api.route('/classroom/update/', methods=['POST'])
 @admin_required
 def api_update_classroom():
@@ -40,26 +60,6 @@ def api_update_classroom():
             return jsonify({}), 502
 
 
-@api.route('/classroom/get_classroom/')
-def api_get_classrooom():
-    """
-    :function: api_get_classroom
-    :args: none
-
-    获取空闲教室表
-    """
-    weekno = request.args.get('weekno')
-    weekday = request.args.get('weekday')
-    building = request.args.get('building')
-
-    try:
-        week = connection.Week.find_one({'weekNo': 'week'+weekno, 'bno': building})
-        classroom_list = week[weekday]
-        return jsonify(classroom_list)
-    except:
-        return jsonify({}), 502
-
-
 def update_each(table):
     """
     :function: update_each
@@ -72,13 +72,13 @@ def update_each(table):
     s_all = []
     e_all = []
 
-    # 将每天对应的节次设定为空列表
     def init_weekdays(weekday_list):
+        """将每天对应的节次设定为空列表"""
         for sec in range(1, 15):
             weekday_list['%d' % sec] = list()
 
-    # 初始化每周每天对应的字典
     def init_week(week_name, bno):
+        """初始化每周每天对应的字典"""
         week = connection.Week()
         week['weekNo'] = week_name
         week['bno'] = bno
@@ -95,12 +95,33 @@ def update_each(table):
         week.save()
         sys.stdout.write('weekNo: %r bon: %r initialiezed!' % week_name, bno)
 
+    def change_to_free(bno, cm_all):
+        """将上课教室表修改为空闲教室表"""
+        weekday_list = ['mon', 'tue', 'wed', 'thu', 'fri']
+        for week_count in range(1, 21):
+            change_week = connection.Week.find_one({'weekNo': 'week%d'%week_count, 'bno': bno})
+            for weekday in weekday_list:
+                temp_list = cm_all
+                for i in change_week[weekday]:
+                    temp_list.remove(i)
+                change_week[weekday] = temp_list
+            change_week.save()
+
+    # 初始化上课教室
+    for loc in ['7', '8']:
+        for week_count in range(1, 21):
+            if not connection.Week.find_one({'weekNo': 'week%d'%week_count, 'bno': loc}):
+                init_week = connection.Week()
+                init_week('week%d'%week_count, loc)
+                init_week.save()
+
+    # 添加所有上课的教室
     rows_count = table.nrows
     for count in range(rows_count):
         values = table.row_values(count)
         times = values[:3]    # 上课时间 1-3
-        val_locations = values[3:]    # 上课地点 1-3
-        locations = list(str(int(each)) for each in val_locations if isinstance(each, float))
+        val_locs = values[3:]    # 上课地点 1-3
+        locations = list(str(int(each)) for each in val_locs if isinstance(each, float) and int(each/1000) in [7, 8])
         for time in times:
             # 上课地点为空，跳至下一循环
             if not time: continue
@@ -111,7 +132,7 @@ def update_each(table):
             secs = range(sec_li[0], sec_li[1]+1)
             # 上课的周次
             week_li = list(int(i) for i in time[time.index('{')+1:time.index(u'\u5468')].split('-'))
-            # 根据单双周筛选上课的周数
+            # 单双周筛选
             if u'\u5355' in time:
                 weeks = list(each for each in range(week_li[0], week_li[1]+1) if each%2!=0)
             if u'\u53cc' in time:
@@ -134,13 +155,18 @@ def update_each(table):
                 for each_loc in locations:
                     temp_dict = {}
                     bno = each_loc[0]
+
                     find_week = connection.Week.find_one({'weekNo': 'week%d' do_week, 'bno': each_loc[0]})
-                    if bno == '7': c_all = s_all
-                    elif bno == '8': c_all = e_all
-                    weekdaydict = week[ft_weekday]
+                    if not find_week: continue
+                    weekdaydict = find_week[ft_weekday]
+
                     for each_sec in secs:
-                        temp_dict[each_sec].append(each_loc)
                         weekdaydict[each_sec].append(each_loc)
                     find_week.save()
 
-        sys.stdout.write('row %r handled!' % count)
+        sys.stdout.write('row %r written!' % count)
+    sys.stdout.write('all from xls written!')
+
+    # 修改为空闲教室
+    change_to_free('7', s_all)
+    change_to_free('8', e_all)
