@@ -16,7 +16,7 @@ import xlrd
 from . import api
 from flask import request, jsonify
 from .decorators import tojson, admin_required
-from restccnu.models import connection, Building
+from restccnu.models import connection, Week
 
 
 @api.route('/classroom/get_classroom/')
