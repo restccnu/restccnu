@@ -12,7 +12,7 @@
 """
 
 import os
-from .mongodoc import User, Dormitory, Table, Feedback
+from .mongodoc import User, Dormitory, Table, Attention, Week, Feedback
 from mongokit import Connection
 
 
@@ -22,9 +22,11 @@ MONGODB_PORT = int(os.getenv("REST_MONGO_PORT"))
 
 #  使用mongodb进行课表数据存储
 connection = Connection(MONGODB_HOST, MONGODB_PORT)
-connection.register([User])         # 用户自定义课表
-connection.register([Dormitory])    # 全校寝室电表号
-connection.register([Table])        # 信息门户课表
+connection.register([User])
+connection.register([Dormitory])
+connection.register([Table])
+connection.register([Attention])
+connection.register([Week])
 connection.register([Feedback])     # [ios]用户反馈
 
 # _zero: 占位课程, id=0
