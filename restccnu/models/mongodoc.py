@@ -62,7 +62,8 @@ class Dormitory(Document):
 
     def __repr__(self):
         return '<Mongo Dormitory>'
-      
+
+
 class Attention(Document):
     """
     :class: Attention
@@ -75,7 +76,7 @@ class Attention(Document):
         'book_name': basestring,
         'sid': list
     }
-    required_fields = ['bar_code', 'book_info', 'sid']
+    required_fields = ['book_name', 'sid']
 
     def __repr__(self):
         return '<Mongo Attention>'
@@ -98,10 +99,12 @@ class Week(Document):
             'thu': dict,
             'fri': dict
     }
+    required_fields = ['bno', 'weekNo']
 
     def __repr__(self):
         return '<Mongo Week>'
-      
+
+
 class Feedback(Document):
     """
     :class: Feedback
