@@ -111,7 +111,7 @@ def api_attention_book(s, sid):
         atten = connection.Attention.find_one({'book_name': book_name}) or init_atten(connection)
 
         if sid in atten['sid']:
-                return jsonify({}), 409
+            return jsonify({}), 409
 
         atten['sid'].append(sid)
         atten.save()
@@ -129,12 +129,14 @@ def api_have_attention(s, sid):
 
     关注的图书可借提醒
     """
-    def get_status(bid):
+    def isavailable(keyword):
         """获取图书是否可借"""
-        bs = get_book(bid, '', '')['books']
+        bs = search_books(keyword)
         for b in bs:
-            if b['status'] == '\xe5\x8f\xaf\xe5\x80\x9f':
-                return 1
+            book_list = get_book(b['id'], b['book'], b['author'])
+            for book in book_list['books']:
+                if book['status'] == '\xe5\x8f\xaf\xe5\x80\x9f':
+                    return 1
         return 0
 
     user = connection.User.find_one({'sid': sid})
@@ -151,16 +153,12 @@ def api_have_attention(s, sid):
             book_names.append(atten['book_name'])
 
     for book_name in book_names:
-        book_list = search_books(book_name)
-        bids = list(each['id'] for each in book_list) # 所有关注图书的id
-        for bid in bids:
-            if get_status(bid):
-                atten_list.append(book_name)
-                atten = connection.Attention.find_one({'book_name': book_name})
-                atten['sid'].remove(sid)
-                atten.save()
-                if not len(atten['sid']): atten.delete()
-                break
+        if isavailable(book_name):
+            atten_list.append(book_name)
+            atten = connection.Attention.find_one({'book_name': book_name})
+            atten['sid'].remove(sid)
+            atten.save()
+            if not len(atten['sid']): atten.delete()
 
     if not len(atten_list):
         return jsonify({}), 404
@@ -189,7 +187,7 @@ def api_rmattention_book(s, sid):
         atten = connection.Attention.find_one({'book_name': book_name})
         if not atten: return jsonify({}), 404
 
-        book['sid'].remove(sid)
-        book.save()
-        if not len(book['sid']): book.delete()
+        atten['sid'].remove(sid)
+        atten.save()
+        if not len(atten['sid']): atten.delete()
         return jsonify({}), 201
