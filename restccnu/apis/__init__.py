@@ -33,6 +33,6 @@ def api_index():
 
 
 from . import login, lib, table, grades, ele, board, banners, apartment, app, \
-              patch, product, calendars, start, website
+              patch, product, calendars, start, website, classroom
 # ios 
 from . import ios_banners, ios_calendars, push, ios_feedback, ios_config

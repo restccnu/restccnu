@@ -23,7 +23,7 @@ class User(Document):
         'sid': basestring,
         'table': list
     }
-    required_fields = ['sid', 'table']
+    required_fields = ['sid']
 
     def __repr__(self):
         return '<Mongo User>'
@@ -76,10 +76,9 @@ class Attention(Document):
         'book_name': basestring,
         'sid': list
     }
-    required_fields = ['book_name', 'sid']
 
     def __repr__(self):
-        return '<Mongo Attention>'
+        return '<Mongo Attention book_name {b}>'.format(b=self['book_name'])
 
 
 class Week(Document):
@@ -91,18 +90,17 @@ class Week(Document):
     __collection__ = 'weeks'
     __database__ = 'weekdb'
     structure = {
-            'bno': basestring,
-            'weekNo': basestring,
+            'bno': unicode,
+            'weekNo': unicode,
             'mon': dict,
             'tue': dict,
             'wed': dict,
             'thu': dict,
             'fri': dict
     }
-    required_fields = ['bno', 'weekNo']
 
     def __repr__(self):
-        return '<Mongo Week>'
+        return '<Mongo Week bno:{} weekNo:{}>'.format(self['bno'], self['weekNo'])
 
 
 class Feedback(Document):

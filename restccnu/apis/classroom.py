@@ -19,7 +19,7 @@ from .decorators import tojson, admin_required
 from restccnu.models import connection, Week
 
 
-@api.route('/classroom/get_classroom/')
+@api.route('/classroom/get_classroom/', methods=['GET'])
 def api_get_classrooom():
     """
     :function: api_get_classroom
@@ -39,8 +39,8 @@ def api_get_classrooom():
         return jsonify({}), 502
 
 
-@api.route('/classroom/update/', methods=['POST'])
-@admin_required
+@api.route('/classroom/update/', methods=['GET','POST'])
+#@admin_required
 def api_update_classroom():
     """
     :function: api_update_classroom
@@ -49,12 +49,15 @@ def api_update_classroom():
     更新空闲教室表(上传课表时需将无关行列删除)
     """
     if request.method == 'POST':
-        table_path = os.environ.get('TABLE_PATH')
+        table_path = './classroom_table.xls'
         data = xlrd.open_workbook(table_path)
         all_tables = data.sheets()
         try:
             for each_table in all_tables:
                 update_each(each_table)
+            # 修改为空闲教室
+            change_to_free('7', s_all)
+            change_to_free('8', e_all)
             return jsonify({}), 200
         except:
             return jsonify({}), 502
@@ -68,21 +71,6 @@ def update_each(table):
 
     根据每个年级的课表更新空闲教室表
     """
-    # 七号楼和八号楼所有的教室
-    s_all = ['7101','7102','7103','7104','7105','7106','7107','7108','7109',
-             '7201','7202','7203','7204','7205','7206','7207','7208','7209','7211',
-             '7301','7302','7303','7304','7305','7306','7307','7308','7309','7311',
-             '7401','7402','7403','7404','7405','7406','7407','7408','7409','7410','7411',
-             '7501','7503','7505']
-    e_all = ['8101','8102','8103','8104','8105','8106','8107','8108','8109',
-             '8110','8111','8112','8201','8202','8203','8204','8205','8206',
-             '8207','8208','8209','8210','8211','8212','8213','8214','8215',
-             '8216','8301','8302','8303','8304','8305','8306','8307','8308',
-             '8309','8310','8311','8312','8313','8314','8315','8316','8401',
-             '8402','8403','8404','8405','8406','8407','8408','8409','8410',
-             '8411','8412','8413','8414','8415','8416','8501','8502','8503',
-             '8504','8505','8506','8507','8508','8509','8510','8511','8512',
-             '8513','8514','8515','8516','8716','8717']
 
     def init_weekdays(weekday_list):
         """将每天对应的节次设定为空列表"""
@@ -105,27 +93,26 @@ def update_each(table):
         init_weekdays(week['thu'])
         init_weekdays(week['fri'])
         week.save()
-        sys.stdout.write('weekNo: %r bon: %r initialiezed!' % week_name, bno)
+        sys.stdout.write('weekNo:{w} bno:{b} initialiezed!\n'.format(w=week['weekNo'],b=week['bno']))
 
-    def change_to_free(bno, cm_all):
-        """将上课教室表修改为空闲教室表"""
-        weekday_list = ['mon', 'tue', 'wed', 'thu', 'fri']
-        for week_count in range(1, 21):
-            change_week = connection.Week.find_one({'weekNo': 'week%d'%week_count, 'bno': bno})
-            for weekday in weekday_list:
-                temp_list = cm_all
-                for i in change_week[weekday]:
-                    temp_list.remove(i)
-                change_week[weekday] = temp_list
-            change_week.save()
+    def reset_week(week):
+        """重置每周每天对应的字典"""
+        init_weekdays(week['mon'])
+        init_weekdays(week['tue'])
+        init_weekdays(week['wed'])
+        init_weekdays(week['thu'])
+        init_weekdays(week['fri'])
+        week.save()
 
     # 初始化上课教室
-    for loc in ['7', '8']:
+    for loc in [u'7', u'8']:
         for week_count in range(1, 21):
-            if not connection.Week.find_one({'weekNo': 'week%d'%week_count, 'bno': loc}):
-                init_week = connection.Week()
-                init_week('week%d'%week_count, loc)
-                init_week.save()
+            week =  connection.Week.find_one({'weekNo': 'week%d'%week_count, 'bno': loc})
+            if not week:
+                init_week(u'week%d'%week_count, loc)
+            else:
+                reset_week(week)
+                sys.stdout.write("{w}/{l} already exits!\n".format(w=week['weekNo'], l=week['bno']))
 
     # 添加所有上课的教室
     rows_count = table.nrows
@@ -134,6 +121,7 @@ def update_each(table):
         times = values[:3]    # 上课时间 1-3
         val_locs = values[3:]    # 上课地点 1-3
         locations = list(str(int(each)) for each in val_locs if isinstance(each, float) and int(each/1000) in [7, 8])
+        if not len(locations): continue
         for time in times:
             # 上课地点为空，跳至下一循环
             if not time: continue
@@ -165,20 +153,46 @@ def update_each(table):
                 elif weekday == u'\u4e94':
                     ft_weekday = 'fri'
                 for each_loc in locations:
-                    temp_dict = {}
                     bno = each_loc[0]
-
-                    find_week = connection.Week.find_one({'weekNo': 'week%d' do_week, 'bno': each_loc[0]})
+                    find_week = connection.Week.find_one({'weekNo': 'week%d'%do_week, 'bno': bno})
                     if not find_week: continue
                     weekdaydict = find_week[ft_weekday]
 
                     for each_sec in secs:
-                        weekdaydict[each_sec].append(each_loc)
+                        weekdaydict[str(each_sec)].append(each_loc)
                     find_week.save()
 
-        sys.stdout.write('row %r written!' % count)
-    sys.stdout.write('all from xls written!')
+        sys.stdout.write('row {c} written!\n'.format(c=count))
+    sys.stdout.write('all from xls written!\n')
 
-    # 修改为空闲教室
-    change_to_free('7', s_all)
-    change_to_free('8', e_all)
+
+def change_to_free(bno, cm_all):
+    """将上课教室表修改为空闲教室表"""
+    weekday_list = ['mon', 'tue', 'wed', 'thu', 'fri']
+    for week_count in range(1, 21):
+        change_week = connection.Week.find_one({'weekNo':u'week%d'%week_count,'bno':bno})
+        for weekday in weekday_list:
+            for each_key in change_week[weekday].keys():
+                temp_list = cm_all
+                for item in change_week[weekday][each_key]:
+                    if item in temp_list: temp_list.remove(item)
+                change_week[weekday][each_key] = temp_list
+        change_week.save()
+        sys.stdout.write("{w} changed to free!\n".format(w=week_count))
+
+
+# 七号楼和八号楼所有的教室
+s_all = ['7101','7102','7103','7104','7105','7106','7107','7108','7109',
+         '7201','7202','7203','7204','7205','7206','7207','7208','7209','7211',
+         '7301','7302','7303','7304','7305','7306','7307','7308','7309','7311',
+         '7401','7402','7403','7404','7405','7406','7407','7408','7409','7410','7411',
+         '7501','7503','7505']
+e_all = ['8101','8102','8103','8104','8105','8106','8107','8108','8109',
+         '8110','8111','8112','8201','8202','8203','8204','8205','8206',
+         '8207','8208','8209','8210','8211','8212','8213','8214','8215',
+         '8216','8301','8302','8303','8304','8305','8306','8307','8308',
+         '8309','8310','8311','8312','8313','8314','8315','8316','8401',
+         '8402','8403','8404','8405','8406','8407','8408','8409','8410',
+         '8411','8412','8413','8414','8415','8416','8501','8502','8503',
+         '8504','8505','8506','8507','8508','8509','8510','8511','8512',
+         '8513','8514','8515','8516','8716','8717']
