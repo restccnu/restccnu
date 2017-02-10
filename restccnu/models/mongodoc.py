@@ -41,7 +41,7 @@ class Table(Document):
         'sid': basestring,
         'table': list
     }
-    required_fields = ['sid', 'table']
+    required_fields = ['sid']
 
     def __repr__(self):
         return '<Mongo Table>'
