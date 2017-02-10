@@ -26,14 +26,13 @@ headers = { 'User-Agent': ua }
 proxy
 -> 校内SOCKS5代理, 防止万恶的学校封外网
 """
-#PROXY = os.getenv("PROXY")
-#if PROXY == "ON":
-#    proxy = {
-#            'http': 'socks5:127.0.0.1:1080',
-#            'https': 'socks5:127.0.0.1:1080'
-#    }
-#elif PROXY == "OFF": proxy = None
-proxy = None
+PROXY = os.getenv("PROXY")
+if PROXY == "ON":
+    proxy = {
+            'http': 'socks5:127.0.0.1:1080',
+            'https': 'socks5:127.0.0.1:1080'
+    }
+elif PROXY == "OFF": proxy = None
 
 # URL MAP
 """模拟登录"""
