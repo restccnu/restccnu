@@ -69,9 +69,9 @@ def api_book_me(s, sid):
     return book_me(s)
 
 
-@api.route('/lib/renew/')
+@api.route('/lib/renew/', methods=['POST'])
 @require_lib_login
-def api_renew_book(s, bar_code, check):
+def api_renew_book(s, sid):
     """
     :function: api_renew_book
     :args:
@@ -79,6 +79,8 @@ def api_renew_book(s, bar_code, check):
         - bar_code: 图书bar_code字段
         - check: 图书check字段
     """
+    bar_code = request.get_json().get('bar_code')
+    check = request.get_json().get('check')
     res_code = renew_book(s, bar_code, check)
     return jsonify({}), res_code
 
