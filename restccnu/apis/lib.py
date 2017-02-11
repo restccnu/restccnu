@@ -69,9 +69,9 @@ def api_book_me(s, sid):
     return book_me(s)
 
 
-@api.route('/lib/renew/')
+@api.route('/lib/renew/', methods=['POST'])
 @require_lib_login
-def api_renew_book(s, bar_code, check):
+def api_renew_book(s, sid):
     """
     :function: api_renew_book
     :args:
@@ -79,15 +79,17 @@ def api_renew_book(s, bar_code, check):
         - bar_code: 图书bar_code字段
         - check: 图书check字段
     """
+    bar_code = request.get_json().get('bar_code')
+    check = request.get_json().get('check')
     res_code = renew_book(s, bar_code, check)
     return jsonify({}), res_code
 
 
-@api.route('/lib/attention/', methods=['POST'])
+@api.route('/lib/create_atten/', methods=['POST'])
 @require_lib_login
-def api_attention_book(s, sid):
+def api_create_atten(s, sid):
     """
-    :function: api_attention_book
+    :function: api_create_atten
     :args:
         - s: 爬虫session对象
         - sid: 学号
@@ -103,10 +105,6 @@ def api_attention_book(s, sid):
         return atten
 
     if request.method == 'POST':
-        user = connection.User.find_one({'sid': sid})
-        if user is None:
-            return jsonify({}), 403
-
         book_name = request.get_json().get('book_name')
         atten = connection.Attention.find_one({'book_name': book_name}) or init_atten(connection)
 
@@ -118,11 +116,11 @@ def api_attention_book(s, sid):
         return jsonify({}), 201
 
 
-@api.route('/lib/haveattention/')
+@api.route('/lib/get_atten/')
 @require_lib_login
-def api_have_attention(s, sid):
+def api_get_atten(s, sid):
     """
-    :function: api_have_attention
+    :function: api_get_atten
     :args:
         - s: 爬虫session对象
         - sid: 学号
@@ -138,10 +136,6 @@ def api_have_attention(s, sid):
                 if book['status'] == '\xe5\x8f\xaf\xe5\x80\x9f':
                     return 1
         return 0
-
-    user = connection.User.find_one({'sid': sid})
-    if user is None:
-        return jsonify({}), 403
 
     book_names = list()
     atten_list = list()
@@ -166,11 +160,11 @@ def api_have_attention(s, sid):
         return jsonify({'book_list': atten_list}), 200
 
 
-@api.route('/lib/rmattention/', methods=['DELETE'])
+@api.route('/lib/del_atten/', methods=['DELETE'])
 @require_lib_login
-def api_rmattention_book(s, sid):
+def api_del_atten(s, sid):
     """
-    :function: api_rmattention_book
+    :function: api_del_atten
     :args:
         - s: 爬虫session对象
         - sid: 学号
@@ -180,14 +174,10 @@ def api_rmattention_book(s, sid):
     if request.method == 'DELETE':
         book_name = request.get_json().get('book_name')
 
-        user = connection.User.find_one({'sid': sid})
-        if user is None:
-            return jsonify({}), 403
-
         atten = connection.Attention.find_one({'book_name': book_name})
         if not atten: return jsonify({}), 404
 
         atten['sid'].remove(sid)
         atten.save()
         if not len(atten['sid']): atten.delete()
-        return jsonify({}), 201
+        return jsonify({}), 200
