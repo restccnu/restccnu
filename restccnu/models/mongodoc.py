@@ -73,12 +73,15 @@ class Attention(Document):
     __collection__ = 'attentions'
     __database__ = 'attendb'
     structure = {
-        'book_name': basestring,
-        'sid': list
+        'bid': basestring,
+        'book': basestring,
+        'id': basestring,
+        'author': basestring,
+        'sid': basestring
     }
 
     def __repr__(self):
-        return '<Mongo Attention book_name {b}>'.format(b=self['book_name'])
+        return '<Mongo Attention>'
 
 
 class Week(Document):
