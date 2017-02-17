@@ -128,7 +128,7 @@ def renew_book(s, bar_code, check):
         early = u'\u4e0d\u5230\u7eed\u501f\u65f6\u95f4\uff0c\u4e0d\u5f97\u7eed\u501f\uff01'
         unavailable = u'\u8d85\u8fc7\u6700\u5927\u7eed\u501f\u6b21\u6570\uff0c\u4e0d\u5f97\u7eed\u501f\uff01'
         if res_string == early:
-            res_code = 404
+            res_code = 406
         elif res_string == unavailable:
             res_code = 403
         else:
