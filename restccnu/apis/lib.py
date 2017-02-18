@@ -148,7 +148,8 @@ def api_get_atten(s, sid):
     available_list = list()
 
     attens = connection.Attention.find({'sid': sid})
-    if not attens[0]: return jsonify({}), 404
+    try: attens[0]
+    except IndexError: return jsonify({}), 404
 
     for each_atten in attens:
         all_list.append({
