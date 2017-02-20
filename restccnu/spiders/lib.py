@@ -15,12 +15,8 @@ import base64
 import requests
 import datetime
 from bs4 import BeautifulSoup
-from . import lib_search_url
-from . import lib_me_url
-from . import lib_detail_url
-from . import lib_renew_url
-from . import douban_url
-from . import headers
+from . import lib_search_url, lib_me_url, lib_detail_url
+from . import lib_renew_url, douban_url, headers
 from . import proxy
 
 
@@ -73,9 +69,13 @@ def book_me(s):
     me_url = lib_me_url
     r = s.get(me_url, headers=headers)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
+    bids = []
+    a_tags = soup.find_all('a', class_="blue")
+    for a_tag in a_tags:
+        bids.append(a_tag.get('href').split("=")[-1])
     _my_book_list = soup.find_all('tr')[1:]
     my_book_list = []
-    for _book in _my_book_list:
+    for index, _book in enumerate(_my_book_list):
         text = _book.text.split('\n')
         itime = text[3].strip(); otime = text[4].strip()
         date_itime = datetime.datetime.strptime(itime, "%Y-%m-%d")
@@ -85,7 +85,8 @@ def book_me(s):
                 time.mktime(datetime.datetime.now().timetuple())
 
         renew_button = _book.find('input')['onclick']
-        renew_info = [eval(i) for i in renew_button[renew_button.index('(')+1: renew_button.index(')')].split(',')]
+        renew_info = [eval(i) for i in renew_button[renew_button.index('(')+1:\
+                                       renew_button.index(')')].split(',')]
         bar_code = renew_info[0]
         check = renew_info[1]
 
@@ -97,7 +98,8 @@ def book_me(s):
             "time": int(dtime/(24*60*60)),
             "room": text[6].strip(),
             "bar_code": bar_code,
-            "check": check
+            "check": check,
+            "id": bids[index]
         })
     return my_book_list
 
