@@ -30,7 +30,13 @@ def api_get_grade(s, sid):
     """
     xnm = request.args.get('xnm')
     xqm = request.args.get('xqm')
-    return get_grade(s, sid, xnm, xqm)
+    grade_list = get_grade(s, sid, xnm, xqm)
+    for _course in grade_list:
+        name = _course.get('course')
+        jxb_id = _course.get('jxb_id')
+        grade_detail = get_grade_detail(s, sid, xnm, xqm, name, jxb_id)
+        _course.update(grade_detail)
+    return grade_list
 
 
 @api.route('/grade/detail/search/')
