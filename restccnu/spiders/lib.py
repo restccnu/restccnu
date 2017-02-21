@@ -138,13 +138,11 @@ def renew_book(s, bar_code, check):
     return res_code
 
 
-def get_book(id, book, author):
+def get_book(id):
     """
     :function: get_book
     :args:
         - id: 图书id
-        - book: 图书名称
-        - author: 作者名称
 
     图书详情
     """
@@ -152,7 +150,9 @@ def get_book(id, book, author):
     r = requests.get(detail_url, headers=headers, proxies=proxy)
     soup = BeautifulSoup(r.content, 'lxml', from_encoding='utf-8')
 
-    book = book; author = author
+    # book = book; author = author
+    book = str(soup.dd.a.string)
+    author = str(soup.dd.text.split("/")[-1])
     isbn = ''.join(soup.find(
         'ul', class_="sharing_zy").li.a.get('href').split('/')[-2].split('-'))
     douban = douban_url % isbn
