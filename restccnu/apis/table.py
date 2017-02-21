@@ -18,7 +18,7 @@ from . import api
 from ..spiders.table import get_table
 from ..spiders.login import info_login
 from restccnu.errors import ForbiddenError, NotfoundError
-from restccnu.models import connection, User, _zero  # 占位课程(id=0)
+from restccnu.models import connection, User, Table, _zero  # 占位课程(id=0)
 
 
 @api.route('/table/')
