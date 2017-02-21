@@ -139,8 +139,8 @@ def api_get_atten(s, sid):
         """获取图书是否可借"""
         book_list = get_book(book_id)
         for book in book_list['books']:
-            if book['status'] == '\xe5\x8f\xaf\xe5\x80\x9f': return True
-        return False
+            if book['status'] == '\xe5\x8f\xaf\xe5\x80\x9f': return "y"
+        return "n"
 
     all_list = list()
     available_list = list()
@@ -154,22 +154,13 @@ def api_get_atten(s, sid):
             "bid": each_atten['bid'],
             "book": each_atten['book'],
             "id": each_atten['id'],
-            "author": each_atten['author']
+            "author": each_atten['author'],
+            "avbl": isavailable(each_atten['id'])
         })
 
-    for each_in_all in all_list:
-        if isavailable(each_in_all['id']):
-            available_list.append({
-                "bid": each_atten['bid'],
-                "book": each_atten['book'],
-                "id": each_atten['id'],
-                "author": each_atten['author']
-            })
-
-    return jsonify({
-        'all_list': all_list,
-        'available_list': available_list
-    }), 200
+    return jsonify(
+        all_list,
+    ), 200
 
 
 @api.route('/lib/del_atten/', methods=['DELETE'])
