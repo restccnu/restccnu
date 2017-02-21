@@ -23,6 +23,7 @@ from raven.contrib.flask import Sentry
 mail = Mail()
 # qiniu管理
 qiniu = Qiniu()
+iosqn = Qiniu()
 # redis静态资源存储~redis1容器~6384端口
 # rds = redis.StrictRedis(host='redis1', port=6384, db=0)
 rds = redis.StrictRedis(host=os.getenv('REDIS1_HOST'), port=7384, db=0)
@@ -46,6 +47,7 @@ def create_app(config_name='default'):
     app.config.from_object(config[config_name])
 
     qiniu.init_app(app)
+    iosqn.init_app(app)
     mail.init_app(app)
 
     from apis import api

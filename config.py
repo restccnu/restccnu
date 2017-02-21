@@ -52,8 +52,8 @@ class Config(object):
         - 12: 第二学期
         - 16: 第三学期
     """
-    XNM = 2016
-    XQM = 3
+    XNM = os.getenv("RESTCCNU_XNM")
+    XQM = os.getenv("RESTCCNU_XQM")
 
 
 config = {

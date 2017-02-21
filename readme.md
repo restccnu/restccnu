@@ -33,6 +33,13 @@
         - PROXY=OFF 关闭
 + **UserAgent配置**
     + USER_AGENT_FILE=/restccnu/fuckccnu/multiUA/user_agents.txt 随机UA
++ **学期配置**
+    + RESTCCNU_XNM=2016 学年设置,2016表示2016~2017学年, 类推
+    + RESTCCNU_XQM=12
+        - 学期设置
+        - 第一学期: 3
+        - 第二学期: 12
+        - 第三学期: 16
 
 ### 2. 部署运行
 部署运行命令:
