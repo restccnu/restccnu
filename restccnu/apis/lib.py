@@ -158,9 +158,7 @@ def api_get_atten(s, sid):
             "avbl": isavailable(each_atten['id'])
         })
 
-    return jsonify(
-        all_list,
-    ), 200
+    return jsonify(all_list), 200
 
 
 @api.route('/lib/del_atten/', methods=['DELETE'])
