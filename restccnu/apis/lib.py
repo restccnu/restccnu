@@ -41,7 +41,7 @@ def api_search_books():
 
 
 @api.route('/lib/')
-@tojson
+@tojson   
 def api_book_detail():
     """
     :function: api_book_detail
@@ -51,9 +51,7 @@ def api_book_detail():
     图书详情
     """
     id = request.args.get('id')
-    book = request.args.get('book')
-    author = request.args.get('author')
-    return get_book(id, book, author)
+    return get_book(id)
 
 
 @api.route('/lib/me/')
