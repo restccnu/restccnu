@@ -137,9 +137,9 @@ def api_get_atten(s, sid):
 
     获取关注的图书列表
     """
-    def isavailable(book_id, book_name, book_author):
+    def isavailable(book_id):
         """获取图书是否可借"""
-        book_list = get_book(book_id, book_name, book_author)
+        book_list = get_book(book_id)
         for book in book_list['books']:
             if book['status'] == '\xe5\x8f\xaf\xe5\x80\x9f': return True
         return False
@@ -160,7 +160,7 @@ def api_get_atten(s, sid):
         })
 
     for each_in_all in all_list:
-        if isavailable(each_in_all['id'], each_in_all['book'], each_in_all['author']):
+        if isavailable(each_in_all['id']):
             available_list.append({
                 "bid": each_atten['bid'],
                 "book": each_atten['book'],
