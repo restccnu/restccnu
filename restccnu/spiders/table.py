@@ -76,7 +76,7 @@ def get_table(s, sid, xnm, xqm):
         d_class = e_class - s_class + 1
         _item_dict = dict({
             'course': item.get('kcmc'),
-            'teacher': item.get('xm'),
+            'teacher': item.get('xm').split("\n")[0],
             'weeks': ','.join(str_weeks_list),
             'day': item.get('xqjmc'),
             'start': s_class,
