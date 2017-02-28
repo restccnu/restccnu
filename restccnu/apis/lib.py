@@ -110,6 +110,9 @@ def api_create_atten(s, sid):
         book_name = request.get_json().get('book')
         book_id = request.get_json().get('id')
         book_author = request.get_json().get('author')
+
+        if not(book_bid and book_name and book_id and book_author): return
+
         atten = connection.Attention.find_one({
             'bid': book_bid,
             'book': book_name,
