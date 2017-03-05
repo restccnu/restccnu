@@ -29,6 +29,7 @@ iosqn = Qiniu()
 rds = redis.StrictRedis(host=os.getenv('REDIS1_HOST'), port=7384, db=0)
 # redis通知公告缓存~redis2容器~6381端口
 board = redis.StrictRedis(host=os.getenv('REDIS2_HOST'), port=7381, db=0)
+webview_board = redis.StrictRedis(host=os.getenv('REDIS4_HOST'), port=7388, db=0)
 
 
 def create_app(config_name='default'):
