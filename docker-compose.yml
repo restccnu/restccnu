@@ -10,7 +10,8 @@ restccnu:
         - redis1
         - redis2
         - redis3
- 
+        - redis4
+
 #-------------------- celery --------------------------
 celery:
     build: .
@@ -21,6 +22,7 @@ celery:
         - redis1
         - redis2
         - redis3
+        - redis4
 
 #------------------- celery beats----------------------
 celery_beats:
@@ -32,6 +34,7 @@ celery_beats:
         - redis1
         - redis2
         - redis3
+        - redis4
 
 #------------------- redis servers---------------------
 redis1:
@@ -49,3 +52,8 @@ redis3:
     command: redis-server --port 6383 # celery result backend
     ports:
         - "7383:6383"
+redis4:
+    image: redis
+    command: redis-server --port 6388 # 格式化通知公告缓存
+    ports:
+        - "7388:6388"
