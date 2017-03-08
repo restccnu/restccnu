@@ -12,9 +12,9 @@
 import ast
 import json
 from . import api
-from .. import board
+from .. import board, webview_board
 from flask import request, jsonify
-from ..spiders.board import get_all_board, get_pretty_all_board
+from ..spiders.board import get_all_board, get_webview_board
 from .decorators import tojson
 
 
@@ -34,17 +34,17 @@ def api_get_info():
     return jsonify(all_board)
 
 
-@api.route('/pretty_info/')
-def api_pretty_info():
+@api.route('/webview_info/')
+def api_webview_info():
     """
-    :function: pretty_info
+    :function: webview_info
     :args: none
     :rv: all board with format
 
     返回带有格式的通知公告(3个平台每个平台5个)
     """
-    if not board.get('board_list'):
-        board_list = get_pretty_all_board()
-        board.set('board_list', board_list)
-    all_board = ast.literal_eval(board.get('board_list'))
+    if not webview_board.get('board_list'):
+        board_list = get_webview_board()
+        webview_board.set('board_list', board_list)
+    all_board = ast.literal_eval(webview_board.get('board_list'))
     return jsonify(all_board)
