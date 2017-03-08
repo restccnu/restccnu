@@ -9,7 +9,7 @@
     :OWNER: muxistudio
 
 """
-import urllib
+import requests
 import sys
 from bs4 import BeautifulSoup
 from .. import board
@@ -29,8 +29,8 @@ def get_zizhu_html():
 
     资助网爬虫
     """
-    zizhu_page = urllib.urlopen(zizhu_url)
-    zizhu_html = zizhu_page.read()
+    zizhu_page = requests.get(zizhu_url)
+    zizhu_html = zizhu_page.content
     zizhu_soup = BeautifulSoup(zizhu_html, "lxml")
     zizhu_list = zizhu_soup.find_all('ul', class_='main-r-x')[0].find_all('li')[:5]
     result_list = []
@@ -38,8 +38,8 @@ def get_zizhu_html():
         title = i.a.contents[0]
         date = i.small.contents[0]
         content_url = ''.join(['http://zizhu.ccnu.edu.cn/', i.a['href']])
-        content_page = urllib.urlopen(content_url)
-        content_html = content_page.read()
+        content_page = requests.get(content_url)
+        content_html = content_page.content
         content_soup = BeautifulSoup(content_html, "lxml")
 
         # different pages have different classes for main content
@@ -98,8 +98,8 @@ def get_huaqing_html():
 
     华大青年爬虫
     """
-    huaqing_page = urllib.urlopen(huaqing_url)
-    huaqing_html = huaqing_page.read()
+    huaqing_page = requests.get(huaqing_url)
+    huaqing_html = huaqing_page.content
     huaqing_soup = BeautifulSoup(huaqing_html, "lxml")
     huaqing_list = huaqing_soup.find_all('ul', class_='e2')[0].find_all('li')
     result_list = []
@@ -110,8 +110,8 @@ def get_huaqing_html():
             # date = '20' + i.contents[-1]  # 20 应该可以搞好几年了吧...{0_0}
             date = i.contents[-1]  # 华青改版了...
             content_url = "http://www.ccnuyouth.com/" + i.a['href']
-            content_page = urllib.urlopen(content_url)
-            content_html = content_page.read()
+            content_page = requests.get(content_url)
+            content_html = content_page.content
             content_soup = BeautifulSoup(content_html, "lxml")
             content_strings = content_soup.find_all('div', class_='newsBody')[0].strings
             content_appendix_url_list = []
@@ -157,8 +157,8 @@ def get_jiaowuchu_html(get_url):
 
     教务处爬虫
     """
-    jiaowuchu_page = urllib.urlopen(get_url)
-    jiaowuchu_html = jiaowuchu_page.read()
+    jiaowuchu_page = requests.get(get_url)
+    jiaowuchu_html = jiaowuchu_page.content
     jiaowuchu_soup = BeautifulSoup(jiaowuchu_html, "lxml")
     jiaowuchu_list = jiaowuchu_soup.find_all('ul')[11].find_all('li')[:5]
     result_list = []
@@ -166,8 +166,8 @@ def get_jiaowuchu_html(get_url):
         title = i.a.contents[0]
         date = i.span.next_sibling.next_sibling.contents[0]
         content_url = 'http://jwc.ccnu.edu.cn' + i.a['href'][2:]
-        content_page = urllib.urlopen(content_url)
-        content_html = content_page.read()
+        content_page = requests.get(content_url)
+        content_html = content_page.content
         content_soup = BeautifulSoup(content_html, "lxml")
         content_ps = content_soup.find_all('div', class_='xwcon')[0].find_all('p')
         content_strings = ''
@@ -220,8 +220,8 @@ def get_webview_zizhu():
 
     资助网爬虫(for webview)
     """
-    zizhu_page = urllib.urlopen(zizhu_url)
-    zizhu_html = zizhu_page.read()
+    zizhu_page = requests.get(zizhu_url)
+    zizhu_html = zizhu_page.content
     zizhu_soup = BeautifulSoup(zizhu_html, "lxml")
     zizhu_list = zizhu_soup.find_all('ul', class_='main-r-x')[0].find_all('li')[:5]
     result_list = []
@@ -229,10 +229,9 @@ def get_webview_zizhu():
         title = i.a.contents[0]
         date = i.small.contents[0]
         content_url = ''.join(['http://zizhu.ccnu.edu.cn/', i.a['href']])
-        content_page = urllib.urlopen(content_url)
-        content_html = content_page.read()
+        content_page = requests.get(content_url)
+        content_html = content_page.content
         content_soup = BeautifulSoup(content_html, "lxml")
-
         # different pages have different classes for main content
         find_content_1 = content_soup.find('div', id='vsb_content')
         find_content_2 = content_soup.find('div', id='vsb_content_2')
@@ -255,6 +254,7 @@ def get_webview_zizhu():
             find_content = find_content_5
         elif find_content_7:
             find_content = find_content_7
+        removed = [x.extract() for x in find_content.findAll('img')]
 
         content_appendix_url_list = []
         content_appendix_list_all = content_soup.find_all('ul', style='list-style-type:none')
@@ -280,8 +280,8 @@ def get_webview_huaqing():
 
     华大青年爬虫(for webview)
     """
-    huaqing_page = urllib.urlopen(huaqing_url)
-    huaqing_html = huaqing_page.read()
+    huaqing_page = requests.get(huaqing_url)
+    huaqing_html = huaqing_page.content
     huaqing_soup = BeautifulSoup(huaqing_html, "lxml")
     huaqing_list = huaqing_soup.find_all('ul', class_='e2')[0].find_all('li')
     result_list = []
@@ -291,10 +291,11 @@ def get_webview_huaqing():
             title = i.a.contents[0]
             date = i.contents[-1]
             content_url = "http://www.ccnuyouth.com/" + i.a['href']
-            content_page = urllib.urlopen(content_url)
-            content_html = content_page.read()
+            content_page = requests.get(content_url)
+            content_html = content_page.content
             content_soup = BeautifulSoup(content_html, "lxml")
             find_content = content_soup.find('div', class_='newsBody')
+            removed = [x.extract() for x in find_content.findAll('img')]
             content_appendix_url_list = []
             content_appendix_list = content_soup.find_all('div', class_='newsBody')[0].find_all('a')
             if content_appendix_list:
@@ -323,8 +324,8 @@ def get_webview_jiaowuchu(get_url):
 
     教务处爬虫(for webview)
     """
-    jiaowuchu_page = urllib.urlopen(get_url)
-    jiaowuchu_html = jiaowuchu_page.read()
+    jiaowuchu_page = requests.get(get_url)
+    jiaowuchu_html = jiaowuchu_page.content
     jiaowuchu_soup = BeautifulSoup(jiaowuchu_html, "lxml")
     jiaowuchu_list = jiaowuchu_soup.find_all('ul')[11].find_all('li')[:5]
     result_list = []
@@ -332,10 +333,11 @@ def get_webview_jiaowuchu(get_url):
         title = i.a.contents[0]
         date = i.span.next_sibling.next_sibling.contents[0]
         content_url = 'http://jwc.ccnu.edu.cn' + i.a['href'][2:]
-        content_page = urllib.urlopen(content_url)
-        content_html = content_page.read()
+        content_page = requests.get(content_url)
+        content_html = content_page.content
         content_soup = BeautifulSoup(content_html, "lxml")
         find_content = content_soup.find('div', class_='xwcon')
+        removed = [x.extract() for x in find_content.findAll('img')]
 
         content_appendix_url_list = []
         if content_soup.find_all('ul', style='list-style-type:none'):
