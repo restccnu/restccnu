@@ -29,9 +29,12 @@ proxy
 PROXY = os.getenv("PROXY")
 if PROXY == "ON":
     proxy = {
-            'http': 'socks5:127.0.0.1:1080',
-            'https': 'socks5:127.0.0.1:1080'
+            # 'http': 'socks5:127.0.0.1:1080',
+            # 'https': 'socks5:127.0.0.1:1080'
+            # 'http': 'http://218.199.196.131:3128'
+            'http': 'http://112.74.95.86:3128'
     }
+    # proxy = None
 elif PROXY == "OFF": proxy = None
 
 # URL MAP
