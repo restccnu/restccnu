@@ -10,8 +10,8 @@
 """
 
 import os
-from restccnu import app, board, make_celery, mail
-from ..spiders.board import get_all_board
+from restccnu import app, webview_board, make_celery, mail
+from ..spiders.board import get_webview_board
 from werkzeug.exceptions import InternalServerError
 # from flask_mail import Message
 
@@ -25,12 +25,12 @@ def cute_board_spider():
     每隔一天清空通知公告爬虫缓存
     """
     try:
-        board_list = get_all_board()
+        board_list = get_webview_board()
     except:
         raise InternalServerError()
-    board.flushdb()
-    board.set('board_list', board_list)
-    board.save()
+    webview_board.flushdb()
+    webview_board.set('webview_board_list', board_list)
+    webview_board.save()
 
 
 # @celery.task(name='send_mail')
