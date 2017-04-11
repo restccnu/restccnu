@@ -254,7 +254,8 @@ def get_webview_zizhu():
             find_content = find_content_5
         elif find_content_7:
             find_content = find_content_7
-        removed = [x.extract() for x in find_content.findAll('img')]
+        removed_img = [x.extract() for x in find_content.findAll('img')]
+        removed_a = [x.extract() for x in find_content.findAll('a')]
 
         content_appendix_url_list = []
         content_appendix_list_all = content_soup.find_all('ul', style='list-style-type:none')
@@ -295,7 +296,8 @@ def get_webview_huaqing():
             content_html = content_page.content
             content_soup = BeautifulSoup(content_html, "lxml")
             find_content = content_soup.find('div', class_='newsBody')
-            removed = [x.extract() for x in find_content.findAll('img')]
+            removed_img = [x.extract() for x in find_content.findAll('img')]
+            removed_a = [x.extract() for x in find_content.findAll('a')]
             content_appendix_url_list = []
             content_appendix_list = content_soup.find_all('div', class_='newsBody')[0].find_all('a')
             if content_appendix_list:
@@ -337,7 +339,8 @@ def get_webview_jiaowuchu(get_url):
         content_html = content_page.content
         content_soup = BeautifulSoup(content_html, "lxml")
         find_content = content_soup.find('div', class_='xwcon')
-        removed = [x.extract() for x in find_content.findAll('img')]
+        removed_img = [x.extract() for x in find_content.findAll('img')]
+        removed_a = [x.extract() for x in find_content.findAll('a')]
 
         content_appendix_url_list = []
         if content_soup.find_all('ul', style='list-style-type:none'):
