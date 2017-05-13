@@ -71,17 +71,34 @@ def get_grade(s, sid, xnm, xqm):
     grade_url = grade_index_url % sid
     link_url = link_index_url
     # blocking...
-    s.get(link_url, headers=headers, proxies=proxy)  # 中转过度, 获取cookie
+    r = s.get(link_url, headers=headers, proxies=proxy)  # 中转过度, 获取cookie
+    cookies = "JSESSIONID=%s; BIGipServerpool_jwc_xk=%s" \
+            % (s.cookies.get('JSESSIONID', domain="122.204.187.6"),
+               s.cookies.get_dict().get('BIGipServerpool_jwc_xk'))
+    headers["Cookie"] = cookies
+    headers.update({
+        "Host": "122.204.187.6",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate, sdch",
+        "Accept-Language": "zh-CN,zh;q=0.8,en;q=0.6",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Pragma": "no-cache",
+        "Upgrade-Insecure-Requests": "1"
+    })
     post_data = {
         'xnm': xnm, 'xqm': xqm,
-        '_search': 'false', 'nd': '1466767885488',
-        'queryModel.showCount': 15, 'queryModel.currentPage': 1,
+        '_search': 'false', 'nd': '1490707938102',
+        'queryModel.showCount': "15", 'queryModel.currentPage': "1",
         'queryModel.sortName': "", 'queryModel.sortOrder': 'asc',
-        'time': 1 }
+        'time': "0" }
     r = s.post(grade_url, post_data, headers=headers)
+    print("\n\n")
+    print(r.text)
+    print(headers)
+    print("\n\n")
     json_data = r.json()
     gradeList = []
-    # return gradeList
     _gradeList = json_data.get('items')
     for item in _gradeList:
         gradeList.append({
