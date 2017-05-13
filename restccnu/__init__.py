@@ -71,6 +71,7 @@ def index():
 
     华师匣子下载主页
     """
+    platform = request.user_agent.platform
     if platform in ["android", "iphone", "ipad"]:
         return render_template('mobile-index.html')
     else:
