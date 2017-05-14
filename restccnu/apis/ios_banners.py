@@ -41,14 +41,14 @@ def get_ios_banners():
         banners = rds.hgetall('ios_banners')
         for banner in banners:
             if banner != '_placeholder':
-                try:
-                    update = qiniu.info(banner)['putTime']
-                except KeyError:
-                    update = qiniu.info(banner)
+                #try:
+                #    update = qiniu.info(banner)['putTime']
+                #except KeyError:
+                #    update = qiniu.info(banner)
                 banners_list.append({
                     "img": qiniu.url(banner),
                     "url": banners.get(banner),
-                    "update": update,
+                    "update": None,
                     "filename":  banner,
                     "num": rds.hget("ios_banners_num", qiniu.url(banner))
                 })
