@@ -25,11 +25,12 @@ mail = Mail()
 qiniu = Qiniu()
 iosqn = Qiniu()
 # redis静态资源存储~redis1容器~6384端口
-# rds = redis.StrictRedis(host='redis1', port=6384, db=0)
-rds = redis.StrictRedis(host=os.getenv('REDIS1_HOST'), port=7384, db=0)
+## rds = redis.StrictRedis(host='redis1', port=6384, db=0)
+rds = redis.StrictRedis(host=os.getenv('REDIS1_HOST'), port=os.getenv('REDIS1_PORT'), db=0)
 # redis通知公告缓存~redis2容器~6381端口
-board = redis.StrictRedis(host=os.getenv('REDIS2_HOST'), port=7381, db=0)
-webview_board = redis.StrictRedis(host=os.getenv('REDIS4_HOST'), port=7388, db=0)
+## board = redis.StrictRedis(host='redis2', port=7381, db=0)
+board = redis.StrictRedis(host=os.getenv('REDIS2_HOST'), port=os.getenv('REDIS2_PORT'), db=0)
+webview_board = redis.StrictRedis(host=os.getenv('REDIS4_HOST'), port=os.getenv('REDIS4_PORT'), db=0)
 
 
 def create_app(config_name='default'):

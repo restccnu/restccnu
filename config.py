@@ -34,8 +34,8 @@ class Config(object):
     QINIU_BUCKET_DOMAIN = os.getenv('QINIU_BUCKET_DOMAIN') or 'static.muxixyz.com'  # 七牛资源域名
 
     # celery消息代理[存储]配置
-    CELERY_BROKER_URL = 'redis://@{host}:7383/0'.format(host=os.getenv('REDIS3_HOST'))  # celery消息代理, redis3容器
-    CELERY_RESULT_BACKEND = 'redis://@{host}:7383/0'.format(host=os.getenv('REDIS3_HOST')) # celery消息存储, redis3容器
+    CELERY_BROKER_URL = 'redis://@{host}:{port}/0'.format(host=os.getenv('REDIS3_HOST'), port=os.getenv('REDIS3_PORT'))  # celery消息代理, redis3容器
+    CELERY_RESULT_BACKEND = 'redis://@{host}:{port}/0'.format(host=os.getenv('REDIS3_HOST'), port=os.getenv('REDIS3_PORT')) # celery消息存储, redis3容器
     CELERYBEAT_SCHEDULE = {  # celery beat 定时任务
             'restart_redis_every_86400s': {
                 # 每隔1天爬取通知公告

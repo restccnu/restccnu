@@ -46,3 +46,8 @@ redis3:
     command: redis-server --port 6383 # celery result backend
     ports:
         - "7383:6383"
+redis4:
+    image: redis
+    command: redis-server --port 6388 # 格式化通知公告缓存
+    ports:
+        - "7388:6388"
