@@ -3,8 +3,8 @@ python:
 - '2.6'
 - '2.7'
 env:
-  DOCKER_COMPOSE_VERSION: 1.8.0
   global:
+  DOCKER_COMPOSE_VERSION: 1.8.0
   # REST_MONGO_HOST:
   - secure: L+k/0/sFMk4ohDqXGfPTH9RMgfW5HX4gQ0Riz0/VjGhCzutcqEKmF6Z1n+qgigeC3wcoXCOopfbWMzZrTVOXPkHEiCPpxpINSRWuNOXyprkrgUiSIXR5vmE32fck/Ky4Q6RLHgIfmyRzAcMT3TE8RjVQ5Jx0bHDC/zeGVQORX1637P0X85VuWBf6hWXZwe/fn05dQcInlEiX2KAtNsWLyF8RrIJY2xqrz3fDDrWTQb9dpI6M6aGhFDaxcV+AumFCNqEBtACLjgFPj1Dp6pI36nEv4VPAQfsoIiqGA2V7VDVQketVnVVwspQ+lCM3C5QGSal87hIvIf1QLvd6H386paUQ9dLWOmYZwEnWp1WMgtumi+s/uS6acaSLhdQLEjmQr3B5kI0d38qpClHUmP7r8BjY8HiZfWKl1NVyBjOJXfEHK0bFyZyMssDpphcM7VXHlW9e+q+kufOpEyEiF5ELIgcecAuNxuF53U5010VC6T2Oos0GjTkq6ereVJbmn0D9/TYCJjepSjTUiOTgpFypQ1nj/3ixN2VAgu/TDzYm2v9kSNd/pNMEneFMY7L6CazznmsLHa8WukG4DQQfebSCfXv7E3IuTbNwkuX697Nu4l3y3EFmlq1HpxUGV5I5jH16IgDO1AksQzGTLAdPMA6o4Jf79tW/PrtqsuBVujJ1MrA=
   # REST_MONGO_PORT:
@@ -55,4 +55,6 @@ before_install:
 - sudo mv docker-compose /usr/local/bin
 - touch restccnu.env
 install: pip install -r requirements.txt
-script: sh shell/restccnu_test.sh
+script:
+- /usr/local/bin/docker-compose -f docker-compose.test.yml build
+- /usr/local/bin/docker-compose -f docker-compose.test.yml up
