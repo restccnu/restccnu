@@ -1,9 +1,9 @@
 #-------------------- restccnu test ------------------------
 restccnu_test:
     build: .
-    env_file:
-        - restccnu.env
-    command: python manage.py test
+    # env_file:
+    #     - restccnu.env
+    # command: python manage.py test
     ports:
         - "5060:5060"
     links:
@@ -23,8 +23,8 @@ celery:
 #------------------- celery beats----------------------
 celery_beats:
     build: .
-    env_file:
-        - restccnu.env
+    # env_file:
+    #     - restccnu.env
     command: celery -A restccnu.workers.workers.celery beat --loglevel=INFO
     links:
         - redis3
