@@ -62,6 +62,19 @@ before_install:
   - sudo pip install -U docker-compose
   - sudo chmod +x /usr/local/bin/docker-compose
   - touch restccnu.env
+  - echo REST_MONGO_HOST=${REST_MONGO_HOST} >> restccnu.env
+  - echo REST_MONGO_PORT=${REST_MONGO_PORT} >> restccnu.env
+  - echo DSN_KEY=${DSN_KEY} >> restccnu.env
+  - echo QINIU_EMAIL=${QINIU_EMAIL} >> restccnu.env
+  - echo QINIU_PASS=${QINIU_PASS} >> restccnu.env
+  - echo QINIU_ACCESS_KEY=${QINIU_ACCESS_KEY} >> restccnu.env
+  - echo QINIU_SECRET_KEY=${QINIU_SECRET_KEY} >> restccnu.env
+  - echo QINIU_BUCKET_NAME=${QINIU_BUCKET_NAME} >> restccnu.env
+  - echo QINIU_BUCKET_DOMAIN=${QINIU_BUCKET_DOMAIN} >> restccnu.env
+  - echo C_FORCE_ROOT=${C_FORCE_ROOT} >> restccnu.env
+  - echo CELERY_ACCEPT_CONTENT=${CELERY_ACCEPT_CONTENT} >> restccnu.env
+  - echo REDIS1_HOST=${REDIS1_HOST} >> restccnu.env
+  - echo REDIS1_PORT=${REDIS1_PORT} >> restccnu.env
 # install: pip install -r requirements.txt
 script:
   - docker-compose -f docker-compose.test.yml build
