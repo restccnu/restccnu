@@ -1,6 +1,5 @@
 language: python
 python:
-- '2.6'
 - '2.7'
 env:
   DOCKER_COMPOSE_VERSION: 1.8.0
@@ -50,6 +49,7 @@ env:
   # PROXY:
   - secure: z6UuMMIpueLnZ2ym0xCQH8LS/7q5pFPb8g7elPnORQlplnMe+UFeCc1ce44fzbHhpWdtcZKCXz5m77M5tXjtfqzrjRtcthcHLxd6g6EcA3v0sIPOsMPHHNBOJ4I3if48gMiCsVIVP6LucE29ebrgfVn5ExELKz7ZwUVgTnw/UxVvACErPe4JQlT8IeuOmizvJvMVcg2DXqrwCFmpqzhRpgJfqMz7d+UbSSmfZL4PqB6oX7dLvcAidoYGw29A2ZNCQugeHR44oTB24NRSFQ732Ax3YDiDMe1Gm0C9Pwz4Exo/hSAjvd5ftmSgw04Dsk07uhsi9Btp3uduOB1oYuO63J3DLvDeK3eyPLPTAQbN+guMMdUcF9Eln721+WxlBbil/atYOQ7fB9xf+3JeBpskyh8OI182F4HoeHTp75iuahe7gazjxDCvKKsK7GLyKZ6eYavFQ11tLGy7/jQMAdwaesjLkdTtN8rM611cn3d+4fgSEjQt3i/mZ/0sLQPKPJUIVT6sYl3CuLMLNHKNnsBMdun5tf+V+N4ULlc0TXKte9KNcbimatAvS7gkixKDsk6FYRViFEgw8NlOGxyZLDavxCKF/lG56uDuszN1EsJCFaeB/HKJrfrGYMwb/OtSNSC7RaaLWfTQxC5ScsjEW7fOfmgwIzSEQzdkVKr21JZn08k=
 before_install:
+- sudo rm /usr/local/bin/docker-compose
 - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
