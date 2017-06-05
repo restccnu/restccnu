@@ -2,7 +2,8 @@ sudo: required
 
 language: python
 python:
-- '2.7'
+  - '2.7'
+
 env:
   DOCKER_COMPOSE_VERSION: 1.13.0
   global:
@@ -50,14 +51,18 @@ env:
   - secure: bP3IyYpFQdT6FsHdBKmiXjYhcU1M3lKEJinks7ITjxHLGgxmPf92G1Brl0HF1TD7fRBkgWfq/EdPwg0Lsqc7IjZE8dBR6hDcH9b2A2E4T37usiV3jC0QEWsq2hXxeJM4Nk1CGaGIYK7Skwo0WaZIbp6IcgkccqYMO5RVhBPuWQjE44tz/V/8lV5n5utEWyUjFww9xruNz2glTMFctV/saN/R3+2dABToNwNV9ZWe9s37xz92qFXOOVlsFDHEzUnZkwveXG+kW1wtgKA8b2jmBH9rbWMCQCB6nfGICze5dlGWhzArUeQ0e74yWy1Q91lAlFSKo1wAoS1+2THErXP6aWfSet7flusQOb/FrNUUO0rjZZf1B1WSgnFOYM48YoRNwHgvO/C3DEcrTIYxSXO9rnNuWrvd751AkjRZa3NYNvTZFJPzs6mZneTHhJX3DEJUrq30gieGp/w+ltrqx9s72KQ/6Tb+EnfwnPK41VMGxNuf/WArRMoSf/DFS/dWId4Q5pe4sq8d+noqPkICnBwhNXzLMynlHDynj68i1AWcfTpQdocNIMX0SXBryGMpQy2pP+JNMFfMwiI3bdeEMgb4Ubty90cEf7CuJgGvZJA4tx7ylUalUeXarhO+EIfj5UCnuuUmKhhYr8Ajhrgd/HAoq3G29xfmbtm5RPpVtVHngTU=
   # PROXY:
   - secure: z6UuMMIpueLnZ2ym0xCQH8LS/7q5pFPb8g7elPnORQlplnMe+UFeCc1ce44fzbHhpWdtcZKCXz5m77M5tXjtfqzrjRtcthcHLxd6g6EcA3v0sIPOsMPHHNBOJ4I3if48gMiCsVIVP6LucE29ebrgfVn5ExELKz7ZwUVgTnw/UxVvACErPe4JQlT8IeuOmizvJvMVcg2DXqrwCFmpqzhRpgJfqMz7d+UbSSmfZL4PqB6oX7dLvcAidoYGw29A2ZNCQugeHR44oTB24NRSFQ732Ax3YDiDMe1Gm0C9Pwz4Exo/hSAjvd5ftmSgw04Dsk07uhsi9Btp3uduOB1oYuO63J3DLvDeK3eyPLPTAQbN+guMMdUcF9Eln721+WxlBbil/atYOQ7fB9xf+3JeBpskyh8OI182F4HoeHTp75iuahe7gazjxDCvKKsK7GLyKZ6eYavFQ11tLGy7/jQMAdwaesjLkdTtN8rM611cn3d+4fgSEjQt3i/mZ/0sLQPKPJUIVT6sYl3CuLMLNHKNnsBMdun5tf+V+N4ULlc0TXKte9KNcbimatAvS7gkixKDsk6FYRViFEgw8NlOGxyZLDavxCKF/lG56uDuszN1EsJCFaeB/HKJrfrGYMwb/OtSNSC7RaaLWfTQxC5ScsjEW7fOfmgwIzSEQzdkVKr21JZn08k=
+
+services:
+  - docker
+
 before_install:
     # - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > ./docker-compose
     # - sudo chmod +x docker-compose
     # - sudo mv ./docker-compose /usr/local/bin/
-- sudo pip install -U docker-compose
-- sudo chmod +x /usr/local/bin/docker-compose
-- touch restccnu.env
+  - sudo pip install -U docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+  - touch restccnu.env
 install: pip install -r requirements.txt
 script:
-- docker-compose -f docker-compose.test.yml build
-- docker-compose -f docker-compose.test.yml up
+  - docker-compose -f docker-compose.test.yml build
+  - docker-compose -f docker-compose.test.yml up
