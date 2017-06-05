@@ -2,7 +2,7 @@ language: python
 python:
 - '2.7'
 env:
-  DOCKER_COMPOSE_VERSION: 1.8.0
+  DOCKER_COMPOSE_VERSION: 1.13.0
   global:
   # REST_MONGO_HOST:
   - secure: L+k/0/sFMk4ohDqXGfPTH9RMgfW5HX4gQ0Riz0/VjGhCzutcqEKmF6Z1n+qgigeC3wcoXCOopfbWMzZrTVOXPkHEiCPpxpINSRWuNOXyprkrgUiSIXR5vmE32fck/Ky4Q6RLHgIfmyRzAcMT3TE8RjVQ5Jx0bHDC/zeGVQORX1637P0X85VuWBf6hWXZwe/fn05dQcInlEiX2KAtNsWLyF8RrIJY2xqrz3fDDrWTQb9dpI6M6aGhFDaxcV+AumFCNqEBtACLjgFPj1Dp6pI36nEv4VPAQfsoIiqGA2V7VDVQketVnVVwspQ+lCM3C5QGSal87hIvIf1QLvd6H386paUQ9dLWOmYZwEnWp1WMgtumi+s/uS6acaSLhdQLEjmQr3B5kI0d38qpClHUmP7r8BjY8HiZfWKl1NVyBjOJXfEHK0bFyZyMssDpphcM7VXHlW9e+q+kufOpEyEiF5ELIgcecAuNxuF53U5010VC6T2Oos0GjTkq6ereVJbmn0D9/TYCJjepSjTUiOTgpFypQ1nj/3ixN2VAgu/TDzYm2v9kSNd/pNMEneFMY7L6CazznmsLHa8WukG4DQQfebSCfXv7E3IuTbNwkuX697Nu4l3y3EFmlq1HpxUGV5I5jH16IgDO1AksQzGTLAdPMA6o4Jf79tW/PrtqsuBVujJ1MrA=
@@ -49,10 +49,8 @@ env:
   # PROXY:
   - secure: z6UuMMIpueLnZ2ym0xCQH8LS/7q5pFPb8g7elPnORQlplnMe+UFeCc1ce44fzbHhpWdtcZKCXz5m77M5tXjtfqzrjRtcthcHLxd6g6EcA3v0sIPOsMPHHNBOJ4I3if48gMiCsVIVP6LucE29ebrgfVn5ExELKz7ZwUVgTnw/UxVvACErPe4JQlT8IeuOmizvJvMVcg2DXqrwCFmpqzhRpgJfqMz7d+UbSSmfZL4PqB6oX7dLvcAidoYGw29A2ZNCQugeHR44oTB24NRSFQ732Ax3YDiDMe1Gm0C9Pwz4Exo/hSAjvd5ftmSgw04Dsk07uhsi9Btp3uduOB1oYuO63J3DLvDeK3eyPLPTAQbN+guMMdUcF9Eln721+WxlBbil/atYOQ7fB9xf+3JeBpskyh8OI182F4HoeHTp75iuahe7gazjxDCvKKsK7GLyKZ6eYavFQ11tLGy7/jQMAdwaesjLkdTtN8rM611cn3d+4fgSEjQt3i/mZ/0sLQPKPJUIVT6sYl3CuLMLNHKNnsBMdun5tf+V+N4ULlc0TXKte9KNcbimatAvS7gkixKDsk6FYRViFEgw8NlOGxyZLDavxCKF/lG56uDuszN1EsJCFaeB/HKJrfrGYMwb/OtSNSC7RaaLWfTQxC5ScsjEW7fOfmgwIzSEQzdkVKr21JZn08k=
 before_install:
-- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-- docker-compose -v
-- chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
+- sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+- sudo chmod +x /usr/local/bin/docker-compose
 - touch restccnu.env
 install: pip install -r requirements.txt
 script:
