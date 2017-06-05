@@ -35,7 +35,7 @@ if PROXY == "ON":
             'http': 'http://112.74.95.86:3128'
     }
     # proxy = None
-elif PROXY == "OFF": proxy = None
+else: proxy = None
 
 # URL MAP
 """模拟登录"""
